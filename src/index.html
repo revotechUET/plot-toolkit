@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>test wi-barchart</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="../bower_components/katex/dist/katex.min.css">
+        <link rel="stylesheet" type="text/css" href="../bower_components/themify-icons/css/themify-icons.css">
+        <link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/jquery-ui.min.css">
+        <script type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js'></script>
+        <script type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js'></script>
+        <script type='text/javascript' src='../bower_components/jquery-ui/jquery-ui.min.js'></script>
+        <script src="../bower_components/d3/d3.min.js"></script>
+        <script src="../bower_components/katex/dist/katex.min.js"></script>
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/clipboard/dist/clipboard.min.js"></script>
+        <script src="../bower_components/ngclipboard/dist/ngclipboard.min.js"></script>
+        <script src="../dist/library/library.dll.js"></script>
+        <script type="text/javascript" src="../dist/main.bundle.js"></script>
+    </head>
+    <body ng-app='myApp' ng-controller="myController">
+        <div class='wi-barchart-container' style="position:relative;display:flex;">
+            <layer-collection l-padding="45" b-padding='25' r-padding="45">
+                <axis-layer
+                    min-val='0' max-val='12'
+                    n-ticks='15'
+                    grid='1' loga='0' placement="1"
+                    precision='0' minor-ticks="5">
+                </axis-layer>
+                <axis-layer
+                    min-val='0' max-val="10" 
+                    getters="{maxVal: 'maxYChanged'}"
+                    n-ticks='10' axis-direction="'up'"
+                    grid='1' loga='0' placement="0"
+                    precision='1' minor-ticks="1">
+                </axis-layer>
+                <barchart-layer
+                    min-val='0' max-val='12' autofit='false' min-y='0' max-y='10'
+                    getters="{maxY: 'maxYChanged'}"
+                    bins='bins' bin-gap='10' color-func='hydralicColor'>
+                </barchart-layer>
+                <line-point-layer
+                    min-val='0' max-val='12' min-y='0' max-y='10' autofit='true' 
+                    setters="{maxY: 'maxYChanged'}"
+                    line-data="bins" get-x="getX" get-y="getYCumulative" color-func='colorize' line-color="'maroon'" line-dash="'5 5'" line-width="2">
+                </line-point-layer>
+                <line-gaussian-layer
+                    min-val='0' max-val="12" min-y="0" max-y="0.5" autofit="false"
+                    mean="6" sigma="1" resolution='1500' line-color="'cyan'" line-color-second="'rgb(183, 35, 172)'">
+                </line-gaussian-layer>
+                <control-marker-layer min-val='0' max-val="12"
+                    markers="markers" get-marker-value="getMarkerVal" set-marker-value="setMarkerVal"
+                    marker-style='{"stroke": "blue", "stroke-width":1}'>
+                </control-marker-layer>
+                <line-formula-layer
+                    min-val='0' max-val="12" min-y="0" max-y="10" autofit="false"
+                    getters="{maxY:'maxYChanged'}"
+                    formula="{family:'linear', slope:1, intercept:0.5}"
+                    eqn-offsets="['40%', '0%']"
+                    line-color="'red'">
+                </line-formula-layer>
+            </layer-collection>
+        </div>
+        <script>
+            $(".wi-barchart-container").resizable({
+                handles: "s"
+            });
+        </script>
+    </body>
+</html>

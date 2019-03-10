@@ -1,0 +1,28 @@
+layer-collection, layer-collection > div {
+    display: flex;
+    flex: 1;
+}
+layer-collection div.notification {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    pointer-events:none;
+}
+layer-collection div.notification > div {
+    background-color: rgba(32,32,32,0.5);
+    width: 70px;
+    height: 65px;
+    font-size: 200%;
+    color: white;
+    text-align: center;
+    border-radius: 15px;
+    padding-top: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 1s ease-in-out;
+}

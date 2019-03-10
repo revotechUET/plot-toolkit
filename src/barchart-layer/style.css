@@ -1,0 +1,4 @@
+barchart-layer svg rect {
+    stroke: gray;
+    stroke-width: 0.3;
+}

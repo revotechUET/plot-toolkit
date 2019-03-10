@@ -1,0 +1,26 @@
+{
+  "name": "plot-toolkit",
+  "description": "",
+  "main": "src/index.js",
+  "authors": [
+    "Tung HOANG <tung.hoang@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "4",
+    "jquery-ui": "^1.12.1",
+    "katex": "^0.10.1",
+    "ngclipboard": "^2.0.0",
+    "themify-icons": "^0.1.2",
+    "angular": "^1.7.7"
+  }
+}

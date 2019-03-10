@@ -1,0 +1,35 @@
+axis-layer svg,
+line-bin-layer svg,
+line-point-layer svg,
+line-formula-layer svg,
+line-gaussian-layer svg,
+control-marker-layer svg,
+barchart-layer svg
+{
+    position: absolute;
+    top:0;
+    left:0;
+    overflow: visible;
+    pointer-events: none;
+}
+axis-layer, axis-layer > div,
+line-bin-layer, line-bin-layer > div,
+line-point-layer, line-point-layer > div,
+line-formula-layer, line-formula-layer > div,
+line-gaussian-layer, line-gaussian-layer > div,
+control-marker-layer, control-marker-layer > div,
+barchart-layer, barchart-layer > div 
+{
+    flex:1;
+    display: flex;
+}
+axis-layer,
+line-bin-layer,
+line-point-layer,
+line-formula-layer,
+line-gaussian-layer,
+control-marker-layer,
+barchart-layer
+{
+    position:static !important;
+}

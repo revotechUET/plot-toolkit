@@ -1,0 +1,26 @@
+{
+  "name": "plot-toolkit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^4.13.0",
+    "jquery": "^3.3.1",
+    "katex": "^0.10.1",
+    "lodash": "^4.17.11",
+    "ngclipboard": "^2.0.0",
+    "resize-sensor": "0.0.6",
+    "webpack": "^4.29.6"
+  },
+  "devDependencies": {
+    "css-loader": "^2.1.0",
+    "hard-source-webpack-plugin": "^0.13.1",
+    "html-loader": "^0.5.5",
+    "style-loader": "^0.23.1"
+  }
+}

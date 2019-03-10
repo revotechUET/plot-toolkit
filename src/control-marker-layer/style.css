@@ -1,0 +1,7 @@
+control-marker-layer svg > g{
+    pointer-events: all;
+    cursor: ew-resize;
+}
+control-marker-layer svg {
+    pointer-events: all;
+}

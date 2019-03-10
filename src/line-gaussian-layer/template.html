@@ -1,0 +1,16 @@
+<div>
+<svg style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding()}}px); height:calc(100% - {{self.bottomPadding()}}px)">
+    <g class="layer">
+        <path fill='none' stroke="{{self.lineColor}}" stroke-dasharray="{{self.lineDash}}" stroke-width="{{self.lineWidth}}" />
+        <line ng-x1="{{self.getTransform()(self.mean - self.sigma)}}" ng-y1="0" 
+            ng-x2="{{self.getTransform()(self.mean - self.sigma)}}" 
+            ng-y2="{{self.contentHeight(true);}}"
+            ng-style="self.sigmaLineStyle()" />
+        <line ng-x1="{{self.getTransform()(self.mean + self.sigma)}}" ng-y1="0" 
+            ng-x2="{{self.getTransform()(self.mean + self.sigma)}}" 
+            ng-y2="{{self.contentHeight(true);}}" 
+            ng-style="self.sigmaLineStyle()" />
+    </g>
+</svg>
+</div>
+
