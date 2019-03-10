@@ -1,5 +1,6 @@
 const moduleName = 'plot-toolkit';
 angular.module(moduleName, ['ngclipboard']);
+console.log('Fuck');
 module.exports = {
     AxisLayer: require('./axis-layer'),
     BarchartLayer : require('./barchart-layer'),

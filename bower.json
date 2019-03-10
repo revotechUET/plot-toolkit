@@ -1,6 +1,7 @@
 {
   "name": "plot-toolkit",
   "description": "",
+  "version": "1.0.0",
   "main": "src/index.js",
   "authors": [
     "Tung HOANG <tung.hoang@gmail.com>"
