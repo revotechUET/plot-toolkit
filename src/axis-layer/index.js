@@ -40,11 +40,11 @@ function AxisLayerController($timeout, $element, $scope ) {
     this.$onInit = function() {
         this.doInit();
         $scope.$watch(function() {
-            return self.maxVal;
+            return [self.maxVal, self.minVal];
         }, function() {
             console.log('redraw');
             self.drawOptimized();
-        });
+        }, true);
     }
     this._translate = function() {
         switch (this.axisDirection) {
