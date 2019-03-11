@@ -39,6 +39,7 @@ function AxisLayerController($timeout, $element, $scope ) {
     }
     this.$onInit = function() {
         this.doInit();
+        /*
         $scope.$watch(function() {
             return [self.maxVal, self.minVal];
         }, function() {
@@ -46,6 +47,7 @@ function AxisLayerController($timeout, $element, $scope ) {
             self.getTransform(true);    
             self.drawOptimized();
         }, true);
+        */
     }
     this._translate = function() {
         switch (this.axisDirection) {

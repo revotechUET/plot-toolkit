@@ -127,6 +127,22 @@ function AbstractLayer($timeout, $element, $scope) {
             self.postDraw();
         });
     }, 300);
+    this.watchCallbacks = [];
+    this.registerWatch = function(callback) {
+        this.watchCallbacks.push(callback);
+    }
+    this.activateWatch = function() {
+        $scope.$watch(function() {
+            return [self.minVal, self.maxVal, self.loga, self.axisDirection];
+        }, function() {
+            console.log('---', $scope);
+            self.getTransform(true);
+            self.drawOptimized();
+            for( let f of self.watchCallbacks) {
+                f();
+            }
+        }, true);
+    }
     this.doInit = function() {
         this.update = {};
         this.axisDirection = this.axisDirection || "right";
@@ -139,7 +155,6 @@ function AbstractLayer($timeout, $element, $scope) {
             self.getTransform(true);
             self.drawOptimized();
         });
-
         if (this.layerCollection) {
             // getters
             for (let key of Object.keys(this.getters || {})) {
@@ -148,10 +163,8 @@ function AbstractLayer($timeout, $element, $scope) {
                     evt.preventDefault();
                     self._update = true;
                     self[key] = value;
-                    self.getTransform(true);
-                    self.preDraw();
-                    self.draw();
-                    self.postDraw();
+                    /*self.getTransform(true);
+                    self.drawOptimized();*/
                 });
             }
             // setters
@@ -161,6 +174,7 @@ function AbstractLayer($timeout, $element, $scope) {
                 }
             }
         }
+        this.activateWatch();
         this.preDraw();
         this.draw();
         this.postDraw()

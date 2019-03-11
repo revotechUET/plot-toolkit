@@ -4,6 +4,7 @@ line-point-layer svg,
 line-formula-layer svg,
 line-gaussian-layer svg,
 control-marker-layer svg,
+histogram-layer svg,
 barchart-layer svg
 {
     position: absolute;
@@ -18,6 +19,7 @@ line-point-layer, line-point-layer > div,
 line-formula-layer, line-formula-layer > div,
 line-gaussian-layer, line-gaussian-layer > div,
 control-marker-layer, control-marker-layer > div,
+histogram-layer, histogram-layer > div,
 barchart-layer, barchart-layer > div 
 {
     flex:1;
@@ -29,6 +31,7 @@ line-point-layer,
 line-formula-layer,
 line-gaussian-layer,
 control-marker-layer,
+histogram-layer,
 barchart-layer
 {
     position:static !important;

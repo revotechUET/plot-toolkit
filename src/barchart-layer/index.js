@@ -1,107 +1,43 @@
 const moduleName = 'plot-toolkit';
 const name = 'barchartLayer';
 module.exports.name = name;
+module.exports.klass = BarchartLayerController;
+module.exports.component = buildComponent;
+
 require('./style.css');
 //var AbstractLayer = require('../abstract-layer');
 var AbstractLayer = require('../abstract-layer-2d');
 var AbstractLayerController = AbstractLayer.klass;
 var component = AbstractLayer.component;
 
-var layerCollection = require('../layer-collection');
-angular.module(moduleName)
-    .directive('ngX', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngX', function(x) {
-                elem.attr('x', x);
-            });
-        };
-    })
-    .directive('ngY', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngY', function(y) {
-                elem.attr('y', y);
-            });
-        };
-    })
-    .directive('ngWidth', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngWidth', function(width) {
-                elem.attr('width', width);
-            });
-        };
-    })
-    .directive('ngHeight', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngHeight', function(height) {
-                elem.attr('height', height);
-            });
-        };
-    })
-    .directive('ngFill', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngFill', function(fill){
-                elem.attr('fill', fill);
-            });
-        };
-    })
-    .directive('ngOffset', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngOffset', function(o) {
-                let offset = JSON.parse(o);
-                elem.attr('transform', `translate(${offset.x}, ${offset.y})`);
-            });
-        };
-    })
-    .directive('ngX1', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngX1', function(fill){
-                elem.attr('x1', fill);
-            });
-        };
-    })
-    .directive('ngX2', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngX2', function(fill){
-                elem.attr('x2', fill);
-            });
-        };
-    })
-    .directive('ngY1', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngY1', function(fill){
-                elem.attr('y1', fill);
-            });
-        };
-    })
-    .directive('ngY2', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngY2', function(fill){
-                elem.attr('y2', fill);
-            });
-        };
-    })
-    .component(name, component({
-        controller: BarchartLayerController,
-        template: require('./template.html'),
-        bindings: {
-            //minY: "<",
-            //maxY: "<",
+function buildComponent(componentData) {
+    componentData.controller = componentData.controller || BarchartLayerController;
+    componentData.template = componentData.template || require('./template.html');
+    componentData.bindings = {
             bins: "<",
             binGap: "<",
             colorFunc: "<",
             stackFuncArray: "<",
-            plotType: "<"
-        }
-    }));
+            plotType: "<",
+            ...componentData.bindings
+    }
+    return component(componentData);
+}
+var layerCollection = require('../layer-collection');
+angular.module(moduleName)
+    .component(name, buildComponent({ }));
 
 function BarchartLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
     this.$onInit = function() {
         this.doInit();
+        /*
         $scope.$watch(() => [self.minX, self.maxX], () => {
             self.getTransform(true);
-        }, true)
+            $scope.$apply();
+        }, true);
+        */
     }
     this.defaultBindings = function() {
         this.twoDBindings(this);
