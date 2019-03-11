@@ -43,6 +43,7 @@ function AxisLayerController($timeout, $element, $scope ) {
             return [self.maxVal, self.minVal];
         }, function() {
             console.log('redraw');
+            self.getTransform(true);    
             self.drawOptimized();
         }, true);
     }
