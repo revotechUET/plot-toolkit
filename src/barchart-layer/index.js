@@ -99,6 +99,9 @@ function BarchartLayerController($timeout, $element, $scope) {
     AbstractLayerController.call(this, $timeout, $element, $scope);
     this.$onInit = function() {
         this.doInit();
+        $scope.$watch(() => [self.minX, self.maxX], () => {
+            self.getTransform(true);
+        }, true)
     }
     this.defaultBindings = function() {
         this.twoDBindings(this);
