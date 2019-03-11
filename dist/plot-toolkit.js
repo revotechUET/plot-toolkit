@@ -292,7 +292,7 @@ eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader/dis
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"<div>\\n    <svg style=\\\"margin: {{self.paddingStr()}}; width:calc(100% - {{self.leftPadding()}}px); height:calc(100% - {{self.bottomPadding()}}px)\\\">\\n        <g class=\\\"layer\\\"></g>\\n    </svg>\\n</div>\\n\\n\";\n\n//# sourceURL=webpack:///./axis-layer/template.html?");
+eval("module.exports = \"<div>\\n    <svg style=\\\"overflow:visible;margin: {{self.paddingStr()}}; width:calc(100% - {{self.leftPadding()}}px); height:calc(100% - {{self.bottomPadding()}}px)\\\">\\n        <g class=\\\"layer\\\"></g>\\n    </svg>\\n</div>\\n\\n\";\n\n//# sourceURL=webpack:///./axis-layer/template.html?");
 
 /***/ }),
 
