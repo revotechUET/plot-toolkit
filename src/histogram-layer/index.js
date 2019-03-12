@@ -29,11 +29,10 @@ function HistogramLayerController($timeout, $element, $scope) {
     this.$onInit = function() {
         this.registerWatch(() => refresh());
         this.doInit();
-        $scope.$watch(() => [self.binCount], () => refresh(), true)
+        $scope.$watch(() => [self.binCount, self.points], () => refresh(), true)
     }
     this.genBins = function () {
         if (!this.points || !this.points.length) return;
-        
         let thresholds;
         if (!this.loga)
             thresholds = d3.range(this.minVal, this.maxVal, (this.maxVal - this.minVal)/this.binCount);
