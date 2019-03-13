@@ -1,6 +1,7 @@
 layer-collection, layer-collection > div {
     display: flex;
     flex: 1;
+    width: 100%;
 }
 layer-collection div.notification {
     display: block;
