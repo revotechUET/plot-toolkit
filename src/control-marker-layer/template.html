@@ -1,5 +1,5 @@
 <div class='ggg'>
-    <svg style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding()}}px); height:calc(100% - {{self.bottomPadding()}}px)" 
+    <svg style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.topPadding() + self.bottomPadding()}}px)" 
         ng-mouseup="self.dragEnd($event)" ng-mousemove="self.dragging($event)">
         <g ng-repeat="marker in self.markers"
             ng-offset="{{self.markerOffset(marker, $index)}}"
