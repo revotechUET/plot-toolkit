@@ -22,6 +22,13 @@ angular.module(moduleName).component(name, component({
 function AxisLayerController($timeout, $element, $scope ) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
+
+    this.watchProperties = this.watchProperties.concat([
+        'precision',
+        'nTicks',
+        'grid',
+        'minorTicks'
+    ]);
     this.tickValues = function() {
         if (!this.loga) {
             let step = (Math.ceil(self.maxVal)- Math.floor(self.minVal))/this.nTicks;

@@ -1,5 +1,25 @@
 const moduleName = 'plot-toolkit';
 angular.module(moduleName, ['ngclipboard'])
+    .directive('ngOffset', function() {
+        return function(scope, elem, attrs) {
+            attrs.$observe('ngOffset', function(o) {
+                let offset = JSON.parse(o);
+                elem.attr('transform', `translate(${offset.x}, ${offset.y})`);
+            });
+        };
+    })
+    .directive("ngPoints", function() {
+        return function(scope, elem, attrs) {
+            attrs.$observe("ngPoints", function(pointsS) {
+                let pointsStr = "";
+                let points = JSON.parse(pointsS);
+                for (let p of points) {
+                    pointsStr += `${p.x},${p.y} `;
+                }
+                elem.attr("points", pointsStr);
+            });
+        }
+    })
     .directive('ngX', function() {
         return function(scope, elem, attrs) {
             attrs.$observe('ngX', function(x) {
@@ -35,14 +55,6 @@ angular.module(moduleName, ['ngclipboard'])
             });
         };
     })
-    .directive('ngOffset', function() {
-        return function(scope, elem, attrs) {
-            attrs.$observe('ngOffset', function(o) {
-                let offset = JSON.parse(o);
-                elem.attr('transform', `translate(${offset.x}, ${offset.y})`);
-            });
-        };
-    })
     .directive('ngX1', function() {
         return function(scope, elem, attrs) {
             attrs.$observe('ngX1', function(fill){
@@ -68,6 +80,20 @@ angular.module(moduleName, ['ngclipboard'])
         return function(scope, elem, attrs) {
             attrs.$observe('ngY2', function(fill){
                 elem.attr('y2', fill);
+            });
+        };
+    })
+    .directive('ngStroke', function() {
+        return function(scope, elem, attrs) {
+            attrs.$observe('ngStroke', function(strokeColor){
+                elem.attr('stroke', strokeColor);
+            });
+        };
+    })
+    .directive('ngStrokeWidth', function() {
+        return function(scope, elem, attrs) {
+            attrs.$observe('ngStrokeWidth', function(strokeWidth){
+                elem.attr('stroke-width', strokeWidth);
             });
         };
     });

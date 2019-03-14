@@ -21,11 +21,26 @@ angular.module(moduleName).component(name, component({
 function LFLayerController($scope, $timeout, $element) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
+
+    this.watchProperties = this.watchProperties.concat([
+        "resolution",
+        "eqnOffsets"
+    ]);
+
     this.defaultBindings = function() {
         this.lineStyleDefault();
         this.resolution = this.resolution || 50;
         this.eqnOffsets = this.eqnOffsets || [0,0];
     }
+    function showEquation() {
+        console.log('katex render');
+        katex.render(parseFormulaLatex(self.formula), 
+            $element.find('.equation')[0], {displayMode: false});
+    }
+
+    this.registerWatch(function() {
+        showEquation();
+    });
     this.doAutofit = function() {
         this.updateMaxY(d3.max(this.getData(), function(point) {return self.getY(point);}));
     }
@@ -48,6 +63,10 @@ function LFLayerController($scope, $timeout, $element) {
                 return function(x) {
                     return formula.slope * x + formula.intercept;
                 }
+            case "exponential":
+                return function(x) {
+                    return formula.ae * Math.exp(formula.b*x);
+                }
         }
     }
     this.parseFormulaLatex = function() {
@@ -57,7 +76,10 @@ function LFLayerController($scope, $timeout, $element) {
         switch(formula.family) {
             case "linear":
                 let intercept = formula.intercept;
-                return `y = ${formula.slope} \\times x ${formula.intercept<0 ? '-' + (-intercept):'+' + intercept}`;
+                return `y = ${formula.slope} \\times x ${intercept==0?'':(intercept<0 ? '-' + (-intercept):'+' + intercept)}`;
+            case "exponential":
+                return `y = ${formula.ae} \\times e^\{${formula.b} x\}`;
+                
         }
     }
     
@@ -93,9 +115,7 @@ function LFLayerController($scope, $timeout, $element) {
         $scope.$watch(function() {
             return JSON.stringify(self.formula);
         }, function() {
-            console.log('katex render');
-            katex.render(parseFormulaLatex(self.formula), 
-                $element.find('.equation')[0], {displayMode: false});
+            showEquation();
         });
         this.doInit();
     }

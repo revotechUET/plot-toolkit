@@ -10,6 +10,7 @@ function component(componentData) {
     componentData.bindings = {
         minY: "<",
         maxY: "<",
+        orthoLoga: "<",
         autofit: "<",
         ...componentData.bindings
     }
@@ -18,12 +19,56 @@ function component(componentData) {
 function AbstractLayer2D($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
+
+    this.watchProperties = this.watchProperties.concat([
+        "minY",
+        "maxY",
+        "orthoLoga",
+    ]);
     this.twoDBindings = function() {
         this.minY = this.minY || 0;
         this.maxY = this.maxY || 100;
     }
-    this.getOrthoTransform = function() {
-        return d3.scaleLinear().domain(this.orthoDomain()).range(this.orthoRange());
+
+    this.registerWatch(function() {
+        self.getOrthoTransform(true);
+    });
+    /*this.twoDRegisterWatch = function() {
+        this.registerWatch(function() {
+            self.getOrthoTransform(true);
+            self.drawOptimized();
+        });
+    }
+    let superDoInit = this.doInit;
+    this.doInit = function() {
+        this.twoDRegisterWatch();
+        superDoInit.call(this);
+    }*/
+    this.orthoRange = function() {
+        let range;
+        switch (this.axisDirection) {
+            case 'right':
+            case 'left':
+                range = [this.contentHeight(), 0];break;
+            case 'up':
+            case 'down':
+                range = [0, this.contentWidth()];break;
+            default:
+                range = [this.contentHeight(), 0];
+        }
+        return range;
+    }
+    this.getOrthoTransform = function(update) {
+        if (!this._otransform || update) {
+            if (update) {
+                this.contentWidth(true);
+                this.contentHeight(true);
+            }
+            this._otransform = (this.orthoLoga?d3.scaleLog():d3.scaleLinear())
+                                .domain(this.orthoDomain())
+                                .range(this.orthoRange());
+        }
+        return this._otransform;
     }
     this.orthoDomain = function() {
         return [this.minY, this.maxY];

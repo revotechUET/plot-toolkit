@@ -77,12 +77,12 @@ function AbstractLayer($timeout, $element, $scope) {
     }
     this.contentWidth = function(update) {
         if (!this.width || update )
-            this.width = $element.find('svg').width();
+            this.width = $element.find('svg,canvas').width();
         return this.width;
     }
     this.contentHeight = function(update) {
         if (!this.height || update )
-            this.height = $element.find('svg').height();
+            this.height = $element.find('svg,canvas').height();
         return this.height;
     }
     this.domain = function() {
@@ -127,20 +127,26 @@ function AbstractLayer($timeout, $element, $scope) {
             self.postDraw();
         });
     }, 300);
+    
     this.watchCallbacks = [];
+    this.watchProperties = [
+        'minVal',
+        'maxVal',
+        'loga',
+        'axisDirection',
+        'placement'
+    ]
     this.registerWatch = function(callback) {
         this.watchCallbacks.push(callback);
     }
     this.activateWatch = function() {
         $scope.$watch(function() {
-            return [self.minVal, self.maxVal, self.loga, self.axisDirection];
+            return self.watchProperties.map((prop) => (self[prop]));
+            //return [self.minVal, self.maxVal, self.loga, self.axisDirection];
         }, function() {
-            console.log('---', $scope);
+            for( let f of self.watchCallbacks) f();
             self.getTransform(true);
             self.drawOptimized();
-            for( let f of self.watchCallbacks) {
-                f();
-            }
         }, true);
     }
     this.doInit = function() {
@@ -152,6 +158,7 @@ function AbstractLayer($timeout, $element, $scope) {
 
         let holder = $element.first();
         new ResizeSensor(holder[0], function() {
+            for( let f of self.watchCallbacks) f();
             self.getTransform(true);
             self.drawOptimized();
         });
@@ -163,8 +170,6 @@ function AbstractLayer($timeout, $element, $scope) {
                     evt.preventDefault();
                     self._update = true;
                     self[key] = value;
-                    /*self.getTransform(true);
-                    self.drawOptimized();*/
                 });
             }
             // setters

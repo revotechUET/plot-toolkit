@@ -20,16 +20,16 @@ angular.module(moduleName)
 function HistogramLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
+
+    this.watchProperties = this.watchProperties.concat([ 'binCount' ]);
+
     function refresh() {
-        $timeout(() => {
-            self.getTransform(true);
-            self.genBins();
-        });
+        self.getTransform(true);
+        self.genBins();
     }
+    this.registerWatch(() => refresh());
     this.$onInit = function() {
-        this.registerWatch(() => refresh());
         this.doInit();
-        $scope.$watchCollection(() => [self.binCount, self.points], () => refresh())
     }
     this.genBins = function () {
         if (!this.points || !this.points.length) return;

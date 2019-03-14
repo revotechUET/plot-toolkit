@@ -14,12 +14,12 @@ function buildComponent(componentData) {
     componentData.controller = componentData.controller || BarchartLayerController;
     componentData.template = componentData.template || require('./template.html');
     componentData.bindings = {
-            bins: "<",
-            binGap: "<",
-            colorFunc: "<",
-            stackFuncArray: "<",
-            plotType: "<",
-            ...componentData.bindings
+        bins: "<",
+        binGap: "<",
+        colorFunc: "<",
+        stackFuncArray: "<",
+        plotType: "<",
+        ...componentData.bindings
     }
     return component(componentData);
 }
@@ -30,14 +30,11 @@ angular.module(moduleName)
 function BarchartLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
+
+    this.watchProperties = this.watchProperties.concat([ "binGap", "plotType" ]);
+
     this.$onInit = function() {
         this.doInit();
-        /*
-        $scope.$watch(() => [self.minX, self.maxX], () => {
-            self.getTransform(true);
-            $scope.$apply();
-        }, true);
-        */
     }
     this.defaultBindings = function() {
         this.twoDBindings(this);

@@ -22,6 +22,14 @@ angular.module(moduleName).component(name, component({
 function ControlMarkerLayerController($timeout, $element, $scope ) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
+
+    this.watchProperties = this.watchProperties.concat([
+        "markers",
+        "markerStyle",
+        "markerWidth",
+        "getMarkerValue",
+        "setMarkerValue"
+    ]);
     this.defaultBindings = function() {
         this.markerWidth = this.markerWidth || 19;
     }

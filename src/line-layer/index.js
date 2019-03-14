@@ -25,6 +25,12 @@ function buildComponent(componentData) {
 function LineLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
+
+    this.watchProperties = this.watchProperties.concat([
+        "lineColor",
+        "lineDash",
+        "lineWidth"
+    ]);
     this.lineStyleDefault = function() {
         this.lineColor = this.lineColor || 'black';
         this.lineDash = this.lineDash || "0";

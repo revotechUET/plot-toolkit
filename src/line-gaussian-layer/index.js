@@ -23,6 +23,16 @@ angular.module(moduleName).component(name, component({
 function LGLayerController($scope, $timeout, $element) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
+
+    this.watchProperties = this.watchProperties.concat([
+        "mean",
+        "sigma",
+        "resolution",
+        "lineColorSecond",
+        "lineWidthSecond",
+        "lineDashSecond"
+    ]);
+
     this.defaultBindings = function() {
         this.lineColorSecond = this.lineColorSecond || this.lineColor || "purple";
         this.lineDashSecond = this.lineDashSecond || this.lineDash || "5 3";
@@ -35,6 +45,10 @@ function LGLayerController($scope, $timeout, $element) {
     this.doAutofit = function() {
         this.updateMaxY(d3.max(this.getData(), function(point) {return self.getY(point);}));
     }
+
+    this.watchProperties = this.watchProperties.concat(['mean', 'sigma', 
+        'resolution', 'lineColorSecond', 'lineWidthSecond', 'lineDashSecond'
+    ]);
     this.getLine = function() {
         let transform = this.getTransform();
         let orthoTransform = this.getOrthoTransform();
