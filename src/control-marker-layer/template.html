@@ -2,17 +2,32 @@
     <svg style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.topPadding() + self.bottomPadding()}}px)" 
         ng-mouseup="self.dragEnd($event)" ng-mousemove="self.dragging($event)">
         <g ng-repeat="marker in self.markers"
+            ng-style="self.getCursorStyle()"
             ng-offset="{{self.markerOffset(marker, $index)}}"
             ng-mousedown="self.dragStart(marker, $event, $index)"
             ng-mouseover="self.markerMouseOver($event, marker,$index)" ng-mouseleave="marker.opacity = null;">
-            <line ng-x1="{{self.markerWidth/2}}" ng-x2="{{self.markerWidth/2}}" y1="0" ng-y2="{{self.contentHeight(true)}}" 
+            <line ng-if="self.axisDirection === 'right' || self.axisDirection === 'left'"
+                ng-x1="{{self.markerWidth/2}}" 
+                ng-x2="{{self.markerWidth/2}}" 
+                y1="0" 
+                ng-y2="{{self.contentHeight(true)}}" 
                 ng-style="{{self.markerStyle}}"/>
-            <!-- <rect x="0" y="0" width="{{self.markerWidth}}" height="5" fill="magenta" />
-            <rect x="0" ng-y="{{self.contentHeight() - 5}}" width="{{self.markerWidth}}" height="5" fill="magenta" /> -->
-            <rect x="0" y="0" 
+            <line ng-if="self.axisDirection === 'up' || self.axisDirection === 'down'"
+                ng-y1="{{self.markerWidth/2}}" 
+                ng-y2="{{self.markerWidth/2}}" 
+                x1="0" 
+                ng-x2="{{self.contentWidth(true)}}" 
+                ng-style="{{self.markerStyle}}"/>
+            <rect ng-if="self.axisDirection === 'right' || self.axisDirection === 'left'" 
+                x="0" y="0" 
                 ng-width="{{self.markerWidth}}" ng-height="{{self.markerWidth}}"
                 ng-offset="{{ {x: 0, y: marker.handlePos || (self.contentHeight() - self.markerWidth)/2 } }}"
-                fill="magenta" ng-style="{opacity:marker.opacity||0}"/>
+                ng-style="self.markerKnobStyle(marker)"/>
+            <rect ng-if="self.axisDirection === 'up' || self.axisDirection === 'down'" 
+                x="0" y="0" 
+                ng-width="{{self.markerWidth}}" ng-height="{{self.markerWidth}}"
+                ng-offset="{{ {y: 0, x: marker.handlePos || (self.contentWidth() - self.markerWidth)/2 } }}"
+                ng-style="self.markerKnobStyle(marker)"/>
         </g>
     </svg>
 </div>

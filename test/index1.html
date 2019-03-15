@@ -24,21 +24,21 @@
         <div class='wi-barchart-container' style="position:relative;display:flex;">
             <layer-collection l-padding="45" b-padding='25' r-padding="45">
                 <axis-layer
-                    min-val='0.1' max-val='10'
-                    n-ticks='15'
+                    min-val='0' max-val='10'
+                    n-ticks='10'
                     grid='1' loga='0' placement="1"
                     precision='0' minor-ticks="5">
                 </axis-layer>
                 <axis-layer
-                    min-val='0.01' max-val="maxY" 
+                    min-val='0' max-val="maxY" 
                     n-ticks='10' axis-direction="'up'"
                     grid='1' loga='0' placement="0"
                     precision='1' minor-ticks="1">
                 </axis-layer>
                 <!--
                 <line-formula-layer
-                    min-val='0.1' max-val="10" min-y="0.01" max-y="maxY" ortho-loga="0" loga="0"
-                    formula="{family:'linear', slope:0.5, intercept:0.2}"
+                    min-val='0.1' max-val="10" min-y="0.01" max-y="maxY" ortho-loga="1" loga="0"
+                    formula="{family:'linear', slope:0.5, intercept:-0.5}"
                     eqn-offsets="['50px', '0%']"
                     line-color="'red'">
                 </line-formula-layer>
@@ -52,6 +52,12 @@
                 <scatter-layer min-val="0.01" max-val="10" min-y="0.01" max-y="maxY" loga="0" ortho-loga="0"
                     my-data-x="dataX" my-data-y="dataY" symbol="'diamond'" symbol-size="10 + pointSize" symbol-fill-style="'red'" symbol-stroke-style="'red'">
                 </scatter-layer>
+                <control-marker-layer min-val="0" max-val="10" markers="markers" draggable="true" 
+                    axis-direction="'up'"
+                    get-marker-value="getMarkerVal"
+                    set-marker-value="setMarkerVal"
+                    marker-style="{stroke:'green','stroke-width':'1', fill:'none'}" marker-width="19">
+                </control-marker-layer>
             </layer-collection>
         </div>
         <script>
@@ -74,6 +80,14 @@ app.controller('myController', function($scope) {
     }
     $scope.dataX = [5, 6, 7, 8, 13];
     $scope.dataY = [1, 2, 3, 8, 4];
+
+    $scope.markers = [{name: "abc", value: 3},{name: "abc2", value: 5}]
+    $scope.getMarkerVal = function(marker, idx) {
+        return marker.value;
+    }
+    $scope.setMarkerVal = function(marker, idx, val) {
+        return marker.value = val;
+    }
 });
         </script>
     </body>

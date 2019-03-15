@@ -23,7 +23,7 @@ function PolygonLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
 
-    this.watchProperties = this.watchProperties.concat([ "fillStyle", "strokeStyle" ]);
+    this.watchProperties = this.watchProperties.concat([ "fillStyle", "strokeStyle", strokeWidth' ]);
 
     this.$onInit = function() {
         this.doInit();
