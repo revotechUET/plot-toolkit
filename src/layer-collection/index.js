@@ -24,6 +24,9 @@ function LayerCollectionController($timeout, $element, $scope) {
     let self = this;
     this.notiOpacity = 0;
     this.msg = "";
+
+    this.tooltips = ['tooltip'];
+
     this.$onInit = function() {
         this.lPadding = this.leftPadding();
         this.rPadding = this.rightPadding();
@@ -53,5 +56,18 @@ function LayerCollectionController($timeout, $element, $scope) {
         $timeout(() => {
             this.notiOpacity = 0;
         }, duration || 1000);
+    }
+    this.tooltip = function(on, msg) {
+        if (on) {
+            this.tooltips[0] = msg;
+        }
+        else {
+            this.tooltips.length = 0;
+        }
+    }
+    this.tooltipStyle = function() {
+        return {
+            bottom: 0, left: 0
+        }
     }
 }

@@ -5,3 +5,9 @@
         <div style="font-size:14px;">{{self.msg}}</div>
     </div>
 </div>
+
+<div class="tooltip" ng-style="self.tooltipStyle();">
+    <div ng-show="self.tooltips.length">
+        <div ng-repeat="line in self.tooltips">{{line}}</div>
+    </div>
+</div>

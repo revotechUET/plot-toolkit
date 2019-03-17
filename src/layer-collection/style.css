@@ -27,3 +27,16 @@ layer-collection div.notification > div {
     transform: translate(-50%, -50%);
     transition: opacity 1s ease-in-out;
 }
+layer-collection div.tooltip
+{
+    display: inline-block;
+    width: auto;
+    position: absolute;
+    pointer-events:none;
+}
+
+layer-collection div.tooltip > div 
+{
+    background-color: rgba(32,32,32,0.5);
+    color: white;
+}

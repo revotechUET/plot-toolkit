@@ -9,5 +9,6 @@ module.exports = {
     LineGaussianLayer : require('./line-gaussian-layer'),
     ControlMarkerLayer : require('./control-marker-layer'),
     ScatterLayer : require('./scatter-layer'),
+    SegmentLayer : require('./segment-layer'),
     PolygonLayer : require('./polygon-layer')
 }

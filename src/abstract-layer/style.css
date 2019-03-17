@@ -7,6 +7,7 @@ control-marker-layer svg,
 histogram-layer svg,
 scatter-layer canvas,
 polygon-layer svg,
+segment-layer svg,
 barchart-layer svg
 {
     position: absolute;
@@ -24,6 +25,7 @@ control-marker-layer, control-marker-layer > div,
 histogram-layer, histogram-layer > div,
 scatter-layer, scatter-layer > div,
 polygon-layer, polygon-layer > div,
+segment-layer, segment-layer > div,
 barchart-layer, barchart-layer > div 
 {
     flex:1;
@@ -38,7 +40,43 @@ control-marker-layer,
 histogram-layer,
 scatter-layer,
 polygon-layer,
+segment-layer,
 barchart-layer
 {
     position:static !important;
+    pointer-events:none;
 }
+/*
+axis-layer div.tooltip,
+line-bin-layer div.tooltip,
+line-point-layer div.tooltip,
+line-formula-layer div.tooltip,
+line-gaussian-layer div.tooltip,
+control-marker-layer div.tooltip,
+histogram-layer div.tooltip,
+scatter-layer div.tooltip,
+polygon-layer div.tooltip,
+segment-layer div.tooltip,
+barchart-layer div.tooltip
+{
+    display: inline-block;
+    width: auto;
+    position: absolute;
+    pointer-events:none;
+}
+axis-layer div.tooltip > div,
+line-bin-layer div.tooltip > div,
+line-point-layer div.tooltip > div,
+line-formula-layer div.tooltip > div,
+line-gaussian-layer div.tooltip > div,
+control-marker-layer div.tooltip > div,
+histogram-layer div.tooltip > div,
+scatter-layer div.tooltip > div,
+polygon-layer div.tooltip > div,
+segment-layer div.tooltip > div,
+barchart-layer div.tooltip > div 
+{
+    background-color: rgba(32,32,32,0.5);
+    color: white;
+}
+*/

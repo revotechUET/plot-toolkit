@@ -54,6 +54,7 @@ function bindings(bindings) {
 }
 function AbstractLayer($timeout, $element, $scope) {
     let self = this;
+
     this.leftPadding = function(){
         return this.lPadding || this.hPadding || this.padding || (this.layerCollection || {}).lPadding || 0;
     }
@@ -190,5 +191,11 @@ function AbstractLayer($timeout, $element, $scope) {
         console.error("Abstract draw");
     }
     this.postDraw = function(){
+    }
+    this.onMouseMoveTooltip = function($event) {
+        if (this.layerCollection) this.layerCollection.tooltip(true, 'abc');
+    }
+    this.onMouseLeaveTooltip = function($event) {
+        if (this.layerCollection) this.layerCollection.tooltip(false);
     }
 }
