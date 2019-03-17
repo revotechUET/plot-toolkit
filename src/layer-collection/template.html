@@ -6,8 +6,6 @@
     </div>
 </div>
 
-<div class="tooltip" ng-style="self.tooltipStyle();">
-    <div ng-show="self.tooltips.length">
-        <div ng-repeat="line in self.tooltips">{{line}}</div>
-    </div>
+<div ng-show="self.tooltips.length" class="tooltip" ng-style="self.tooltipStyle();">
+    <div ng-repeat="line in self.tooltips">{{line}}</div>
 </div>

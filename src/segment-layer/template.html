@@ -1,0 +1,20 @@
+<div>
+<svg ng-class="{'edit-point': self.mode, 'add-point': self.shiftKey, 'del-point': self.altKey}" 
+    style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.bottomPadding() + self.topPadding()}}px)"
+    ng-mouseleave="self.onMouseLeave($event)"
+    ng-mouseup="self.onMouseUp($event)"
+    ng-mousedown="self.onMouseDown($event)"
+    ng-mousemove="self.onMouseMove($event)">
+    <g class="layer">
+        <polygon ng-points="{{self.getPoints()}}" ng-fill="{{self.fillStyle}}" ng-stroke="{{self.strokeStyle}}" ng-stroke-width="{{self.strokeWidth}}">
+        </polygon>
+        <circle cx="0" cy="0" r="5" ng-style="self.draggerStyle()" ng-offset="{{self.draggerOffset()}}"></circle>
+    </g>
+</svg>
+</div>
+<div class="status" ng-bind="self.getCoordinates()" ng-style=""></div>
+<div class='equation' 
+    ng-style='self.eqnStyle();' 
+    ngclipboard ngclipboard-success="self.eqnCopySuccess(e);"
+    data-clipboard-text="{{self.calcEquation();}}"></div>
+</div>
