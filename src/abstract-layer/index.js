@@ -68,7 +68,7 @@ function AbstractLayer($timeout, $element, $scope) {
         return this.bPadding || this.vPadding || this.padding || (this.layerCollection || {}).bPadding || 0;
     }
     this.paddingStr = function () {
-        return `${this.topPadding()}px ${this.rightPadding()}px ${this.bottomPadding()}px ${this.leftPadding()}px;`
+        return `${this.topPadding()}px ${this.rightPadding()}px ${this.bottomPadding()}px ${this.leftPadding()}px`
     }
     this.parentWidth = function() {
         return $element.parent().width();

@@ -39,7 +39,7 @@ function ScatterLayerController($timeout, $element, $scope) {
     ]);
     this.defaultBindings = function() {
         this.colorFunc = checkFn(this.colorFunc) || function(d,i) {return "blue";};
-        this.pointSizeFunc = checkFn(this.colorFunc) || function(d, i) {return 10;};
+        this.pointSizeFunc = checkFn(this.pointSizeFunc) || function(d, i) {return 10;};
         this.getX = checkFn(this.getX) || checkFn(this.getVal) || asIs;
         this.getY = checkFn(this.getY) || checkFn(this.getVal) || asIs;
         this.symbol = this.symbol || 'circle';
