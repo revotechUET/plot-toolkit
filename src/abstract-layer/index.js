@@ -122,7 +122,9 @@ function AbstractLayer($timeout, $element, $scope) {
         console.error("Abstract default bindings");
     }
     this.drawOptimized = debounce(function() {
-        $timeout(function() {
+        $timeout(function () {
+            for( let f of self.watchCallbacks) f();
+            self.getTransform(true);
             self.preDraw();
             self.draw();
             self.postDraw();
@@ -145,8 +147,8 @@ function AbstractLayer($timeout, $element, $scope) {
             return self.watchProperties.map((prop) => (self[prop]));
             //return [self.minVal, self.maxVal, self.loga, self.axisDirection];
         }, function() {
-            for( let f of self.watchCallbacks) f();
-            self.getTransform(true);
+            // for( let f of self.watchCallbacks) f();
+            // self.getTransform(true);
             self.drawOptimized();
         }, true);
     }
@@ -159,8 +161,8 @@ function AbstractLayer($timeout, $element, $scope) {
 
         let holder = $element.first();
         new ResizeSensor(holder[0], function() {
-            for( let f of self.watchCallbacks) f();
-            self.getTransform(true);
+            // for( let f of self.watchCallbacks) f();
+            // self.getTransform(true);
             self.drawOptimized();
         });
         if (this.layerCollection) {
