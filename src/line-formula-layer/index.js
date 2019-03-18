@@ -15,7 +15,8 @@ angular.module(moduleName).component(name, component({
     bindings: {
         formula: "<",
         resolution: "<",
-        eqnOffsets: "<"
+        eqnOffsets: "<",
+        showEquation: '<'
     }
 }));
 function LFLayerController($scope, $timeout, $element) {
@@ -31,9 +32,10 @@ function LFLayerController($scope, $timeout, $element) {
         this.lineStyleDefault();
         this.resolution = this.resolution || 50;
         this.eqnOffsets = this.eqnOffsets || [0,0];
+        this.showEquation = this.showEquation || false;
     }
     function showEquation() {
-        console.log('katex render');
+        if (!this.showEquation) return;
         katex.render(parseFormulaLatex(self.formula), 
             $element.find('.equation')[0], {displayMode: false});
     }
