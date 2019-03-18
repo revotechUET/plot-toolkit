@@ -87,8 +87,11 @@ function SegmentLayerController($timeout, $element, $scope) {
     }
     function showEquation() {
         console.log('katex render');
-        katex.render(self.calcEquation(), 
+        /*katex.render(self.calcEquation(), 
             $element.find('.equation')[0], {displayMode: false});
+        */
+        let html = katex.renderToString(self.calcEquation(), {throwOnError: false});
+        $element.find('.equation').empty().append(html);
     }
     this.registerWatch(function() {
         showEquation();

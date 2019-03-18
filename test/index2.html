@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
     <head>
         <title>test wi-barchart</title>
@@ -26,7 +25,7 @@
         <button ng-click="mode = null">3</button>
         <button ng-click="mode1 = 'edit'">4</button>
         <button ng-click="mode1 = null">4</button>
-<!--            <div class="wi-barchart-container" style="position:relative;display:flex;width:100%;height:600px;">
+            <div class="wi-barchart-container" style="position:relative;display:flex;width:100%;height:600px;">
                 <layer-collection l-padding="45" b-padding="25" r-padding="45">
                     <axis-layer
                         min-val="minX" max-val="maxX"
@@ -55,7 +54,7 @@
                         mode="mode1" edit-point-idx="1">
                     </segment-layer>
                 </layer-collection>
-            </div>-->
+            </div>
         <script>
             /*$(".wi-barchart-container").resizable({
                 handles: "s"
@@ -78,6 +77,7 @@ app.controller("myController", function($scope, $compile) {
         $scope.pointSize = (3*$scope.pointSize + 13) % 21
     }
     $scope.mode = null;
+    /*
     let html = `
             <div class="wi-barchart-container" style="position:relative;display:flex;width:100%;height:100%;">
                 <layer-collection l-padding="45" b-padding="25" r-padding="45">
@@ -116,9 +116,6 @@ app.controller("myController", function($scope, $compile) {
         content: $compile(html)($scope),
         callback:    function () {
             this.content.css("padding", "15px");
-            /*$(".wi-barchart-container").resizable({
-                handles: "s"
-            });*/
         },
         resizable: {
             stop: function(event, ui) {
@@ -128,7 +125,7 @@ app.controller("myController", function($scope, $compile) {
     });
     function onResize() {
         $scope.$broadcast('jpanel-resized');
-    }
+    }*/
 });
         </script>
     </body>

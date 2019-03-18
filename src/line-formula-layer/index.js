@@ -35,9 +35,9 @@ function LFLayerController($scope, $timeout, $element) {
         this.showEquation = this.showEquation || false;
     }
     function showEquation() {
-        if (!this.showEquation) return;
-        katex.render(parseFormulaLatex(self.formula), 
-            $element.find('.equation')[0], {displayMode: false});
+        if (!self.showEquation) return;
+        let html = katex.renderToString(parseFormulaLatex(self.formula),{displayMode: false});
+        $element.find('.equation').empty().append(html);
     }
 
     this.registerWatch(function() {
