@@ -6,9 +6,11 @@
         <link rel="stylesheet" type="text/css" href="../bower_components/katex/dist/katex.min.css">
         <link rel="stylesheet" type="text/css" href="../bower_components/themify-icons/css/themify-icons.css">
         <link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/jquery-ui.min.css">
-        <script type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js'></script>
-        <script type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js'></script>
-        <script type='text/javascript' src='../bower_components/jquery-ui/jquery-ui.min.js'></script>
+        <link rel="stylesheet" href="../bower_components/jspanel3/source/jquery.jspanel.min.css">
+        <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="../bower_components/jspanel3/source/jquery.jspanel-compiled.min.js"></script>
         <script src="../bower_components/d3/d3.min.js"></script>
         <script src="../bower_components/katex/dist/katex.min.js"></script>
         <script src="../bower_components/angular/angular.min.js"></script>
@@ -17,50 +19,50 @@
         <script src="../dist/library/library.dll.js"></script>
         <script src="../dist/plot-toolkit.js"></script>
     </head>
-    <body ng-app='myApp' ng-controller="myController">
+    <body ng-app="myApp" ng-controller="myController">
         <button ng-click="button1Clk()">1</button>
         <button ng-click="button2Clk()">2</button>
         <button ng-click="mode = 'edit'">3</button>
         <button ng-click="mode = null">3</button>
         <button ng-click="mode1 = 'edit'">4</button>
         <button ng-click="mode1 = null">4</button>
-        <div class='wi-barchart-container' style="position:relative;display:flex;">
-            <layer-collection l-padding="45" b-padding='25' r-padding="45">
-                <axis-layer
-                    min-val='minX' max-val='maxX'
-                    n-ticks='10'
-                    grid='1' loga='0' placement="1"
-                    precision='0' minor-ticks="5">
-                </axis-layer>
-                <axis-layer
-                    min-val='minY' max-val="maxY" 
-                    n-ticks='10' axis-direction="'up'"
-                    grid='1' loga='0' placement="0"
-                    precision='1' minor-ticks="1">
-                </axis-layer>
-                <polygon-layer 
-                    min-val="minX" max-val="maxX" 
-                    min-y="minY" max-y="maxY"
-                    points="[{x:1,y:1}, {x:1,y:4}, {x:4,y:4}, {x:4,y:1}]"
-                    mode="mode" edit-point-idx="1">
-                </polygon-layer>
-                <segment-layer 
-                    min-val="minX" max-val="maxX" 
-                    min-y="minY" max-y="maxY"
-                    points="[{x:1,y:2}, {x:4,y:1}]"
-                    eqn-offsets="['55px', '100%']"
-                    stroke-style="'brown'"
-                    mode="mode1" edit-point-idx="1">
-                </segment-layer>
-            </layer-collection>
-        </div>
+<!--            <div class="wi-barchart-container" style="position:relative;display:flex;width:100%;height:600px;">
+                <layer-collection l-padding="45" b-padding="25" r-padding="45">
+                    <axis-layer
+                        min-val="minX" max-val="maxX"
+                        n-ticks="10"
+                        grid="1" loga="0" placement="1"
+                        precision="0" minor-ticks="5">
+                    </axis-layer>
+                    <axis-layer
+                        min-val="minY" max-val="maxY" 
+                        n-ticks="10" axis-direction="'up'"
+                        grid="1" loga="0" placement="0"
+                        precision="1" minor-ticks="1">
+                    </axis-layer>
+                    <polygon-layer 
+                        min-val="minX" max-val="maxX" 
+                        min-y="minY" max-y="maxY"
+                        points="[{x:1,y:1}, {x:1,y:4}, {x:4,y:4}, {x:4,y:1}]"
+                        mode="mode" edit-point-idx="1">
+                    </polygon-layer>
+                    <segment-layer 
+                        min-val="minX" max-val="maxX" 
+                        min-y="minY" max-y="maxY"
+                        points="[{x:1,y:2}, {x:4,y:1}]"
+                        eqn-offsets="['55px', '100%']"
+                        stroke-style="'brown'"
+                        mode="mode1" edit-point-idx="1">
+                    </segment-layer>
+                </layer-collection>
+            </div>-->
         <script>
-            $(".wi-barchart-container").resizable({
+            /*$(".wi-barchart-container").resizable({
                 handles: "s"
-            });
-var app = angular.module('myApp', ['plot-toolkit']);
+            });*/
+var app = angular.module("myApp", ["plot-toolkit"]);
 
-app.controller('myController', function($scope) {
+app.controller("myController", function($scope, $compile) {
     $scope.minX = 0;
     $scope.maxX = 10;
     $scope.minY = 0;
@@ -76,6 +78,57 @@ app.controller('myController', function($scope) {
         $scope.pointSize = (3*$scope.pointSize + 13) % 21
     }
     $scope.mode = null;
+    let html = `
+            <div class="wi-barchart-container" style="position:relative;display:flex;width:100%;height:100%;">
+                <layer-collection l-padding="45" b-padding="25" r-padding="45">
+                    <axis-layer
+                        min-val="minX" max-val="maxX"
+                        n-ticks="10"
+                        grid="1" loga="0" placement="1"
+                        precision="0" minor-ticks="5">
+                    </axis-layer>
+                    <axis-layer
+                        min-val="minY" max-val="maxY" 
+                        n-ticks="10" axis-direction="'up'"
+                        grid="1" loga="0" placement="0"
+                        precision="1" minor-ticks="1">
+                    </axis-layer>
+                    <polygon-layer 
+                        min-val="minX" max-val="maxX" 
+                        min-y="minY" max-y="maxY"
+                        points="[{x:1,y:1}, {x:1,y:4}, {x:4,y:4}, {x:4,y:1}]"
+                        mode="mode" edit-point-idx="1">
+                    </polygon-layer>
+                    <segment-layer 
+                        min-val="minX" max-val="maxX" 
+                        min-y="minY" max-y="maxY"
+                        points="[{x:1,y:2}, {x:4,y:1}]"
+                        eqn-offsets="['55px', '100%']"
+                        stroke-style="'brown'"
+                        mode="mode1" edit-point-idx="1">
+                    </segment-layer>
+                </layer-collection>
+            </div>
+    `;
+    var jspanel = $.jsPanel({
+        contentSize: {width: 600, height: 350},
+        headerTitle: "Example jsPanel",
+        content: $compile(html)($scope),
+        callback:    function () {
+            this.content.css("padding", "15px");
+            /*$(".wi-barchart-container").resizable({
+                handles: "s"
+            });*/
+        },
+        resizable: {
+            stop: function(event, ui) {
+                onResize();
+            }
+        }
+    });
+    function onResize() {
+        $scope.$broadcast('jpanel-resized');
+    }
 });
         </script>
     </body>

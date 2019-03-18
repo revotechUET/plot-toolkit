@@ -151,6 +151,9 @@ function AbstractLayer($timeout, $element, $scope) {
             // self.getTransform(true);
             self.drawOptimized();
         }, true);
+        $scope.$on('jpanel-resized', function() {
+            self.drawOptimized();
+        });
     }
     this.doInit = function() {
         this.update = {};
