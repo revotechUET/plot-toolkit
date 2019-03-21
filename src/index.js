@@ -10,5 +10,7 @@ module.exports = {
     ControlMarkerLayer : require('./control-marker-layer'),
     ScatterLayer : require('./scatter-layer'),
     SegmentLayer : require('./segment-layer'),
+    ClickLayer : require('./click-layer'),
     PolygonLayer : require('./polygon-layer')
 }
+window.mathGeo = require('./common');

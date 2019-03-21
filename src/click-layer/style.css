@@ -1,0 +1,3 @@
+click-layer svg.clickable {
+    pointer-events:all;
+}

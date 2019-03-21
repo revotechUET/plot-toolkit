@@ -5,4 +5,5 @@ line-formula-layer div.equation {
     width: auto;
     cursor: pointer;
     pointer-events: all;
+    z-index: 1;
 }

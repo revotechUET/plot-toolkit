@@ -83,6 +83,13 @@ angular.module(moduleName, ['ngclipboard'])
             });
         };
     })
+    .directive('ngR', function() {
+        return function(scope, elem, attrs) {
+            attrs.$observe('ngR', function(r){
+                elem.attr('r', r);
+            });
+        };
+    })
     .directive('ngStroke', function() {
         return function(scope, elem, attrs) {
             attrs.$observe('ngStroke', function(strokeColor){

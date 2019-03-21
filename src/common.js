@@ -1,6 +1,8 @@
 module.exports.bestNumberFormat = bestNumberFormat;
 module.exports.findLinearEqn = findLinearEqn;
 module.exports.parseFormulaLatex = parseFormulaLatex;
+module.exports.distance = distance;
+module.exports.findClosest = findClosest;
 
 function bestNumberFormat(x) {
     let ex = Math.abs(x / 100);
@@ -32,7 +34,26 @@ function parseFormulaLatex(formula) {
             let interceptStr = bestNumberFormat(Math.abs(formula.intercept));
             return `y = ${slopeStr} \\times x ${intercept==0?'':(intercept<0 ? '-' + interceptStr:'+' + interceptStr)}`;
         case "exponential":
-            return `y = ${formula.ae} \\times e^\{${formula.b} x\}`;
+            return `y = ${bestNumberFormat(formula.ae)} \\times e^\{${bestNumberFormat(formula.b)} x\}`;
 
+    }
+}
+
+function distance(p1, p2) {
+    return Math.sqrt((p1.x - p2.x)**2 + (p1.y - p2.y)**2);
+}
+function findClosest(p, points) {
+    let minDistance = 100000;
+    let minIdx = undefined;
+    for (let i = 0; i < points.length; i++) {
+        let d = distance(p, points[i]);
+        if (d < minDistance) {
+            minDistance = d;
+            minIdx = i;
+        }
+    }
+    return {
+        distance: minDistance,
+        idx : minIdx
     }
 }

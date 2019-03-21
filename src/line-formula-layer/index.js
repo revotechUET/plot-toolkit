@@ -5,6 +5,7 @@ module.exports.name = name;
 var AbstractLayer = require('../line-layer');
 var AbstractLayerController = AbstractLayer.klass;
 var component = AbstractLayer.component;
+var parseFormulaLatex = require('../common').parseFormulaLatex;
 //require('ngclipboard');
 require('./style.css');
 
@@ -74,6 +75,7 @@ function LFLayerController($scope, $timeout, $element) {
     this.parseFormulaLatex = function() {
         return parseFormulaLatex(this.formula);
     }
+    /*
     function parseFormulaLatex(formula) {
         switch(formula.family) {
             case "linear":
@@ -83,7 +85,7 @@ function LFLayerController($scope, $timeout, $element) {
                 return `y = ${formula.ae} \\times e^\{${formula.b} x\}`;
                 
         }
-    }
+    }*/
     
     this.getData = function() {
         if (!this.lineData || this._update) {

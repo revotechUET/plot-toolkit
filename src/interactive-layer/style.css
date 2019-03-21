@@ -4,6 +4,7 @@ polygon-layer svg.edit-point
     background-color: rgba(128, 128, 255, 0.5);
     cursor: crosshair;
     pointer-events: all;
+    z-index: 2;
 }
 segment-layer svg.edit-point.del-point,
 polygon-layer svg.edit-point.del-point 

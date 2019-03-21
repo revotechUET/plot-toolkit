@@ -1,0 +1,10 @@
+<div class="aaaaab">
+    <svg class="clickable" 
+        style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.bottomPadding() + self.topPadding()}}px)"
+        ng-click="self.onMouseClick($event)">
+        <g class="layer">
+            <circle cx="0" cy="0" ng-r="{{self.pointerSize}}" ng-style="self.getPointerStyle()" ng-offset="{{self.pointerOffset()}}"></circle>
+        </g>
+    </svg>
+</div>
+<div ng-show="self.xCoordinate && self.yCoordinate" ng-bind="self.pointerCoordinates()"></div>
