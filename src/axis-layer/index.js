@@ -31,8 +31,10 @@ function AxisLayerController($timeout, $element, $scope ) {
     ]);
     this.tickValues = function() {
         if (!this.loga) {
-            let step = (Math.ceil(self.maxVal)- Math.floor(self.minVal))/this.nTicks;
-            return d3.range(Math.floor(self.minVal), Math.ceil(self.maxVal), step);
+            const step = (self.maxVal - self.minVal) / this.nTicks;
+            return d3.range(self.nTicks + 1).map((d, i) => i * step);
+            // let step = (Math.ceil(self.maxVal)- Math.floor(self.minVal))/this.nTicks;
+            // return d3.range(Math.floor(self.minVal), Math.ceil(self.maxVal), step);
         }
         else {
             return genLogTickValues(self.minVal, self.maxVal);
