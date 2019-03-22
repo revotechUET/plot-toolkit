@@ -42,7 +42,7 @@ function AxisLayerController($timeout, $element, $scope ) {
         this.grid = (this.grid === undefined)?1:this.grid;
         this.nTicks = this.nTicks || 5;
         this.minorTicks = this.minorTicks || 2;
-        this.precision = this.precision || 0;
+        this.precision = this.precision || 1;
     }
     this.$onInit = function() {
         this.doInit();
@@ -98,9 +98,9 @@ function AxisLayerController($timeout, $element, $scope ) {
         let axisFunc = self._axisFunc()(transform)
             .tickValues(self.tickValues())
             .tickFormat(function(value, i) {
-                if (self.loga) 
-                    return Number.isInteger(Math.log10(value))?value:'';
-                return i % self.minorTicks ? '': value.toFixed(self.precision);
+                // if (self.loga) 
+                //     return Number.isInteger(Math.log10(value))?value:'';
+                return i % self.minorTicks ? '': parseFloat(value.toFixed(self.precision));
             })
             .tickPadding(10)
             .tickSize(self._tickSize());
