@@ -73,9 +73,9 @@ function AbstractLayer2D($timeout, $element, $scope) {
     this.orthoDomain = function() {
         return [this.minY, this.maxY];
     }
-    this.orthoRange = function() {
-        return [this.contentHeight(), 0];
-    }
+    // this.orthoRange = function() {
+    //     return [this.contentHeight(), 0];
+    // }
     this.updateMaxY = function(newVal) {
         this.maxY = newVal;
         if (this.update['maxY']) 

@@ -38,7 +38,6 @@ function ScatterLayerController($timeout, $element, $scope) {
         "symbolStrokeStyle",
     ]);
     this.defaultBindings = function() {
-        this.colorFunc = checkFn(this.colorFunc) || function(d,i) {return "blue";};
         this.pointSizeFunc = checkFn(this.pointSizeFunc) || function(d, i) {return 10;};
         this.getX = checkFn(this.getX) || checkFn(this.getVal) || asIs;
         this.getY = checkFn(this.getY) || checkFn(this.getVal) || asIs;
@@ -46,17 +45,22 @@ function ScatterLayerController($timeout, $element, $scope) {
         this.symbolSize = this.symbolSize || 5;
         this.symbolFillStyle = this.symbolFillStyle || 'blue';
         this.symbolStrokeStyle = this.symbolStrokeStyle || 'blue';
+        this.colorFunc = checkFn(this.colorFunc) || function (d, i) {
+            return self.symbolFillStyle || "blue";
+        };
     }
     this.$onInit = function() {
         $scope.$watch(function() {
             return self.myDataX;
         }, function() {
             self.getPoints(true);
+            self.draw();
         });
         $scope.$watch(function() {
             return self.myDataY;
         }, function() {
             self.getPoints(true);
+            self.draw();
         });
         this.doInit();
     }
@@ -73,6 +77,7 @@ function ScatterLayerController($timeout, $element, $scope) {
                 let y = this.getY(this.myDataY[i], i);
                 if (isFinite(x) && isFinite(y)) {
                     this.points.push({
+                        fillStyle: this.colorFunc({x, y}, i),
                         idx: i, x, y
                     });
                 }
@@ -103,7 +108,9 @@ function ScatterLayerController($timeout, $element, $scope) {
         let plotFunc = helper[this.symbol.toLowerCase()];
         let points = this.getPoints();
         for (let p of points) {
-            plotFunc.call(helper, transformX(p.x), transformY(p.y), {});
+            plotFunc.call(helper, transformX(p.x), transformY(p.y), {
+                fillStyle: p.fillStyle,
+            });
         }
     }
 }

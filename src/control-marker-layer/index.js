@@ -138,7 +138,8 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
             }
         }); 
     }
-    this.getCursorStyle = function() {
+    this.getCursorStyle = function () {
+        if (!this.draggable) return { cursor: 'default' };
         switch (this.axisDirection) {
         case "left":
         case "right":
