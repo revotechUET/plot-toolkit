@@ -4,6 +4,23 @@ module.exports = {
 }
 require('./style.css');
 var ResizeSensor = require('resize-sensor');
+if (window.ResizeObserver) {
+    // chrome only
+    ResizeSensor = resizeSensor;
+    function resizeSensor(element = document, callback = () => { }) {
+        if (element instanceof $) element = element[0];
+        this.element = element;
+        this.callback = () => setTimeout(callback);
+
+        this.resizeObserver = new ResizeObserver(this.callback)
+        this.resizeObserver.observe(this.element);
+        return this;
+    }
+    resizeSensor.prototype.detach = function () {
+        this.resizeObserver.unobserve(this.element);
+    }
+}
+
 var debounce = require('lodash').debounce;
 var merge = require('lodash').merge;
 function component(componentData) {
