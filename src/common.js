@@ -36,6 +36,8 @@ function parseFormulaLatex(formula) {
             return `y = ${slopeStr} \\times x ${intercept==0?'':(intercept<0 ? '-' + interceptStr:'+' + interceptStr)}`;
         case "exponential":
             return `y = ${bestNumberFormat(formula.ae)} \\times e^\{${bestNumberFormat(formula.b)} x\}`;
+        case "power":
+            return `y = ${bestNumberFormat(formula.coefficient)} \\times x^\{${bestNumberFormat(formula.exponent)}\}`;
 
     }
 }

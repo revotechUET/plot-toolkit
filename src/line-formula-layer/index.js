@@ -71,6 +71,10 @@ function LFLayerController($scope, $timeout, $element) {
                 return function(x) {
                     return formula.ae * Math.exp(formula.b*x);
                 }
+            case "power":
+                return function (x) {
+                    return formula.coefficient * (x ** formula.exponent);
+                }
         }
     }
     this.parseFormulaLatex = function() {
@@ -94,7 +98,6 @@ function LFLayerController($scope, $timeout, $element) {
             let f = parseFormula(this.formula);
             let step = (this.maxVal - this.minVal)/this.resolution;
             this.lineData = [];
-            let x = this.minVal;
             for (let x = this.minVal; (x - this.minVal)*(x - this.maxVal) <= 0 ; x += step) 
             {
                 let y = f(x);

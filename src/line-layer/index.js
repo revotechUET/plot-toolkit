@@ -42,7 +42,7 @@ function LineLayerController($timeout, $element, $scope) {
         console.error("Abstract getLine");
     }
     this.getData = function() {
-        return this.lineData;
+        return this.lineData || [];
     }
     this.draw = draw;
     function draw() {
