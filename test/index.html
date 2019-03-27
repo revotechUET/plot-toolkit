@@ -53,22 +53,6 @@
                     setters="{maxY: 'maxYChanged'}"
                     line-data="bins" get-x="getX" get-y="getYCumulative" color-func='colorize' line-color="'maroon'" line-dash="'5 5'" line-width="2">
                 </line-point-layer>
-                <line-gaussian-layer
-                    min-val='0' max-val="12" min-y="0" max-y="0.5" autofit="false"
-                    mean="6" sigma="1" resolution='1500' line-color="'cyan'" line-color-second="'rgb(183, 35, 172)'">
-                </line-gaussian-layer>
-                <control-marker-layer min-val='0' max-val="12"
-                    markers="markers" get-marker-value="getMarkerVal" set-marker-value="setMarkerVal"
-                    draggable="true"
-                    marker-style='{"stroke": "blue", "stroke-width":1, fill:"none"}'>
-                </control-marker-layer>
-                <line-formula-layer
-                    min-val='0.1' max-val="100" min-y="0.1" max-y="maxY" autofit="false" ortho-loga="1" loga="1"
-                    getters="{maxY:'maxYChanged'}"
-                    formula="{family:'linear', slope:0.21090087, intercept:0.2100234567}"
-                    eqn-offsets="['40%', '0%']" show-equation="true"
-                    line-color="'red'">
-                </line-formula-layer>
             </layer-collection>
         </div>
         <script>

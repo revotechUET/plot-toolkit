@@ -42,13 +42,15 @@ function LineLayerController($timeout, $element, $scope) {
         console.error("Abstract getLine");
     }
     this.getData = function() {
-        return this.lineData || [];
+        return this.lineData;
     }
     this.draw = draw;
     function draw() {
         let line = this.getLine();
+        const data = this.getData();
+        if (!data || !data.length) return;
         d3.select($element.find('path')[0])
-            .datum(this.getData())
+            .datum(data)
             .attr('d', line);
     }
 }

@@ -15,6 +15,9 @@ angular.module(moduleName).component(name, component({
 function LPLayerController($scope, $timeout, $element) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
+    this.watchProperties = this.watchProperties.concat([
+        "lineData",
+    ]);
     this.defaultBindings = function() {
         this.lineStyleDefault();
     }

@@ -138,14 +138,14 @@ function AbstractLayer($timeout, $element, $scope) {
     this.defaultBindings = function(){
         console.error("Abstract default bindings");
     }
-    this.drawOptimized = debounce(function() {
-        $timeout(function () {
-            for( let f of self.watchCallbacks) f();
-            self.getTransform(true);
-            self.preDraw();
-            self.draw();
-            self.postDraw();
-        });
+    this.drawOptimized = debounce(function () {
+        if ($scope.$$destroyed) return;
+        for( let f of self.watchCallbacks) f();
+        self.getTransform(true);
+        self.preDraw();
+        self.draw();
+        self.postDraw();
+        if (!$scope.$$phase) $scope.$digest();
     }, 300);
     
     this.watchCallbacks = [];
