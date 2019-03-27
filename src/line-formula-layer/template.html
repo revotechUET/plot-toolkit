@@ -4,9 +4,10 @@
         <path fill='none' stroke="{{self.lineColor}}" stroke-dasharray="{{self.lineDash}}" stroke-width="{{self.lineWidth}}" />
     </g>
 </svg>
-<div class='equation' 
-    ng-style='self.eqnStyle();' 
-    ngclipboard ngclipboard-success="self.eqnCopySuccess(e);"
-    data-clipboard-text="{{self.parseFormulaLatex();}}"></div>
+<div class="equation-holder" ng-style='self.eqnStyle();'>
+    <span ng-show="self.eqnName">{{self.eqnName}} : </span>
+    <span class='equation'
+        ngclipboard ngclipboard-success="self.eqnCopySuccess(e);"
+        data-clipboard-text="{{self.parseFormulaLatex();}}">
+    </span>
 </div>
-

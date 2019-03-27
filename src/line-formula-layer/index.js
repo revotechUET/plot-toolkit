@@ -17,7 +17,8 @@ angular.module(moduleName).component(name, component({
         formula: "<",
         resolution: "<",
         eqnOffsets: "<",
-        showEquation: '<'
+        showEquation: '<',
+        eqnName: "<"
     }
 }));
 function LFLayerController($scope, $timeout, $element) {
@@ -118,7 +119,9 @@ function LFLayerController($scope, $timeout, $element) {
     this.$onInit = function() {
         $scope.$watch(function() {
             return JSON.stringify(self.formula);
-        }, function() {
+        }, function () {
+            self._update = true;
+            self.drawOptimized();
             showEquation();
         });
         this.doInit();

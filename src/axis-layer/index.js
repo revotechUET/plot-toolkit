@@ -97,11 +97,13 @@ function AxisLayerController($timeout, $element, $scope ) {
         let svg = $element.find('svg');
         let transform = self.getTransform();
 
+        const tickValues = self.tickValues();
         let axisFunc = self._axisFunc()(transform)
-            .tickValues(self.tickValues())
+            .tickValues(tickValues)
             .tickFormat(function(value, i) {
                 // if (self.loga) 
                 //     return Number.isInteger(Math.log10(value))?value:'';
+                if (i === tickValues.length - 1) return parseFloat(value.toFixed(self.precision));
                 return i % self.minorTicks ? '': parseFloat(value.toFixed(self.precision));
             })
             .tickPadding(10)
