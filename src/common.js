@@ -38,6 +38,7 @@ function parseFormulaLatex(formula) {
             return `y = ${bestNumberFormat(formula.ae)} \\times e^\{${bestNumberFormat(formula.b)} x\}`;
         case "power":
             return `y = ${bestNumberFormat(formula.coefficient)} \\times x^\{${bestNumberFormat(formula.exponent)}\}`;
+        default: return formula.latex;
 
     }
 }

@@ -5,9 +5,10 @@
     </g>
 </svg>
 <div class="equation-holder" ng-style='self.eqnStyle();'>
-    <span ng-show="self.eqnName">{{self.eqnName}} : </span>
+    <span ng-if="self.eqnName">{{self.eqnName}}</span>
+    <span ng-if="self.eqnName && self.showEquation"> : </span>
     <span class='equation'
         ngclipboard ngclipboard-success="self.eqnCopySuccess(e);"
-        data-clipboard-text="{{self.parseFormulaLatex();}}">
+        data-clipboard-text="{{self.formula.text || self.parseFormulaLatex()}}">
     </span>
 </div>

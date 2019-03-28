@@ -101,8 +101,8 @@ function AxisLayerController($timeout, $element, $scope ) {
         let axisFunc = self._axisFunc()(transform)
             .tickValues(tickValues)
             .tickFormat(function(value, i) {
-                // if (self.loga) 
-                //     return Number.isInteger(Math.log10(value))?value:'';
+                if (self.loga) 
+                    return Number.isInteger(Math.log10(value))?value:'';
                 if (i === tickValues.length - 1) return parseFloat(value.toFixed(self.precision));
                 return i % self.minorTicks ? '': parseFloat(value.toFixed(self.precision));
             })

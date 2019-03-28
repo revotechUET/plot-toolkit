@@ -75,6 +75,7 @@ function LFLayerController($scope, $timeout, $element) {
                 return function (x) {
                     return formula.coefficient * (x ** formula.exponent);
                 }
+            default: return formula.fn;
         }
     }
     this.parseFormulaLatex = function() {
