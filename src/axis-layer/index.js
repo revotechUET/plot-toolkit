@@ -93,7 +93,7 @@ function AxisLayerController($timeout, $element, $scope ) {
     }
     this.draw = draw;
     function draw() {
-        console.log('DRAW', self.axisDirection, self.maxVal);
+        // console.log('DRAW', self.axisDirection, self.maxVal);
         let svg = $element.find('svg');
         let transform = self.getTransform();
 

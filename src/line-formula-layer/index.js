@@ -99,10 +99,10 @@ function LFLayerController($scope, $timeout, $element) {
             let f = parseFormula(this.formula);
             let step = (this.maxVal - this.minVal)/this.resolution;
             this.lineData = [];
-            for (let x = this.minVal; (x - this.minVal)*(x - this.maxVal) <= 0 ; x += step) 
+            for (let x = this.minDraw; (x - this.minDraw)*(x - this.maxDraw) <= 0 ; x += step)
             {
                 let y = f(x);
-                if ( this.autofit || (y - this.minY)*(y - this.maxY) <= 0 ) 
+                if ( this.autofit || (y - this.minDrawY)*(y - this.maxDrawY) <= 0 )
                     this.lineData.push({ x, y })
             }
         }

@@ -31,7 +31,8 @@ function LineLayerController($timeout, $element, $scope) {
         "lineDash",
         "lineWidth"
     ]);
-    this.lineStyleDefault = function() {
+    this.lineStyleDefault = function () {
+        this.twoDBindings();
         this.lineColor = this.lineColor || 'black';
         this.lineDash = this.lineDash || "0";
         this.lineWidth = this.lineWidth || 1;
