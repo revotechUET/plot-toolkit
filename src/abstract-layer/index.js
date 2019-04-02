@@ -38,6 +38,8 @@ function component(componentData) {
             bPadding: '<',
             minVal: '<',
             maxVal: '<',
+            minDraw: '<',
+            maxDraw: '<',
             getters: "<",
             setters: "<",
             loga: '<',
@@ -154,6 +156,8 @@ function AbstractLayer($timeout, $element, $scope) {
     this.watchProperties = [
         'minVal',
         'maxVal',
+        'minDraw',
+        'maxDraw',
         'loga',
         'axisDirection',
         'placement'

@@ -25,6 +25,8 @@ function AbstractLayer2D($timeout, $element, $scope) {
     this.watchProperties = this.watchProperties.concat([
         "minY",
         "maxY",
+        "minDrawY",
+        "maxDrawY",
         "orthoLoga",
     ]);
     this.twoDBindings = function() {

@@ -97,7 +97,7 @@ function LFLayerController($scope, $timeout, $element) {
         if (!this.lineData || this._update) {
             this._update = false;
             let f = parseFormula(this.formula);
-            let step = (this.maxVal - this.minVal)/this.resolution;
+            let step = (this.maxDraw - this.minDraw)/this.resolution;
             this.lineData = [];
             for (let x = this.minDraw; (x - this.minDraw)*(x - this.maxDraw) <= 0 ; x += step)
             {
