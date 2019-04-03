@@ -69,8 +69,8 @@ function ScatterLayerController($timeout, $element, $scope) {
     }
     this.getPoints = function(update) {
         if (!update && this.points) return this.points;
+        this.points = [];
         if (this.myDataX && this.myDataX.length && this.myDataY && this.myDataY.length) {
-            this.points = []
             let n = Math.max(this.myDataX.length, this.myDataY.length);
             for (let i = 0; i < n; i++) {
                 let x = this.getX(this.myDataX[i], i);
@@ -82,9 +82,8 @@ function ScatterLayerController($timeout, $element, $scope) {
                     });
                 }
             }
-            return this.points;
         }
-        return [];
+        return this.points;
     }
     let _canvas;
     function getCanvas() {
