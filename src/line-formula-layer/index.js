@@ -35,10 +35,11 @@ function LFLayerController($scope, $timeout, $element) {
         this.resolution = this.resolution || 50;
         this.eqnOffsets = this.eqnOffsets || [0,0];
         this.showEquation = this.showEquation || false;
+        this.formula = this.formula || {};
     }
     function showEquation() {
         if (!self.showEquation) return;
-        let html = katex.renderToString(parseFormulaLatex(self.formula),{displayMode: false});
+        let html = katex.renderToString(self.parseFormulaLatex(),{displayMode: false});
         $element.find('.equation').empty().append(html);
     }
 
@@ -79,7 +80,7 @@ function LFLayerController($scope, $timeout, $element) {
         }
     }
     this.parseFormulaLatex = function() {
-        return parseFormulaLatex(this.formula);
+        return parseFormulaLatex(this.formula) || '';
     }
     /*
     function parseFormulaLatex(formula) {
@@ -96,9 +97,10 @@ function LFLayerController($scope, $timeout, $element) {
     this.getData = function() {
         if (!this.lineData || this._update) {
             this._update = false;
-            let f = parseFormula(this.formula);
-            let step = (this.maxDraw - this.minDraw)/this.resolution;
             this.lineData = [];
+            let f = parseFormula(this.formula);
+            if (!f) return this.lineData;
+            let step = (this.maxDraw - this.minDraw)/this.resolution;
             for (let x = this.minDraw; (x - this.minDraw)*(x - this.maxDraw) <= 0 ; x += step)
             {
                 let y = f(x);
