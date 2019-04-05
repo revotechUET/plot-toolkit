@@ -1,4 +1,5 @@
 axis-layer .layer .tick line {
-    stroke: rgba(34, 139, 34, 0.5);
+    /* stroke: rgba(34, 139, 34, 0.5); */
+    stroke: #333;
     stroke-width: 0.7;
 }
