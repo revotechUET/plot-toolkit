@@ -18,7 +18,8 @@ angular.module(moduleName).component(name, component({
         resolution: "<",
         eqnOffsets: "<",
         showEquation: '<',
-        eqnName: "<"
+        eqnName: "<",
+        inverted: "<",
     }
 }));
 function LFLayerController($scope, $timeout, $element) {
@@ -27,7 +28,8 @@ function LFLayerController($scope, $timeout, $element) {
 
     this.watchProperties = this.watchProperties.concat([
         "resolution",
-        "eqnOffsets"
+        "eqnOffsets",
+        "inverted",
     ]);
 
     this.defaultBindings = function() {
@@ -100,12 +102,21 @@ function LFLayerController($scope, $timeout, $element) {
             this.lineData = [];
             let f = parseFormula(this.formula);
             if (!f) return this.lineData;
-            let step = (this.maxDraw - this.minDraw)/this.resolution;
-            for (let x = this.minDraw; (x - this.minDraw)*(x - this.maxDraw) <= 0 ; x += step)
-            {
-                let y = f(x);
-                if ( this.autofit || (y - this.minDrawY)*(y - this.maxDrawY) <= 0 )
-                    this.lineData.push({ x, y })
+            if (self.inverted) {
+                let step = (this.maxDrawY - this.minDrawY) / this.resolution;
+                for (let y = this.minDrawY; (y - this.minDrawY) * (y - this.maxDrawY) <= 0; y += step) {
+                    let x = f(y);
+                    if (this.autofit || (x - this.minDraw) * (x - this.maxDraw) <= 0)
+                        this.lineData.push({ x, y })
+                }
+            }
+            else {
+                let step = (this.maxDraw - this.minDraw) / this.resolution;
+                for (let x = this.minDraw; (x - this.minDraw) * (x - this.maxDraw) <= 0; x += step) {
+                    let y = f(x);
+                    if (this.autofit || (y - this.minDrawY) * (y - this.maxDrawY) <= 0)
+                        this.lineData.push({ x, y })
+                }
             }
         }
         return this.lineData;
