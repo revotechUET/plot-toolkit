@@ -26,21 +26,26 @@ function findLinearEqn(p1, p2) {
 }
 
 function parseFormulaLatex(formula) {
+    let latex = '';
     switch(formula.family) {
         case "const":
-            return `x = ${formula.x}`;
+            latex = `x = ${formula.x}`;
+            break;
         case "linear":
             let intercept = formula.intercept;
             let slopeStr = bestNumberFormat(formula.slope);
             let interceptStr = bestNumberFormat(Math.abs(formula.intercept));
-            return `y = ${slopeStr} \\times x ${intercept==0?'':(intercept<0 ? '-' + interceptStr:'+' + interceptStr)}`;
+            latex = `y = ${slopeStr} \\times x ${intercept==0?'':(intercept<0 ? '-' + interceptStr:'+' + interceptStr)}`;
+            break;
         case "exponential":
-            return `y = ${bestNumberFormat(formula.ae)} \\times e^\{${bestNumberFormat(formula.b)} x\}`;
+            latex = `y = ${bestNumberFormat(formula.ae)} \\times e^\{${bestNumberFormat(formula.b)} x\}`;
+            break;
         case "power":
-            return `y = ${bestNumberFormat(formula.coefficient)} \\times x^\{${bestNumberFormat(formula.exponent)}\}`;
-        default: return formula.latex;
-
+            latex = `y = ${bestNumberFormat(formula.coefficient)} \\times x^\{${bestNumberFormat(formula.exponent)}\}`;
+            break;
+        default: latex = formula.latex;
     }
+    return latex.replace(/\+\-/g, '-');
 }
 
 function distance(p1, p2) {

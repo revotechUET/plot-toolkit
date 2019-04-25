@@ -37,8 +37,8 @@ function HistogramLayerController($timeout, $element, $scope) {
         if (!this.loga)
             thresholds = d3.range(this.minVal, this.maxVal, (this.maxVal - this.minVal)/this.binCount);
         else {
-            let logMinVal = Math.log10(this.minVal);
-            let logMaxVal = Math.log10(this.maxVal);
+            let logMinVal = Math.log10(this.minVal || 0.01);
+            let logMaxVal = Math.log10(this.maxVal || 0.01);
             thresholds = d3.range(logMinVal, logMaxVal, (logMaxVal - logMinVal)/this.binCount).map(v => Math.pow(10, v)); 
         }
         let histGen = d3.histogram().domain([this.minVal, this.maxVal]).thresholds(thresholds);

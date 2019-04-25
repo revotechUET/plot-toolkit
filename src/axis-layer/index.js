@@ -116,8 +116,8 @@ function AxisLayerController($timeout, $element, $scope ) {
 
 function genLogTickValues(minVal, maxVal) {
     var tickValues = new Array();
-    var leftExponent = Math.floor(Math.log10(minVal));
-    var rightExponent = Math.ceil(Math.log10(maxVal));
+    var leftExponent = Math.floor(Math.log10(minVal || 0.01));
+    var rightExponent = Math.ceil(Math.log10(maxVal || 0.01));
     for (let i = leftExponent; i <= rightExponent; i++) {
         for (let j = 1; j < 10; j++) {
             let value = j * Math.pow(10, i);

@@ -37,6 +37,10 @@ function AbstractLayer2D($timeout, $element, $scope) {
     }
 
     this.registerWatch(function() {
+        if (self.orthoLoga) {
+            if (self.minY === 0) self.minY = 0.01;
+            if (self.maxY === 0) self.maxY = 0.01;
+        }
         self.getOrthoTransform(true);
     });
     /*this.twoDRegisterWatch = function() {
