@@ -26,7 +26,7 @@ function findLinearEqn(p1, p2) {
 }
 
 function parseFormulaLatex(formula) {
-    let latex = '';
+    let latex = formula.latex || '';
     switch(formula.family) {
         case "const":
             latex = `x = ${formula.x}`;
@@ -43,7 +43,6 @@ function parseFormulaLatex(formula) {
         case "power":
             latex = `y = ${bestNumberFormat(formula.coefficient)} \\times x^\{${bestNumberFormat(formula.exponent)}\}`;
             break;
-        default: latex = formula.latex;
     }
     return latex.replace(/\+\-/g, '-');
 }
