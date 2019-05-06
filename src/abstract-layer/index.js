@@ -216,10 +216,13 @@ function AbstractLayer($timeout, $element, $scope) {
                 }
             }
         }
+        holder.hide();
         this.activateWatch();
+        this.getTransform(true);
         this.preDraw();
         this.draw();
-        this.postDraw()
+        this.postDraw();
+        holder.show();
     }
     this.preDraw = function(){
     }

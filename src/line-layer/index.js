@@ -48,7 +48,7 @@ function LineLayerController($timeout, $element, $scope) {
     this.draw = draw;
     function draw() {
         let line = this.getLine();
-        const data = this.getData();
+        const data = this.getData() || [];
         d3.select($element.find('path')[0])
             .datum(data)
             .attr('d', line);
