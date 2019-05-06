@@ -21,6 +21,7 @@ angular.module(moduleName).component(name, component({
         symbolSize: "<",
         symbolFillStyle: "<",
         symbolStrokeStyle: "<",
+        symbolStyle: "<",
         getVal: "<",
         getX: "<",
         getY: "<"
@@ -102,6 +103,7 @@ function ScatterLayerController($timeout, $element, $scope) {
             size: this.symbolSize,
             fillStyle: this.symbolFillStyle,
             strokeStyle: this.symbolStrokeStyle,
+            ...this.symbolStyle,
         }
         let helper = new CanvasHelper(ctx, symbolDefaultCfg);
         let plotFunc = helper[this.symbol.toLowerCase()];
