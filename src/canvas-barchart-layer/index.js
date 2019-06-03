@@ -18,6 +18,7 @@ function buildComponent(componentData) {
         bins: "<",
         binGap: "<",
         colorFunc: "<",
+        multiple: "<",
         stackFuncArray: "<",
         plotType: "<",
         ...componentData.bindings
@@ -71,67 +72,41 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
             strokeStyle: 'red'
         }
         let helper = new CanvasHelper(ctx, symbolDefaultCfg);
-        for (let i = 0; i < self.bins.length; i++) {
-            let bin = self.bins[i];
-            let w = self.binWidth(bin);
-            let h = self.binHeight(bin);
-            let offset = self.binOffsets(bin, i);
-            let x = offset.x + self.binGap/2;
-            let y = offset.y;
-            let color = self.binColor(bin);
-            helper.rect(x, y, w, h, {
-                strokeStyle: 'black',
-                fillStyle: color
-            });
+        if (!self.multiple) {
+            canvasPlot(self.bins, helper);
+        }
+        else {
+            let stacks = [];
+            for (let i = 0; i < self.bins.length; i++) {
+                canvasPlot(self.bins[i], helper, stacks);
+                for (let j = 0; j < self.bins[i].length; j++){
+                    stacks[j] = stacks[j] || 0;
+                    stacks[j] += self.bins[i][j].length;
+                }
+            }
+        }
+        function canvasPlot(bins, helper, stacks) {
+            for (let i = 0; i < bins.length; i++) {
+                let bin = bins[i];
+                let stack = (stacks || [])[i] || 0;
+                let w = self.binWidth(bin);
+                let h = self.binHeight(bin);
+                let offset = self.binOffsets(bin, i, stack);
+                let x = offset.x + self.binGap/2;
+                let y = offset.y;
+                let color = self.binColor(bin, i, bins);
+                helper.rect(x, y, w, h, {
+                    strokeStyle: self.multiple?'#fff':'#000',
+                    fillStyle: color
+                });
+            }
         }
     }
-/*
-    this.draw1 = function() {
-        let bars = d3.select($element.find('g.layer')[0]).selectAll('g');
-        bars.attr("transform", function(bin, idx) {
-                let offset = self.binOffsets(bin, idx);
-                return `translate(${offset.x}, ${offset.y})`;
-            })
-                .select('rect')
-                    .attr('x', self.binGap/2)
-                    .attr('y', 0)
-                    .attr('width', function(bin, idx) {
-                        let width = self.binWidth(bin, idx);
-                        return `${width}px`;
-                    })
-                    .attr('height', function(bin, idx) {
-                        let height = self.binHeight(bin, idx);
-                        return `${height}px`;
-                    })
-                    .attr('fill', function(bin, idx) {
-                        return self.colorFunc(bin);
-                    });
-        bars.data(self.bins).enter()
-            .append('g').attr("transform", function(bin, idx) {
-                let offset = self.binOffsets(bin, idx);
-                return `translate(${offset.x}, ${offset.y})`;
-            })
-                .append('rect')
-                    .attr('x', self.binGap/2)
-                    .attr('y', 0)
-                    .attr('width', function(bin, idx) {
-                        let width = self.binWidth(bin, idx);
-                        return `${width}px`;
-                    })
-                    .attr('height', function(bin, idx) {
-                        let height = self.binHeight(bin, idx);
-                        return `${height}px`;
-                    })
-                    .attr('fill', function(bin, idx) {
-                        return self.colorFunc(bin);
-                    });
-        bars.exit().remove();
-    }
-*/
-    this.binOffsets = function(bin, binIdx) {
+    this.binOffsets = function(bin, binIdx, stack) {
         let transform = this.getTransform();
         let orthoTransform = this.getOrthoTransform();
-        let stackLevel = d3.sum(self.stackFuncArray, (f) => f(bin, binIdx));
+        //let stackLevel = d3.sum(self.stackFuncArray, (f) => f(bin, binIdx));
+        let stackLevel = stack || 0;
         let x = transform(bin.x0);
         let y = orthoTransform(bin.length + stackLevel);
         return { x:x, y:y };
@@ -146,7 +121,7 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
         let height = this.contentHeight() - orthoTransform(bin.length);
         return height;
     }
-    this.binColor = function(bin, binIdx) {
-        return this.colorFunc(bin, self.bins, self.params);
+    this.binColor = function(bin, binIdx, bins) {
+        return this.colorFunc(bin, bins, self.params);
     }
 }

@@ -35,6 +35,11 @@
                     grid='1' loga='1' placement="0"
                     precision='1' minor-ticks="1">
                 </axis-layer>
+                <line-point-layer
+                    min-val='0' max-val='12' min-y='0' max-y='10' autofit='true' 
+                    setters="{maxY: 'maxYChanged'}"
+                    line-data="histogram()" get-x="getX" get-y="getYCumulative" color-func='colorize' line-color="'maroon'" line-dash="'5 5'" line-width="2">
+                </line-point-layer>
                 <canvas-barchart-layer
                     min-val='0' max-val='12' autofit='false' min-y='0' max-y='maxY'
                     getters="{maxY: 'maxYChanged'}"
@@ -49,11 +54,11 @@
                 </histogram-layer>
 -->
 <!--
-                <line-point-layer
-                    min-val='0' max-val='12' min-y='0' max-y='10' autofit='true' 
-                    setters="{maxY: 'maxYChanged'}"
-                    line-data="bins" get-x="getX" get-y="getYCumulative" color-func='colorize' line-color="'maroon'" line-dash="'5 5'" line-width="2">
-                </line-point-layer>
+                <canvas-barchart-layer
+                    min-val='0' max-val='12' autofit='false' min-y='0' max-y='maxY'
+                    getters="{maxY: 'maxYChanged'}" multiple='true'
+                    bins='multiBins' bin-gap='10' color-func='hydralicColor'>
+                </canvas-barchart-layer>
 -->
             </layer-collection>
         </div>
@@ -64,8 +69,8 @@
 var app = angular.module('myApp', ['plot-toolkit']);
 
 app.controller('myController', function($scope) {
-    $scope.pointSet = [1,2,3,4,5,6,7,8,9,10, 11, 12];
-    $scope.pointSet1 = [0.2, 1,2,3,4,5,6,7,8,9,10, 11, 12, 45];
+    $scope.pointSet = [1 ,   2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    $scope.pointSet1 = [0.2, 1, 2, 3, 4, 5, 6, 7, 8,  9, 10, 11, 12, 45];
     $scope.accessor = function(d, i) {
         return d - 1;
     }
@@ -87,6 +92,7 @@ app.controller('myController', function($scope) {
         return _bins;
     };
     $scope.bins = histogramGen( $scope.pointSet );
+    $scope.multiBins = [histogramGen( $scope.pointSet ), histogramGen( $scope.pointSet )];
     $scope.getX = (bin,idx) => {return (bin.x0 + bin.x1)/2;}
     $scope.getY = (bin,idx) => {return bin.length;}
     $scope.getYCumulative = function(bin,idx) {
