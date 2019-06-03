@@ -1,5 +1,5 @@
 const moduleName = 'plot-toolkit';
-angular.module(moduleName, ['ngclipboard'])
+angular.module(moduleName, [ 'ngclipboard', 'katexView' ])
     .directive('ngOffset', function() {
         return function(scope, elem, attrs) {
             attrs.$observe('ngOffset', function(o) {

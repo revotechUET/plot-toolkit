@@ -1,0 +1,20 @@
+<div>
+<canvas style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.topPadding() + self.bottomPadding()}}px)">
+</canvas>
+<!--
+<svg style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.topPadding() + self.bottomPadding()}}px)">
+    <g class="layer">
+    !-
+        <g ng-repeat="bin in self.bins" 
+            ng-offset="{{self.binOffsets(bin, $index)}}">
+            <rect ng-x="{{self.binGap/2}}" ng-y="0"
+                ng-width="{{self.binWidth(bin, $index)}}" 
+                ng-height="{{self.binHeight(bin, $index)}}"
+                ng-fill="{{self.binColor(bin, $index)}}">
+            </rect>
+        </g>
+    -
+    </g>
+</svg>
+-->
+</div>

@@ -69,7 +69,8 @@ function bindings(bindings) {
         setters: "<",
         loga: '<',
         axisDirection: '<',
-        placement: '<'
+        placement: '<',
+        params: '<'
     }
     return merge(defaultBindings,bindings);
 }

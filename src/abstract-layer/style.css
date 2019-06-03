@@ -9,7 +9,8 @@ scatter-layer canvas,
 polygon-layer svg,
 segment-layer svg,
 click-layer svg,
-barchart-layer svg
+barchart-layer svg,
+canvas-barchart-layer canvas
 {
     position: absolute;
     top:0;
@@ -28,7 +29,8 @@ scatter-layer, scatter-layer > div,
 polygon-layer, polygon-layer > div,
 segment-layer, segment-layer > div,
 click-layer, click-layer > div,
-barchart-layer, barchart-layer > div 
+barchart-layer, barchart-layer > div,
+canvas-barchart-layer, barchart-layer > div 
 {
     flex:1;
     display: flex;
@@ -44,7 +46,8 @@ scatter-layer,
 polygon-layer,
 segment-layer,
 click-layer,
-barchart-layer
+barchart-layer,
+canvas-barchart-layer
 {
     position:static !important;
     pointer-events:none;
