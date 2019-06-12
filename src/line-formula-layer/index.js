@@ -133,6 +133,11 @@ function LFLayerController($scope, $timeout, $element) {
             this.layerCollection.notify("Coppied", 'ti-clip', 1000);
         }
     }
+	this.parentDraw = this.draw;
+	this.draw = function() {
+		self._update = true;
+		self.parentDraw();
+	}
     this.$onInit = function() {
         $scope.$watch(function() {
             return JSON.stringify(self.formula);
