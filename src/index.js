@@ -12,8 +12,9 @@ module.exports = {
     ScatterLayer : require('./scatter-layer'),
     SegmentLayer : require('./segment-layer'),
     ClickLayer : require('./click-layer'),
-    PolygonLayer : require('./polygon-layer'),
-    LayerWrapper : require('./layer-wrapper'),
-    LayerArray : require('./layer-array')
+    PolygonLayer : require('./polygon-layer')
+	//,
+//    LayerWrapper : require('./layer-wrapper'),
+//    LayerArray : require('./layer-array')
 }
 window.mathGeo = require('./common');
