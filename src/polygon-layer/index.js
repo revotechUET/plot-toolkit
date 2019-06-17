@@ -33,7 +33,7 @@ function PolygonLayerController($timeout, $element, $scope) {
         let x = $event.offsetX;
         let y = $event.offsetY;
         let result = this.findClosest({x,y}, this.points, transformX, transformY);
-        if (!_.isFinite(result.idx)) this.points = [{x:transformX.invert(x), y:transformY.invert(y)}];
+        if (!_.isFinite(result.idx)) this.points.push({x:transformX.invert(x), y:transformY.invert(y)});
         else if (this.points.length === 1) {
             this.points.push({x:transformX.invert(x), y:transformY.invert(y)});
         }

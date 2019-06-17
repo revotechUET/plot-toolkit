@@ -7,7 +7,7 @@ module.exports = {
     entry: './index.js',
     output: {
         path: __dirname + '/dist',
-        //filename: 'main.bundle.js'
+        //path: __dirname + '../../multi-well-crossplot/bower_components/plot-toolkit/dist',
         filename: 'plot-toolkit.js'
     },
     module: {
