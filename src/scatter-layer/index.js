@@ -19,6 +19,7 @@ angular.module(moduleName).component(name, component({
         myDataY: "<",
         colorFunc: "<",
         pointSizeFunc: "<",
+        symbolFunc: "<",
         symbol: "<",
         symbolSize: "<",
         symbolFillStyle: "<",
@@ -51,6 +52,9 @@ function ScatterLayerController($timeout, $element, $scope) {
         this.colorFunc = checkFn(this.colorFunc) || function (d, i) {
             return self.symbolFillStyle || "blue";
         };
+        this.symbolFunc= checkFn(this.symbolFunc) || function (d, i) {
+            return null;
+        };
     }
     this.$onInit = function() {
         $scope.$watch(function() {
@@ -81,6 +85,8 @@ function ScatterLayerController($timeout, $element, $scope) {
                 if (isFinite(x) && isFinite(y)) {
                     this.points.push({
                         fillStyle: this.colorFunc({x, y}, i),
+                        size: this.pointSizeFunc({x, y}, i),
+                        symbolStyle: this.symbolFunc({x, y}, i),
                         idx: i, x, y
                     });
                 }
@@ -108,11 +114,14 @@ function ScatterLayerController($timeout, $element, $scope) {
             ...this.symbolStyle,
         }
         let helper = new CanvasHelper(ctx, symbolDefaultCfg);
-        let plotFunc = helper[this.symbol.toLowerCase()];
+        let plotFunc = helper[this.symbol];
         let points = this.getPoints();
         for (let p of points) {
             plotFunc.call(helper, transformX(p.x), transformY(p.y), {
                 fillStyle: p.fillStyle,
+                pointSize: p.size / 4,
+                textSize: this.pointSizeFunc ? p.size * 1.5 : p.size / 4 * 1.5,
+                textContent: p.symbolStyle
             });
         }
     }
