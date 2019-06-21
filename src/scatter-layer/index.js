@@ -42,7 +42,7 @@ function ScatterLayerController($timeout, $element, $scope) {
         "symbolStrokeStyle",
     ]);
     this.defaultBindings = function() {
-        this.pointSizeFunc = checkFn(this.pointSizeFunc) || function(d, i) {return 10;};
+        this.pointSizeFunc = checkFn(this.pointSizeFunc) || function(d, i) {return 5;};
         this.getX = checkFn(this.getX) || checkFn(this.getVal) || asIs;
         this.getY = checkFn(this.getY) || checkFn(this.getVal) || asIs;
         this.symbol = this.symbol || 'circle';
