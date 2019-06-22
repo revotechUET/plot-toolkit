@@ -53,6 +53,12 @@
                     my-data-x="dataX" my-data-y="dataY" symbol="'diamond'" symbol-size="10 + pointSize" symbol-fill-style="'red'" symbol-stroke-style="'red'">
                 </scatter-layer>
                 <control-marker-layer min-val="0" max-val="10" markers="markers" draggable="true" 
+                    axis-direction="'right'"
+                    get-marker-value="getMarkerVal"
+                    set-marker-value="setMarkerVal"
+                    marker-style="{stroke:'red','stroke-width':'2', fill:'none'}" marker-width="19">
+                </control-marker-layer>
+                <control-marker-layer min-val="0" max-val="10" markers="markers" draggable="true" 
                     axis-direction="'up'"
                     get-marker-value="getMarkerVal"
                     set-marker-value="setMarkerVal"

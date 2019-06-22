@@ -15,9 +15,11 @@ angular.module(moduleName).component(name, component({
         markers: "<",
         draggable: "<",
         markerStyle: "<",
+        getMarkerStyleFn: "<",
         markerWidth: "<",
         getMarkerValue: "<",
-        setMarkerValue: "<"
+        setMarkerValue: "<",
+        getMarkerName: "<"
     }
 }));
 function ControlMarkerLayerController($timeout, $element, $scope ) {
@@ -33,6 +35,7 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
         "draggable"
     ]);
     this.defaultBindings = function() {
+        this.getMarkerStyleFn = this.getMarkerStyleFn || function() {return undefined};
         this.markerStyle = typeof(this.markerStyle) === 'object'?this.markerStyle:{stroke:"green", "stroke-width": 2,"fill":"none"};
         this.markerWidth = this.markerWidth || 19;
         this.draggable = this.draggable || false;
@@ -138,22 +141,36 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
             }
         }); 
     }
-    this.getCursorStyle = function () {
-        if (!this.draggable) return { cursor: 'default' };
+    let __cursorStyle = {};
+    this.getCursorStyle = function() {
+        Object.keys(__cursorStyle).forEach(key => delete __cursorStyle[key]);
+        if (!this.draggable) {
+            Object.assign(__cursorStyle, { cursor: 'default' });
+            return __cursorStyle;
+        }
         switch (this.axisDirection) {
         case "left":
         case "right":
-            return {cursor: 'ew-resize'};
+            Object.assign(__cursorStyle, {cursor: 'ew-resize'});
+            return __cursorStyle;
         case "up":
         case "down":
-            return {cursor: 'ns-resize'};
+            Object.assign(__cursorStyle, {cursor: 'ns-resize'});
+            return __cursorStyle;
         }
     }
-    this.markerKnobStyle = function(marker) {
-        return {
+
+    this.getMarkerStyle = function(marker, idx) {
+        return self.getMarkerStyleFn(marker, idx) || self.markerStyle;
+    }
+    let __markerKnobStyle = {};
+    this.markerKnobStyle = function(marker, idx) {
+        Object.keys(__markerKnobStyle).forEach(key => delete __markerKnobStyle);
+        Object.assign(__markerKnobStyle, {
             opacity: marker.opacity || 0,
-            ...this.markerStyle
-        }
+            ...(this.getMarkerStyle(marker, idx))
+        });
+        return __markerKnobStyle;
     }
 }
 
