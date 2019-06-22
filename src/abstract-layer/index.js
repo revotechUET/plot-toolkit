@@ -189,7 +189,7 @@ function AbstractLayer($timeout, $element, $scope) {
         this.placement = this.placement || 0;
 
         this.minVal = this.minVal || 0;
-        this.maxVal = this.maxVal || 100;
+        this.maxVal = _.isFinite(this.maxVal) ? this.maxVal : 100;
         this.minDraw = this.minDraw || this.minVal;
         this.maxDraw = this.maxDraw || this.maxVal;
         this.defaultBindings();

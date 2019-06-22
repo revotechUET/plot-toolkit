@@ -31,7 +31,7 @@ function AbstractLayer2D($timeout, $element, $scope) {
     ]);
     this.twoDBindings = function() {
         this.minY = this.minY || 0;
-        this.maxY = this.maxY || 100;
+        this.maxY = _.isFinite(this.maxY) ? this.maxY : 100;
         this.minDrawY = this.minDrawY || this.minY;
         this.maxDrawY = this.maxDrawY || this.maxY;
     }
