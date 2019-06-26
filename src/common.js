@@ -43,6 +43,9 @@ function parseFormulaLatex(formula) {
         case "power":
             latex = `y = ${bestNumberFormat(formula.coefficient)} \\times x^\{${bestNumberFormat(formula.exponent)}\}`;
             break;
+        case "mse":
+            latex = `MSE = ${formula.mse}`;
+            break;
     }
     return latex.replace(/\+\-/g, '-');
 }

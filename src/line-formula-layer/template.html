@@ -11,4 +11,8 @@
         ngclipboard ngclipboard-success="self.eqnCopySuccess(e);"
         data-clipboard-text="{{self.formula.text || self.parseFormulaLatex()}}">
     </span>
+    <span ng-if="self.mse">; </span>
+    <span class='mse' ng-if="self.mse"
+        ngclipboard data-clipboard-text="{{self.parseMSELatex()}}">
+    </span>
 </div>

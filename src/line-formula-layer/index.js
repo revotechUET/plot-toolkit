@@ -20,6 +20,7 @@ angular.module(moduleName).component(name, component({
         showEquation: '<',
         eqnName: "<",
         inverted: "<",
+        mse: '<'
     }
 }));
 function LFLayerController($scope, $timeout, $element) {
@@ -44,9 +45,15 @@ function LFLayerController($scope, $timeout, $element) {
         let html = katex.renderToString(self.parseFormulaLatex(),{displayMode: false});
         $element.find('.equation').empty().append(html);
     }
+    function showMSE() {
+        if (!self.mse) return;
+        let html = katex.renderToString(self.parseMSELatex(),{displayMode: false});
+        $element.find('.mse').empty().append(html);
+    }
 
     this.registerWatch(function() {
         showEquation();
+        showMSE();
     });
     this.doAutofit = function() {
         this.updateMaxY(d3.max(this.getData(), function(point) {return self.getY(point);}));
@@ -83,6 +90,9 @@ function LFLayerController($scope, $timeout, $element) {
     }
     this.parseFormulaLatex = function() {
         return parseFormulaLatex(this.formula) || '';
+    }
+    this.parseMSELatex = function() {
+        return parseFormulaLatex(this.mse) || '';
     }
     /*
     function parseFormulaLatex(formula) {
@@ -145,6 +155,7 @@ function LFLayerController($scope, $timeout, $element) {
             self._update = true;
             self.drawOptimized();
             showEquation();
+            showMSE();
         });
         this.doInit();
     }
