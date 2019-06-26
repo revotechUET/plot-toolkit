@@ -23,28 +23,33 @@
         <div class='wi-barchart-container' style="position:relative;display:flex;">
             <layer-collection l-padding="45" b-padding='25' r-padding="45">
                 <axis-layer
-                    min-val='0.1' max-val='100'
+                    min-val='0' max-val='10'
                     n-ticks='15'
-                    grid='1' loga='1' placement="1"
+                    grid='1' loga='0' placement="1"
                     precision='0' minor-ticks="5">
                 </axis-layer>
                 <axis-layer
-                    min-val='0.01' max-val="maxY" 
+                    min-val='0' max-val="10" 
                     getters="{maxVal: 'maxYChanged'}"
                     n-ticks='10' axis-direction="'up'"
-                    grid='1' loga='1' placement="0"
+                    grid='1' loga='0' placement="0"
                     precision='1' minor-ticks="1">
                 </axis-layer>
-                <line-point-layer
-                    min-val='0' max-val='12' min-y='0' max-y='10' autofit='true' 
-                    setters="{maxY: 'maxYChanged'}"
-                    line-data="histogram()" get-x="getX" get-y="getYCumulative" color-func='colorize' line-color="'maroon'" line-dash="'5 5'" line-width="2">
-                </line-point-layer>
-                <canvas-barchart-layer
-                    min-val='0' max-val='12' autofit='false' min-y='0' max-y='maxY'
-                    getters="{maxY: 'maxYChanged'}"
-                    bins='histogram()' bin-gap='10' color-func='hydralicColor'>
-                </canvas-barchart-layer>
+                <!--<line-point-layer-->
+                    <!--min-val='0' max-val='10' min-y='0' max-y='10' autofit='true' -->
+                    <!--setters="{maxY: 'maxYChanged'}"-->
+                    <!--line-data="histogram()" get-x="getX" get-y="getYCumulative" color-func='colorize' line-color="'maroon'" line-dash="'5 5'" line-width="2">-->
+                <!--</line-point-layer>-->
+                <line-gaussian-layer
+                    min-val='0' max-val='10' min-y='0' max-y='10' autofit='true' 
+                    mean='5' 
+                    sigma='1' resolution='1000' line-color-second='"green"' line-width-second='10' line-dash-second=''>
+                </line-gaussian-layer>
+                <!--<canvas-barchart-layer-->
+                    <!--min-val='0' max-val='12' autofit='false' min-y='0' max-y='maxY'-->
+                    <!--getters="{maxY: 'maxYChanged'}"-->
+                    <!--bins='histogram()' bin-gap='10' color-func='hydralicColor'>-->
+                <!--</canvas-barchart-layer>-->
 <!--
                 <histogram-layer
                     min-val='0.1' max-val='100' autofit='false' min-y='0' max-y='maxY'
