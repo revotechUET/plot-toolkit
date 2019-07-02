@@ -13,13 +13,16 @@ angular.module(moduleName).component(name, component({
     template: require('./template.html'),
     bindings: {
         markers: "<",
+        markersMask: '<',
         draggable: "<",
         markerStyle: "<",
         getMarkerStyleFn: "<",
         markerWidth: "<",
         getMarkerValue: "<",
         setMarkerValue: "<",
-        getMarkerName: "<"
+        getMarkerName: "<",
+        orderFree: "<",
+        notUseBackground: '<'
     }
 }));
 function ControlMarkerLayerController($timeout, $element, $scope ) {
@@ -32,7 +35,8 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
         "markerWidth",
         "getMarkerValue",
         "setMarkerValue",
-        "draggable"
+        "draggable",
+        "notUseBackground"
     ]);
     this.defaultBindings = function() {
         this.getMarkerStyleFn = this.getMarkerStyleFn || function() {return undefined};
@@ -42,6 +46,7 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
     }
     this.$onInit = function() {
         this.doInit();
+        self.markersMask = self.markersMask || self.markers.map(m => true);
     }
     this.draw = function() {
     }
@@ -103,8 +108,12 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
             let offset = $event.offsetX - marker.startX;
             let x = this.getTransform()(this.getMarkerValue(marker, i)) - this.markerWidth/2 + offset;
             let value = this.getTransform().invert(x + this.markerWidth/2);
-            let lowerMarkerVal = this.markers[i-1] ? this.getMarkerValue(this.markers[i-1], i-1):this.minVal;
-            let higherMarkerVal = this.markers[i+1] ? this.getMarkerValue(this.markers[i+1], i+1):this.maxVal;
+            let lowerMarkerVal = this.minVal;
+            let higherMarkerVal = this.maxVal;
+            if (!self.orderFree) {
+                lowerMarkerVal = this.markers[i-1] ? this.getMarkerValue(this.markers[i-1], i-1):this.minVal;
+                higherMarkerVal = this.markers[i+1] ? this.getMarkerValue(this.markers[i+1], i+1):this.maxVal;
+            }
             if ( (value - lowerMarkerVal) * ( value -  higherMarkerVal) >= 0) continue;
             this.setMarkerValue(marker, i, value);
             marker.startX = $event.offsetX;
@@ -118,8 +127,16 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
             let offset = $event.offsetY - marker.startY;
             let y = this.getTransform()(this.getMarkerValue(marker, i)) - this.markerWidth/2 + offset;
             let value = this.getTransform().invert(y + this.markerWidth/2);
-            let lowerMarkerVal = this.markers[i - 1]?this.getMarkerValue(this.markers[i - 1], i - 1):this.minVal;
-            let higherMarkerVal = this.markers[i + 1]?this.getMarkerValue(this.markers[i + 1], i + 1):this.maxVal;
+
+            let lowerMarkerVal = this.minVal;
+            let higherMarkerVal = this.maxVal;
+            if (!self.orderFree) {
+                lowerMarkerVal = this.markers[i-1] ? this.getMarkerValue(this.markers[i-1], i-1):this.minVal;
+                higherMarkerVal = this.markers[i+1] ? this.getMarkerValue(this.markers[i+1], i+1):this.maxVal;
+            }
+
+           // let lowerMarkerVal = this.markers[i - 1]?this.getMarkerValue(this.markers[i - 1], i - 1):this.minVal;
+           // let higherMarkerVal = this.markers[i + 1]?this.getMarkerValue(this.markers[i + 1], i + 1):this.maxVal;
             if ( (value - lowerMarkerVal) * ( value -  higherMarkerVal) >= 0) continue;
             this.setMarkerValue(marker, i, value);
             marker.startY = $event.offsetY;
@@ -145,7 +162,7 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
     this.getCursorStyle = function() {
         Object.keys(__cursorStyle).forEach(key => delete __cursorStyle[key]);
         if (!this.draggable) {
-            Object.assign(__cursorStyle, { cursor: 'default' });
+            Object.assign(__cursorStyle, { cursor: 'default'});
             return __cursorStyle;
         }
         switch (this.axisDirection) {
@@ -158,6 +175,11 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
             Object.assign(__cursorStyle, {cursor: 'ns-resize'});
             return __cursorStyle;
         }
+    }
+    this.getSVGStyle = function() {
+        return {
+            'background-color': !self.notUseBackground ? 'rgba(255, 249, 160, 0.6)' : ''
+        };
     }
 
     this.getMarkerStyle = function(marker, idx) {
