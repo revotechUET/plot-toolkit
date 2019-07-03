@@ -35,13 +35,13 @@ function parseFormulaLatex(formula) {
             let intercept = formula.intercept;
             let slopeStr = bestNumberFormat(formula.slope);
             let interceptStr = bestNumberFormat(Math.abs(formula.intercept));
-            latex = `y = ${slopeStr} \\times x ${intercept==0?'':(intercept<0 ? '-' + interceptStr:'+' + interceptStr)}`;
+            latex = `y = ${slopeStr} \\times x ${intercept==0?'':(intercept<0 ? '-' + interceptStr:'+' + interceptStr)}; R^2=${formula.r2}`;
             break;
         case "exponential":
-            latex = `y = ${bestNumberFormat(formula.ae)} \\times e^\{${bestNumberFormat(formula.b)} x\}`;
+            latex = `y = ${bestNumberFormat(formula.ae)} \\times e^\{${bestNumberFormat(formula.b)} x\}; R^2=${formula.r2}`;
             break;
         case "power":
-            latex = `y = ${bestNumberFormat(formula.coefficient)} \\times x^\{${bestNumberFormat(formula.exponent)}\}`;
+            latex = `y = ${bestNumberFormat(formula.coefficient)} \\times x^\{${bestNumberFormat(formula.exponent)}\}; R^2=${formula.r2}`;
             break;
         case "mse":
             latex = `MSE = ${formula.mse}`;
