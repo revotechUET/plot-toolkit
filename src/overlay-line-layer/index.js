@@ -65,22 +65,22 @@ function OverlayLineController($scope, $timeout, $element) {
                     }));
                 }
                 if (!pointArr[pIdx + 1]) {
+                    helper.circle(startX, startY );
                     if (!isNaN(point.type)) {
                         helper.textSymbol(startX + 7, startY + 5, getTextCfg(point));
                     }
-                    helper.circle(startX, startY );
                     ctx.stroke();
                     return;
                 }
                 let endX = transform(parseFloat(pointArr[pIdx + 1].x));
                 let endY = othorTransform(parseFloat(pointArr[pIdx + 1].y));
+                ctx.moveTo(startX, startY);
                 helper.circle(startX, startY );
                 if (!isNaN(point.type)) {
                     helper.textSymbol(startX + 7, startY + 5, getTextCfg({
                         ...point,
                     }));
                 }
-                ctx.moveTo(startX + 1, startY + 1);
                 ctx.lineTo(endX, endY);
                 ctx.stroke();
             })
