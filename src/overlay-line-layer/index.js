@@ -39,7 +39,7 @@ function OverlayLineController($scope, $timeout, $element) {
         if (canvas.width === 0 || canvas.height === 0) return;
         let ctx = canvas.getContext('2d');
         let penDefaultCfg = {
-            size: 15,
+            size: 10,
             fillStyle: 'Yellow',
             strokeStyle: 'Red',
             strokeWidth: 2
@@ -74,13 +74,13 @@ function OverlayLineController($scope, $timeout, $element) {
                 }
                 let endX = transform(parseFloat(pointArr[pIdx + 1].x));
                 let endY = othorTransform(parseFloat(pointArr[pIdx + 1].y));
-                ctx.moveTo(startX, startY);
+                helper.circle(startX, startY );
                 if (!isNaN(point.type)) {
                     helper.textSymbol(startX + 7, startY + 5, getTextCfg({
                         ...point,
                     }));
                 }
-                helper.circle(startX, startY );
+                ctx.moveTo(startX + 1, startY + 1);
                 ctx.lineTo(endX, endY);
                 ctx.stroke();
             })
