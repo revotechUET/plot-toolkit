@@ -68,7 +68,7 @@ CanvasHelper.prototype.star = function(x, y, opts = {}) {
 
 CanvasHelper.prototype.textSymbol = function (x, y, opts = {}) {
     if (!opts.textContent) return;
-    let s = opts.textSize;
+    let s = opts.textSize || 10;
     this.ctx.save();
     this.ctx.font = `${s}px ${opts.fontFamily || 'Verdana'}`;
     this.ctx.textBaseline = opts.verticalAlign || 'top';
@@ -81,6 +81,10 @@ CanvasHelper.prototype.rect = function(x, y, width, height, opts = {}) {
     prepare(this, opts);
     this.ctx.rect(x, y, width, height);
     draw(this);
+}
+
+CanvasHelper.prototype.segment = function(start, stop) {
+    console.log(start, stop);
 }
 /********************** END *********************/
 function prepare(canvas, opts = {}) {

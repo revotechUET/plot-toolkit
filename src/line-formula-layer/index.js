@@ -6,7 +6,6 @@ var AbstractLayer = require('../line-layer');
 var AbstractLayerController = AbstractLayer.klass;
 var component = AbstractLayer.component;
 var parseFormulaLatex = require('../common').parseFormulaLatex;
-//require('ngclipboard');
 require('./style.css');
 
 var layerCollection = require('../layer-collection');

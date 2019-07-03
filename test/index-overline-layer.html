@@ -1,0 +1,294 @@
+<html>
+    <head>
+        <title>test wi-barchart</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="../bower_components/katex/dist/katex.min.css">
+        <link rel="stylesheet" type="text/css" href="../bower_components/themify-icons/css/themify-icons.css">
+        <link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/jquery-ui.min.css">
+        <script type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js'></script>
+        <script type='text/javascript' src='../bower_components/jquery-ui/jquery-ui.min.js'></script>
+        <script src="../bower_components/d3/d3.min.js"></script>
+        <script src="../bower_components/katex/dist/katex.min.js"></script>
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/clipboard/dist/clipboard.min.js"></script>
+        <script src="../bower_components/ngclipboard/dist/ngclipboard.min.js"></script>
+        <script src="../dist/library/library.dll.js"></script>
+        <script src="../bower_components/misc-component/dist/misc-components.js"></script>
+        <script src="../dist/plot-toolkit.js"></script>
+    </head>
+    <body ng-app='myApp' ng-controller="myController">
+        <button ng-click="button1Clk()">1</button>
+        <button ng-click="button2Clk()">2</button>
+        <button ng-click="button1Clk()">3</button>
+        <div class='wi-barchart-container' style="position:relative;display:flex;">
+            <layer-collection l-padding="45" b-padding='25' r-padding="45">
+                <axis-layer
+                    min-val='-.1' max-val='0.5'
+                    n-ticks='20'
+                    grid='1' loga='0' placement="1"
+                    precision='0' minor-ticks="5">
+                </axis-layer>
+                <axis-layer
+                    min-val='1.5' max-val="3" 
+                    getters="{maxVal: 'maxYChanged'}"
+                    n-ticks='20' axis-direction="'up'"
+                    grid='1' loga='0' placement="0"
+                    precision='1' minor-ticks="1">
+                </axis-layer>
+                <overlay-line-layer 
+                    min-val='-.1' max-val='0.5' 
+                    min-y='1.5' max-y='3'
+                    loga='0' ortho-loga='0'
+                    overlay-line-spec="overlayLineSpec">
+                </overlay-line-layer>
+            </layer-collection>
+        </div>
+        <script>
+            $(".wi-barchart-container").resizable({
+                handles: "s"
+            });
+var app = angular.module('myApp', ['plot-toolkit']);
+
+app.controller('myController', function($scope) {
+    $scope.overlayLineSpec = {
+  "familyGroupX": "Neutron",
+  "familyGroupY": "Density",
+  "lines": [
+    {
+      "names": "SS",
+      "color": "DkGray",
+      "data": [
+        {
+          "x": "-.020",
+          "y": "2.650",
+          "type": "0"
+        },
+        {
+          "x": ".0220",
+          "y": "2.568",
+          "type": "Tick"
+        },
+        {
+          "x": ".0630",
+          "y": "2.488",
+          "type": "10"
+        },
+        {
+          "x": ".1040",
+          "y": "2.409",
+          "type": "Tick"
+        },
+        {
+          "x": ".1499",
+          "y": "2.322",
+          "type": "20"
+        },
+        {
+          "x": ".1910",
+          "y": "2.247",
+          "type": "Tick"
+        },
+        {
+          "x": ".2400",
+          "y": "2.160",
+          "type": "30"
+        },
+        {
+          "x": ".2854",
+          "y": "2.079",
+          "type": "Tick"
+        },
+        {
+          "x": ".3320",
+          "y": "1.998",
+          "type": "40"
+        },
+        {
+          "x": ".3800",
+          "y": "1.912",
+          "type": "Tick"
+        }
+      ]
+    },
+    {
+      "names": "LS",
+      "color": "DkGray",
+      "data": [
+        {
+          "x": "0.000",
+          "y": "2.710",
+          "type": "0"
+        },
+        {
+          "x": "0.050",
+          "y": "2.625",
+          "type": "Tick"
+        },
+        {
+          "x": "0.100",
+          "y": "2.540",
+          "type": "10"
+        },
+        {
+          "x": "0.150",
+          "y": "2.455",
+          "type": "Tick"
+        },
+        {
+          "x": "0.200",
+          "y": "2.369",
+          "type": "20"
+        },
+        {
+          "x": "0.250",
+          "y": "2.283",
+          "type": "Tick"
+        },
+        {
+          "x": "0.300",
+          "y": "2.198",
+          "type": "30"
+        },
+        {
+          "x": "0.350",
+          "y": "2.113",
+          "type": "Tick"
+        },
+        {
+          "x": "0.400",
+          "y": "2.021",
+          "type": "40"
+        },
+        {
+          "x": "0.439",
+          "y": "1.959",
+          "type": "Tick"
+        }
+      ]
+    },
+    {
+      "names": "DOL",
+      "color": "DkGray",
+      "data": [
+        {
+          "x": ".0120",
+          "y": "2.859",
+          "type": "0"
+        },
+        {
+          "x": ".0680",
+          "y": "2.761",
+          "type": "Tick"
+        },
+        {
+          "x": ".1210",
+          "y": "2.671",
+          "type": "10"
+        },
+        {
+          "x": ".1750",
+          "y": "2.580",
+          "type": "Tick"
+        },
+        {
+          "x": ".2280",
+          "y": "2.482",
+          "type": "20"
+        },
+        {
+          "x": ".2800",
+          "y": "2.391",
+          "type": "Tick"
+        },
+        {
+          "x": ".3340",
+          "y": "2.300",
+          "type": "30"
+        },
+        {
+          "x": ".3830",
+          "y": "2.208",
+          "type": "Tick"
+        },
+        {
+          "x": ".4360",
+          "y": "2.116",
+          "type": "40"
+        }
+      ]
+    }
+  ],
+  "X": "0",
+  "Y": "0",
+  "rotation": "0",
+  "color": "Purple",
+  "label": " (Ana) 4.75in ADN Neutron Density Overlay, Rhofluid = 1.0 (Por-15 2005)"
+} 
+    $scope.pointSet = [1 ,   2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    $scope.pointSet1 = [0.2, 1, 2, 3, 4, 5, 6, 7, 8,  9, 10, 11, 12, 45];
+    $scope.accessor = function(d, i) {
+        return d - 1;
+    }
+    $scope.colorize = function(bin) {
+        const colors = ['white', 'green', 'blue', 'pink', 'white'];
+        const fColor = d3.scaleQuantize().domain([1, 12]).range(colors);
+        return fColor((bin.x1 + bin.x0)/2);
+    }
+    $scope.stacks = [function(bin, idx) {
+        return 1.5;
+    }];
+    let thresholds = d3.range(0, 12, 12/12);
+    let histogramGen = d3.histogram().domain([0, 12]).thresholds(thresholds);
+    const _bins = [];
+    $scope.histogram = function() {
+        _bins.length = 0;
+        let bins = histogramGen($scope.pointSet);
+        Object.assign(_bins, bins);
+        return _bins;
+    };
+    $scope.bins = histogramGen( $scope.pointSet );
+    $scope.multiBins = [histogramGen( $scope.pointSet ), histogramGen( $scope.pointSet )];
+    $scope.getX = (bin,idx) => {return (bin.x0 + bin.x1)/2;}
+    $scope.getY = (bin,idx) => {return bin.length;}
+    $scope.getYCumulative = function(bin,idx) {
+        let sum = 0;
+        for (let i = 0; i <= idx; i++) {
+            sum += $scope.bins[i].length;
+        }
+        return sum;
+    }
+    $scope.markers = 
+        [{value:2, hColor: 'green'},
+        {value:6, hColor: 'blue'},
+        {value:8, hColor: 'pink'},
+        {value:10, hColor: 'white'}];
+
+    $scope.getMarkerVal = function(x, idx) {
+        if (!x) return;
+        return x.value;
+    }
+    $scope.setMarkerVal = function(x, idx, value) {
+        if (!x) return;
+        x.value = value;
+    }
+    $scope.hydralicColor = function(bin) {
+        return 'orange';
+        let x = (bin.x1 + bin.x0)/2;
+        let i;
+        for (i = 0; i < $scope.markers.length; i++) {
+            if (x < $scope.markers[i].value) break;
+        }
+        if (i === 0) return 'white';
+        return $scope.markers[i-1].hColor;
+    }
+    $scope.maxY = 10;
+    $scope.button1Clk = function() {
+        $scope.maxY += 5;
+    }
+    $scope.button2Clk = function() {
+        $scope.maxY -= 5;
+    }
+});
+        </script>
+    </body>
+</html>

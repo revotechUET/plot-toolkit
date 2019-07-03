@@ -12,7 +12,8 @@ module.exports = {
     ScatterLayer : require('./scatter-layer'),
     SegmentLayer : require('./segment-layer'),
     ClickLayer : require('./click-layer'),
-    PolygonLayer : require('./polygon-layer')
+    PolygonLayer : require('./polygon-layer'),
+    OverlayLineLayer: require('./overlay-line-layer')
 	//,
 //    LayerWrapper : require('./layer-wrapper'),
 //    LayerArray : require('./layer-array')
