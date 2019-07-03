@@ -58,12 +58,6 @@ function OverlayLineController($scope, $timeout, $element) {
             line.data.forEach((point, pIdx, pointArr) => {
                 let startX = transform(parseFloat(point.x));
                 let startY = othorTransform(parseFloat(point.y));
-                if (pIdx == 0) {
-                    helper.textSymbol(startX - 20, startY - 20, getTextCfg({
-                        type: line.names,
-                        color: line.color.replace('Dk', 'Dark') || getLineColor(line.names) 
-                    }));
-                }
                 if (!pointArr[pIdx + 1]) {
                     helper.circle(startX, startY );
                     if (!isNaN(point.type)) {
@@ -74,14 +68,20 @@ function OverlayLineController($scope, $timeout, $element) {
                 }
                 let endX = transform(parseFloat(pointArr[pIdx + 1].x));
                 let endY = othorTransform(parseFloat(pointArr[pIdx + 1].y));
+                helper.circle(startX - 1.5, startY);
                 ctx.moveTo(startX, startY);
-                helper.circle(startX, startY );
+                ctx.lineTo(endX, endY);
+                if (pIdx == 0) {
+                    helper.textSymbol(startX - 20, startY - 20, getTextCfg({
+                        type: line.names,
+                        color: line.color.replace('Dk', 'Dark') || getLineColor(line.names) 
+                    }));
+                }
                 if (!isNaN(point.type)) {
                     helper.textSymbol(startX + 7, startY + 5, getTextCfg({
                         ...point,
                     }));
                 }
-                ctx.lineTo(endX, endY);
                 ctx.stroke();
             })
         })
