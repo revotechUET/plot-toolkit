@@ -5,6 +5,7 @@ module.exports.distance = distance;
 module.exports.findClosest = findClosest;
 
 function bestNumberFormat(x) {
+    return x.toFixed(6);
     if (!x) return x;
     let ex = Math.abs(x / 100);
     let n = -Math.round(Math.log10(ex));
