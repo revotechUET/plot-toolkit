@@ -146,8 +146,8 @@ function AbstractLayer($timeout, $element, $scope) {
     this.drawOptimized = debounce(function () {
         if ($scope.$$destroyed) return;
         if (self.loga) {
-            if (self.minVal === 0) self.minVal = 0.01;
-            if (self.maxVal === 0) self.maxVal = 0.01;
+            if (self.minVal <= 0) self.minVal = 0.01;
+            if (self.maxVal <= 0) self.maxVal = 0.01;
         }
         for( let f of self.watchCallbacks) f();
         self.getTransform(true);

@@ -66,6 +66,13 @@ function LFLayerController($scope, $timeout, $element) {
             })
             .y((d, i) => {
                 return orthoTransform(self.getY(d));
+            })
+            .defined(function (d) {
+                return !isNaN(d.x) && !isNaN(d.y)                                   
+                    && d.y != Infinity && d.y != -Infinity                          
+                    && !isNaN(transform(d.x)) && !isNaN(orthoTransform(d.y))           
+                    && transform(d.x) != -Infinity && transform(d.x) != Infinity  
+                    && orthoTransform(d.y) != -Infinity && orthoTransform(d.y) != Infinity  
             });
         return line;
     }
@@ -81,8 +88,14 @@ function LFLayerController($scope, $timeout, $element) {
                     return formula.ae * Math.exp(formula.b*x);
                 }
             case "power":
-                return function (x) {
+                return function(x) {
                     return formula.coefficient * (x ** formula.exponent);
+                }
+            case "pickett":
+                return function(x) {
+                    let result = Math.pow(10, (Math.log10(formula.a * formula.rw) - formula.m * Math.log10(x) - formula.n * Math.log10(formula.sw)));
+                    if (isNaN(result)) return undefined;
+                    return result;
                 }
             default: return formula.fn;
         }
@@ -101,10 +114,10 @@ function LFLayerController($scope, $timeout, $element) {
                 return `y = ${formula.slope} \\times x ${intercept==0?'':(intercept<0 ? '-' + (-intercept):'+' + intercept)}`;
             case "exponential":
                 return `y = ${formula.ae} \\times e^\{${formula.b} x\}`;
-                
+
         }
     }*/
-    
+
     this.getData = function() {
         if (!this.lineData || this._update) {
             this._update = false;
@@ -115,6 +128,7 @@ function LFLayerController($scope, $timeout, $element) {
                 let step = (this.maxDrawY - this.minDrawY) / this.resolution;
                 for (let y = this.minDrawY; (y - this.minDrawY) * (y - this.maxDrawY) <= 0; y += step) {
                     let x = f(y);
+                    if (!x) continue;
                     if (this.autofit || (x - this.minDraw) * (x - this.maxDraw) <= 0)
                         this.lineData.push({ x, y })
                 }
@@ -123,6 +137,7 @@ function LFLayerController($scope, $timeout, $element) {
                 let step = (this.maxDraw - this.minDraw) / this.resolution;
                 for (let x = this.minDraw; (x - this.minDraw) * (x - this.maxDraw) <= 0; x += step) {
                     let y = f(x);
+                    if (!x) continue;
                     if (this.autofit || (y - this.minDrawY) * (y - this.maxDrawY) <= 0)
                         this.lineData.push({ x, y })
                 }
@@ -142,11 +157,11 @@ function LFLayerController($scope, $timeout, $element) {
             this.layerCollection.notify("Coppied", 'ti-clip', 1000);
         }
     }
-	this.parentDraw = this.draw;
-	this.draw = function() {
-		self._update = true;
-		self.parentDraw();
-	}
+    this.parentDraw = this.draw;
+    this.draw = function() {
+        self._update = true;
+        self.parentDraw();
+    }
     this.$onInit = function() {
         $scope.$watch(function() {
             return JSON.stringify(self.formula);
