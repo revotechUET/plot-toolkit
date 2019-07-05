@@ -19,7 +19,9 @@ angular.module(moduleName).component(name, component({
         showEquation: '<',
         eqnName: "<",
         inverted: "<",
-        mse: '<'
+        mse: '<',
+        lineLabel: '<',
+        lineLabelStyle: '<'
     }
 }));
 function LFLayerController($scope, $timeout, $element) {
@@ -38,6 +40,8 @@ function LFLayerController($scope, $timeout, $element) {
         this.eqnOffsets = this.eqnOffsets || [0,0];
         this.showEquation = this.showEquation || false;
         this.formula = this.formula || {};
+        this.lineLabelStyle = this.lineLabelStyle || {};
+        this.prefixId = `Pickett-${self.label}-${Date.now()}`;
     }
     function showEquation() {
         if (!self.showEquation) return;
@@ -161,6 +165,21 @@ function LFLayerController($scope, $timeout, $element) {
     this.draw = function() {
         self._update = true;
         self.parentDraw();
+    }
+    this.labelOffset = function() {
+        let transform = self.getTransform();
+        let orthoTransform = self.getOrthoTransform();
+        const idx = 0;
+        let x = self.lineData[idx].x;
+        let y = self.lineData[idx].y;
+        if (_.isFinite(x) && _.isFinite(y)
+            && _.isFinite(transform(x)) && _.isFinite(orthoTransform(y))) {
+            return {
+                x: transform(x) + 7, 
+                y: orthoTransform(y) - 7
+            }
+        }
+        return {x:0,y:0};
     }
     this.$onInit = function() {
         $scope.$watch(function() {
