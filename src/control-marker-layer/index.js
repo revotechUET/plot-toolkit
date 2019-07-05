@@ -43,10 +43,10 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
         this.markerStyle = typeof(this.markerStyle) === 'object'?this.markerStyle:{stroke:"green", "stroke-width": 2,"fill":"none"};
         this.markerWidth = this.markerWidth || 19;
         this.draggable = this.draggable || false;
+        this.notUseBackground = this.notUseBackground === undefined ? true : this.notUseBackground;
     }
     this.$onInit = function() {
         this.doInit();
-        self.markersMask = self.markersMask || self.markers.map(m => true);
     }
     this.draw = function() {
     }
@@ -178,7 +178,7 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
     }
     this.getSVGStyle = function() {
         return {
-            'background-color': !self.notUseBackground ? 'rgba(255, 249, 160, 0.6)' : ''
+            'background-color': !self.notUseBackground ? 'rgba(255, 249, 160, 0.6)' : 'transparent'
         };
     }
 
@@ -193,6 +193,13 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
             ...(this.getMarkerStyle(marker, idx))
         });
         return __markerKnobStyle;
+    }
+
+    this.isMarkerVisible = function($index) {
+        if (!self.markersMask || !self.markersMask.length) {
+            return true;
+        }
+        return self.markersMask[$index];
     }
 }
 

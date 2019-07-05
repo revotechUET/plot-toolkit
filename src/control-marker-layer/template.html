@@ -2,7 +2,7 @@
     <svg style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.topPadding() + self.bottomPadding()}}px); background-color: {{self.getSVGStyle()['background-color']}}"
         ng-mouseup="self.dragEnd($event)" ng-mousemove="self.dragging($event)">
         <g ng-repeat="marker in self.markers"
-           ng-show="self.markersMask[$index]"
+            ng-show="self.isMarkerVisible($index)"
             ng-style="self.getCursorStyle()"
             ng-offset="{{self.markerOffset(marker, $index)}}"
             ng-mousedown="self.dragStart(marker, $event, $index)"
