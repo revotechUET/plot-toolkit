@@ -33,18 +33,18 @@ function parseFormulaLatex(formula) {
             break;
         case "linear":
             let intercept = formula.intercept;
-            let slopeStr = bestNumberFormat(formula.slope, 6);
-            let interceptStr = bestNumberFormat(Math.abs(formula.intercept), 6);
-            latex = `y = ${slopeStr} \\times x ${intercept==0?'':(intercept<0 ? '-' + interceptStr:'+' + interceptStr)}; R^2=${formula.r2}`;
+            let slopeStr = bestNumberFormat(formula.slope, 4);
+            let interceptStr = bestNumberFormat(Math.abs(formula.intercept), 4);
+            latex = `y = ${slopeStr} \\times x ${intercept==0?'':(intercept<0 ? '-' + interceptStr:'+' + interceptStr)}; R^2=${bestNumberFormat(formula.r2, 4)}`;
             break;
         case "exponential":
-            latex = `y = ${bestNumberFormat(formula.ae, 6)} \\times e^\{${bestNumberFormat(formula.b, 6)} x\}; R^2=${formula.r2}`;
+            latex = `y = ${bestNumberFormat(formula.ae, 4)} \\times e^\{${bestNumberFormat(formula.b, 4)} x\}; R^2=${bestNumberFormat(formula.r2, 4)}`;
             break;
         case "power":
-            latex = `y = ${bestNumberFormat(formula.coefficient, 6)} \\times x^\{${bestNumberFormat(formula.exponent, 6)}\}; R^2=${formula.r2}`;
+            latex = `y = ${bestNumberFormat(formula.coefficient, 4)} \\times x^\{${bestNumberFormat(formula.exponent, 4)}\}; R^2=${bestNumberFormat(formula.r2, 4)}`;
             break;
         case "mse":
-            latex = `MSE = ${formula.mse}`;
+            latex = `MSE = ${bestNumberFormat(formula.mse, 4)}`;
             break;
     }
     return latex.replace(/\+\-/g, '-');
