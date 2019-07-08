@@ -37,7 +37,7 @@ function AxisLayerController($timeout, $element, $scope ) {
             // return d3.range(Math.floor(self.minVal), Math.ceil(self.maxVal), step);
         }
         else {
-            return genLogTickValues(self.minVal, self.maxVal);
+            return genLogTickValues(_.min([self.minVal, self.maxVal]), _.max([self.minVal, self.maxVal]));
         }
     }
     this.defaultBindings = function() {
