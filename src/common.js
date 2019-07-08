@@ -4,13 +4,12 @@ module.exports.parseFormulaLatex = parseFormulaLatex;
 module.exports.distance = distance;
 module.exports.findClosest = findClosest;
 
-function bestNumberFormat(x) {
-    return x.toFixed(6);
+function bestNumberFormat(x, digits = 0) {
     if (!x) return x;
     let ex = Math.abs(x / 100);
     let n = -Math.round(Math.log10(ex));
-    n = n>=0?n:0;
-    return x.toFixed(n);
+    n = n>=digits?n:digits;
+    return (Math.round(x*(10**n))/(10**n)).toFixed(n);
 }
 
 function findLinearEqn(p1, p2) {
@@ -34,15 +33,15 @@ function parseFormulaLatex(formula) {
             break;
         case "linear":
             let intercept = formula.intercept;
-            let slopeStr = bestNumberFormat(formula.slope);
-            let interceptStr = bestNumberFormat(Math.abs(formula.intercept));
+            let slopeStr = bestNumberFormat(formula.slope, 6);
+            let interceptStr = bestNumberFormat(Math.abs(formula.intercept), 6);
             latex = `y = ${slopeStr} \\times x ${intercept==0?'':(intercept<0 ? '-' + interceptStr:'+' + interceptStr)}; R^2=${formula.r2}`;
             break;
         case "exponential":
-            latex = `y = ${bestNumberFormat(formula.ae)} \\times e^\{${bestNumberFormat(formula.b)} x\}; R^2=${formula.r2}`;
+            latex = `y = ${bestNumberFormat(formula.ae, 6)} \\times e^\{${bestNumberFormat(formula.b, 6)} x\}; R^2=${formula.r2}`;
             break;
         case "power":
-            latex = `y = ${bestNumberFormat(formula.coefficient)} \\times x^\{${bestNumberFormat(formula.exponent)}\}; R^2=${formula.r2}`;
+            latex = `y = ${bestNumberFormat(formula.coefficient, 6)} \\times x^\{${bestNumberFormat(formula.exponent, 6)}\}; R^2=${formula.r2}`;
             break;
         case "mse":
             latex = `MSE = ${formula.mse}`;
