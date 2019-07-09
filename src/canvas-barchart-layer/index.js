@@ -37,6 +37,9 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
 
     this.$onInit = function() {
         this.doInit();
+        $timeout(() => {
+            self.bins = self.bins;
+        })
     }
     this.defaultBindings = function() {
         this.twoDBindings(this);
