@@ -148,6 +148,13 @@ function AbstractLayer($timeout, $element, $scope) {
         if (self.loga) {
             if (self.minVal <= 0) self.minVal = 0.01;
             if (self.maxVal <= 0) self.maxVal = 0.01;
+        } else {
+            if (self.minVal == 0.01) {
+                self.minVal = self.originalMinVal;
+            }
+            if (self.maxVal == 0.01) {
+                self.maxVal = self.originalMaxVal;
+            }
         }
         for( let f of self.watchCallbacks) f();
         self.getTransform(true);
@@ -177,6 +184,8 @@ function AbstractLayer($timeout, $element, $scope) {
         }, function() {
             // for( let f of self.watchCallbacks) f();
             // self.getTransform(true);
+            self.originalMinVal = self.minVal;
+            self.originalMaxVal = self.maxVal;
             self.drawOptimized();
         }, true);
         $scope.$on('jpanel-resized', function() {
