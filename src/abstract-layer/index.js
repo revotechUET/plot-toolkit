@@ -45,6 +45,8 @@ function component(componentData) {
             loga: '<',
             axisDirection: '<',
             placement: '<',
+            getMinVal: '<',
+            getMaxVal: '<',
             ...componentData.bindings
         },
         require: {
@@ -149,8 +151,10 @@ function AbstractLayer($timeout, $element, $scope) {
             if (self.minVal <= 0) self.minVal = 0.01;
             if (self.maxVal <= 0) self.maxVal = 0.01;
         } else {
-            self.minVal = _.isFinite(self.originalMinVal) ? self.originalMinVal : self.minVal;
-            self.maxVal = _.isFinite(self.originalMaxVal) ? self.originalMaxVal : self.maxVal;
+            //self.minVal = _.isFinite(self.originalMinVal) ? self.originalMinVal : self.minVal;
+            //self.maxVal = _.isFinite(self.originalMaxVal) ? self.originalMaxVal : self.maxVal;
+            self.minVal = self.getMinVal ? self.getMinVal() : self.minVal;
+            self.maxVal = self.getMaxVal ? self.getMaxVal() : self.maxVal;
         }
         for( let f of self.watchCallbacks) f();
         self.getTransform(true);
@@ -180,8 +184,8 @@ function AbstractLayer($timeout, $element, $scope) {
         }, function() {
             // for( let f of self.watchCallbacks) f();
             // self.getTransform(true);
-            self.originalMinVal = self.minVal != 0.01 ? self.minVal : self.originalMinVal;
-            self.originalMaxVal = self.maxVal != 0.01 ? self.maxVal : self.originalMaxVal;
+            //self.originalMinVal = self.minVal != 0.01 ? self.minVal : self.originalMinVal;
+            //self.originalMaxVal = self.maxVal != 0.01 ? self.maxVal : self.originalMaxVal;
             self.drawOptimized();
         }, true);
         $scope.$on('jpanel-resized', function() {
