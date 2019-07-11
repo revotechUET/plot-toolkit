@@ -46,11 +46,11 @@ function InteractiveLayerController($timeout, $element, $scope) {
     this.onMouseDown = function($event) {
         this.shiftKey = $event.shiftKey;
         this.altKey = $event.altKey;
-        if ($event.shiftKey) {
-            this.mouseDownAddPoint($event);
-        }
-        else if ($event.altKey) {
+        if ($event.altKey && $event.shiftKey) {
             this.mouseDownDelPoint($event);
+        }
+        else if ($event.shiftKey) {
+            this.mouseDownAddPoint($event);
         }
         else {
             dragging = true;

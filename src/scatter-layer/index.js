@@ -100,13 +100,18 @@ function ScatterLayerController($timeout, $element, $scope) {
         _canvas = $element.find('canvas')[0];
         return _canvas;
     }
+    function isNullRange(transform) {
+        let range = transform.range();
+        return !(range[1] - range[0]);
+    }
     this.draw = function() {
+        let transformX = this.getTransform();
+        let transformY = this.getOrthoTransform();
+        if (isNullRange(transformX) || isNullRange(transformY)) return;
         canvas = getCanvas();
         canvas.width = this.contentWidth();
         canvas.height = this.contentHeight();
         let ctx = canvas.getContext('2d');
-        let transformX = this.getTransform();
-        let transformY = this.getOrthoTransform();
         let symbolDefaultCfg = {
             size: this.symbolSize,
             fillStyle: this.symbolFillStyle,
