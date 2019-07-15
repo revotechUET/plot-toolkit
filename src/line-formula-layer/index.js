@@ -97,7 +97,7 @@ function LFLayerController($scope, $timeout, $element) {
                 }
             case "pickett":
                 return function(x) {
-                    let result = Math.pow(10, (Math.log10(formula.a * formula.rw) - formula.m * Math.log10(x) - formula.n * Math.log10(formula.sw)));
+                    let result = Math.pow(10, (-1 / formula.m) * (Math.log10(x) - Math.log10(formula.a*formula.rw) - Math.log10(1 / (formula.sw ** formula.n))));
                     if (isNaN(result)) return undefined;
                     return result;
                 }
