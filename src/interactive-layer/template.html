@@ -8,6 +8,12 @@
     <g class="layer">
         <polygon ng-points="{{self.getPoints()}}" ng-fill="{{self.fillStyle}}" ng-stroke="{{self.strokeStyle}}" ng-stroke-width="{{self.strokeWidth}}">
         </polygon>
+        <g class="sub-layer" ng-repeat="p in self.points" ng-offset="{{ self.vertexOffset(p, $index) }}">
+            <circle cx="0" cy="0" r="5" ng-style='{fill:"transparent", stroke:"green", "stroke-width":1}'></circle>
+            <text>
+            {{self.getPointLabel(p)}} 
+            </text>
+        </g>
         <circle cx="0" cy="0" r="5" ng-style="self.draggerStyle()" ng-offset="{{self.draggerOffset()}}"></circle>
     </g>
 </svg>

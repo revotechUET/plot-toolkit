@@ -17,7 +17,8 @@ angular.module(moduleName)
         controller: SegmentLayerController,
         template: require('./template.html'),
         bindings: {
-            eqnOffsets: "<"
+            eqnOffsets: "<",
+            showEquation: "<"
         }
     }));
 

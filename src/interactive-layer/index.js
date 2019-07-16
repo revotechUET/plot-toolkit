@@ -13,6 +13,7 @@ function buildComponent(componentData) {
     componentData.template = componentData.template || require('./template.html');
     componentData.bindings = {
         fillStyle: "<",
+        draggerStyle: '<',
         strokeStyle: "<",
         strokeWidth: "<",
         editPointIdx: "<",
@@ -21,6 +22,7 @@ function buildComponent(componentData) {
         getYFn: "<",
         setXFn: "<",
         setYFn: "<",
+        getPointLabel: "<",
         mode : "<",
         ...componentData.bindings
     }
@@ -40,10 +42,10 @@ function InteractiveLayerController($timeout, $element, $scope) {
         this.editPointIdx = this.editPointIdx || null;
         this.mode = this.mode || null;
         this.points = this.points || [];
-        this.getXFn = this.getXFn || function(point) {
+        this.getXFn = this.getXFn || function(point, idx, points) {
             return point.x;
         }
-        this.getYFn = this.getYFn || function(point) {
+        this.getYFn = this.getYFn || function(point, idx, points) {
             return point.y;
         }
         this.setXFn = this.setXFn || function(point, value) {
@@ -51,6 +53,9 @@ function InteractiveLayerController($timeout, $element, $scope) {
         }
         this.setYFn = this.setYFn || function(point, value) {
             point.y = value;
+        }
+        this.getPointLabel = this.getPointLabel || function(point) {
+            return `${point.x}-${point.y}`;
         }
     }
 
@@ -100,8 +105,8 @@ function InteractiveLayerController($timeout, $element, $scope) {
         let transformY = this.getOrthoTransform();
         let offsetX = $event.offsetX - startX;
         let offsetY = $event.offsetY - startY;
-        let pixelX = transformX(self.getXFn(this.points[this.editPointIdx]));
-        let pixelY = transformY(self.getYFn(this.points[this.editPointIdx]));
+        let pixelX = transformX(self.getXFn(this.points[this.editPointIdx], this.editPointIdx, this.points));
+        let pixelY = transformY(self.getYFn(this.points[this.editPointIdx], this.editPointIdx, this.points));
         pixelX += offsetX;
         pixelY += offsetY;
         this.setXFn(this.points[this.editPointIdx], transformX.invert(pixelX));
@@ -132,7 +137,29 @@ function InteractiveLayerController($timeout, $element, $scope) {
         this.altKey = $event.altKey;
         dragging = false;
     }
-    this.draggerStyle = function() {
+    this.vertexOffset = function(p, index, points) {
+        let transformX = this.getTransform();
+        let transformY = this.getOrthoTransform();
+        let toRet = {
+            x: transformX(self.getXFn(p, index, points)),
+            y: transformY(self.getYFn(p, index, points))
+        };
+        return toRet;
+    }
+    let vertexStyleList = [];
+    this.vertexStyle = function(p, idx) {
+        let vertexStyle = vertexStyleList[idx];
+        if (!vertexStyle) {
+            vertexStyleList[idx] = {
+                fill: 'transparent',
+                stroke: 'blue',
+                "stroke-width": 1
+            };
+            vertexStyle = vertexStyleList[idx];
+        }
+        return vertexStyle;
+    }
+    this.draggerStyleFn = function() {
         if (this.editPointIdx === null || !this.mode) 
             return {
                 fill: 'none', stroke: 'none'
@@ -143,42 +170,43 @@ function InteractiveLayerController($timeout, $element, $scope) {
             "stroke-width": 1
         }
     }
+//    const draggerOffset = {}
     this.draggerOffset = function() {
         if (!_.isFinite(this.editPointIdx)) return {x: 0, y: 0};
         let transformX = this.getTransform();
         let transformY = this.getOrthoTransform();
         let toRet = {
-            x: transformX(self.getXFn(this.points[this.editPointIdx])),
-            y: transformY(self.getYFn(this.points[this.editPointIdx]))
+            x: transformX(self.getXFn(this.points[this.editPointIdx], this.editPointIdx, this.points)),
+            y: transformY(self.getYFn(this.points[this.editPointIdx], this.editPointIdx, this.points))
         };
         return toRet;
     }
     this.getPoints = function() {
         let transformX = this.getTransform(); 
         let transformY = this.getOrthoTransform();
-        let pointCoordinates = this.points.map((p) => ({
-            x: transformX(self.getXFn(p)),
-            y: transformY(self.getYFn(p))
+        let pointCoordinates = this.points.map((p, idx) => ({
+            x: transformX(self.getXFn(p, idx, this.points)),
+            y: transformY(self.getYFn(p, idx, this.points))
         }));
         return JSON.stringify(pointCoordinates);
     }
     this.getCoordinates = function() {
         if (this.mode && _.isFinite(this.editPointIdx)) {
             let p = this.points[this.editPointIdx];
-            return `X:${bestNumberFormat(self.getXFn(p))}
-            Y:${bestNumberFormat(self.getYFn(p))}`
+            return `X:${bestNumberFormat(self.getXFn(p, this.editPointIdx, this.points))}
+            Y:${bestNumberFormat(self.getYFn(p, this.editPointIdx, this.points))}`
         }
     }
     this.distance = distance;
     function distance(p1, p2, tX, tY) {
-        return Math.sqrt((p1.x - tX(self.getXFn(p2)))**2 + (p1.y - tY(self.getYFn(p2)))**2);
+        return Math.sqrt((p1.x - tX(self.getXFn(p2.p, p2.idx, this.points)))**2 + (p1.y - tY(self.getYFn(p2.p, p2.idx, this.points)))**2);
     }
     this.findClosest = findClosest;
     function findClosest(p, points, tX, tY) {
         let minDistance = 100000;
         let minIdx = undefined;
         for (let i = 0; i < points.length; i++) {
-            let d = distance(p, points[i], tX, tY);
+            let d = distance(p, {p:points[i], idx:i}, tX, tY);
             if (d < minDistance) {
                 minDistance = d;
                 minIdx = i;
