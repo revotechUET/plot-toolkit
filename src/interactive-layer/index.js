@@ -24,6 +24,7 @@ function buildComponent(componentData) {
         setYFn: "<",
         getPointLabel: "<",
         mode : "<",
+        showVertex: '<',
         ...componentData.bindings
     }
     return component(componentData);
@@ -67,7 +68,7 @@ function InteractiveLayerController($timeout, $element, $scope) {
     this.onMouseDown = function($event) {
         this.shiftKey = $event.shiftKey;
         this.altKey = $event.altKey;
-        if ($event.altKey && $event.shiftKey) {
+        if ($event.altKey) {
             this.mouseDownDelPoint($event);
         }
         else if ($event.shiftKey) {

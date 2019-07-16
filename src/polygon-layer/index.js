@@ -40,8 +40,8 @@ function PolygonLayerController($timeout, $element, $scope) {
         else {
             let prevIdx = (result.idx + 1) % this.points.length;
             let nextIdx = (result.idx + this.points.length - 1) % this.points.length;
-            let prevDist = this.distance({x,y}, this.points[prevIdx], transformX, transformY);
-            let nextDist = this.distance({x,y}, this.points[nextIdx], transformX, transformY);
+            let prevDist = this.distance({x,y}, {p: this.points[prevIdx], idx: prevIdx}, transformX, transformY);
+            let nextDist = this.distance({x,y}, {p:this.points[nextIdx], idx: nextIdx}, transformX, transformY);
             if (prevDist < nextDist) {
                 this.points.splice(prevIdx, 0, {x:transformX.invert(x), y:transformY.invert(y)});
             }
