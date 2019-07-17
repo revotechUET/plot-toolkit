@@ -183,8 +183,16 @@ function InteractiveLayerController($timeout, $element, $scope) {
         return toRet;
     }
     this.getPoints = function() {
-        let transformX = this.getTransform(); 
+        let transformX = this.getTransform();
+        //let range = d3.extent(transformX.range());
+        //if (range[1] - range[0] < 0.000001) {
+            //transformX = this.getTransform(true);
+        //}
         let transformY = this.getOrthoTransform();
+        //range = d3.extent(transformY.range());
+        //if (range[1] - range[0] < 0.000001) {
+            //transformY = this.getOrthoTransform(true);
+        //}
         let pointCoordinates = this.points.map((p, idx) => ({
             x: transformX(self.getXFn(p, idx, this.points)),
             y: transformY(self.getYFn(p, idx, this.points))

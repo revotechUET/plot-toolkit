@@ -12,18 +12,42 @@ function bestNumberFormat(x, digits = 0) {
     return (Math.round(x*(10**n))/(10**n)).toFixed(n);
 }
 
-function findLinearEqn(p1, p2) {
-    if (p1.x != p2.x) {
-        let slope = (p1.y - p2.y)/(p1.x - p2.x);
-        let intercept = p1.y - slope * p1.x;
+function findLinearEqn(p1, p2, isPickett) {
+    let p1X, p1Y, p2X, p2Y;
+    if (isPickett) {
+        p1X = Math.log10(p1.x);
+        p1Y = Math.log10(p1.y);
+        p2X = Math.log10(p2.x);
+        p2Y = Math.log10(p2.y);
+    } else {
+        p1X = p1.x;
+        p1Y = p1.y;
+        p2X = p2.x;
+        p2Y = p2.y;
+    }
+    if (p1X != p2X) {
+        let slope = (p1Y - p2Y)/(p1X - p2X);
+        let intercept = p1Y - slope * p1X;
         return {
             family:'linear', slope: slope, intercept: intercept
         }
     }
     return {
-        family: 'const', x: p1.x
+        family: 'const', x: p1X
     }
 }
+//function findLinearEqn(p1, p2) {
+    //if (p1.x != p2.x) {
+        //let slope = (p1.y - p2.y)/(p1.x - p2.x);
+        //let intercept = p1.y - slope * p1.x;
+        //return {
+            //family:'linear', slope: slope, intercept: intercept
+        //}
+    //}
+    //return {
+        //family: 'const', x: p1.x
+    //}
+//}
 
 function parseFormulaLatex(formula) {
     let latex = formula.latex || '';

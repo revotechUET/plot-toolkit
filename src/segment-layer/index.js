@@ -19,7 +19,8 @@ angular.module(moduleName)
         bindings: {
             eqnOffsets: "<",
             showEquation: "<",
-            onEqnChanged: "<"
+            onEqnChanged: "<",
+            logaTwoAxis: "<"
         }
     }));
 
@@ -70,9 +71,9 @@ function SegmentLayerController($timeout, $element, $scope) {
     this.calcEquation = function() {
         if (this.points.length !== 2) return "";
         else {
-            let formula = findLinearEqn(this.points[0], this.points[1]);
+            let formula = findLinearEqn(this.points[0], this.points[1], self.logaTwoAxis);
             let latex = parseFormulaLatex(formula);
-            self.onEqnChanged && onEqnChanged(formula);
+            self.onEqnChanged && self.onEqnChanged(formula);
             return latex;
         }
     }
