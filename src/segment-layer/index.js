@@ -18,7 +18,8 @@ angular.module(moduleName)
         template: require('./template.html'),
         bindings: {
             eqnOffsets: "<",
-            showEquation: "<"
+            showEquation: "<",
+            onEqnChanged: "<"
         }
     }));
 
@@ -71,6 +72,7 @@ function SegmentLayerController($timeout, $element, $scope) {
         else {
             let formula = findLinearEqn(this.points[0], this.points[1]);
             let latex = parseFormulaLatex(formula);
+            self.onEqnChanged && onEqnChanged(formula);
             return latex;
         }
     }
