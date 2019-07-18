@@ -12,16 +12,19 @@ function bestNumberFormat(x, digits = 0) {
     return (Math.round(x*(10**n))/(10**n)).toFixed(n);
 }
 
-function findLinearEqn(p1, p2, isPickett) {
+function findLinearEqn(p1, p2, loga, orthoLoga) {
     let p1X, p1Y, p2X, p2Y;
-    if (isPickett) {
+    if (loga) {
         p1X = Math.log10(p1.x);
         p1Y = Math.log10(p1.y);
-        p2X = Math.log10(p2.x);
-        p2Y = Math.log10(p2.y);
     } else {
         p1X = p1.x;
         p1Y = p1.y;
+    }
+    if (orthoLoga) {
+        p2X = Math.log10(p2.x);
+        p2Y = Math.log10(p2.y);
+    } else {
         p2X = p2.x;
         p2Y = p2.y;
     }

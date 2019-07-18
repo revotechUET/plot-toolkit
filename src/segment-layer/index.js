@@ -19,8 +19,7 @@ angular.module(moduleName)
         bindings: {
             eqnOffsets: "<",
             showEquation: "<",
-            onEqnChanged: "<",
-            logaTwoAxis: "<"
+            onEqnChanged: "<"
         }
     }));
 
@@ -71,7 +70,7 @@ function SegmentLayerController($timeout, $element, $scope) {
     this.calcEquation = function() {
         if (this.points.length !== 2) return "";
         else {
-            let formula = findLinearEqn(this.points[0], this.points[1], self.logaTwoAxis);
+            let formula = findLinearEqn(this.points[0], this.points[1], self.loga, self.orthoLoga);
             let latex = parseFormulaLatex(formula);
             self.onEqnChanged && self.onEqnChanged(formula);
             return latex;
@@ -90,10 +89,6 @@ function SegmentLayerController($timeout, $element, $scope) {
         }
     }
     function showEquation() {
-        console.log('katex render');
-        /*katex.render(self.calcEquation(), 
-            $element.find('.equation')[0], {displayMode: false});
-        */
         let html = katex.renderToString(self.calcEquation(), {throwOnError: false});
         $element.find('.equation').empty().append(html);
     }

@@ -25,6 +25,7 @@ function buildComponent(componentData) {
         getPointLabel: "<",
         mode : "<",
         showVertex: '<',
+        showCoordinates: '<',
         ...componentData.bindings
     }
     return component(componentData);

@@ -18,7 +18,7 @@
     </g>
 </svg>
 </div>
-<div class="status" ng-bind="self.getCoordinates()" ng-style=""></div>
+<div ng-if="self.showCoordinates" class="status" ng-bind="self.getCoordinates()" ng-style=""></div>
 <div class='equation' ng-if="self.showEquation"
     ng-style='self.eqnStyle();' 
     ngclipboard ngclipboard-success="self.eqnCopySuccess(e);"
