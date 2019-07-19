@@ -44,7 +44,7 @@ function AxisLayerController($timeout, $element, $scope ) {
         this.grid = (this.grid === undefined)?1:this.grid;
         this.nTicks = this.nTicks || 5;
         this.minorTicks = this.minorTicks || 2;
-        this.precision = this.precision || 1;
+        this.precision = isNaN(this.precision) ? 1 : this.precision;
     }
     this.$onInit = function() {
         this.doInit();
