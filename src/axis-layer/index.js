@@ -9,6 +9,7 @@ var bindings = AbstractLayer.bindings;
 var component = AbstractLayer.component;
 
 var layerCollection = require('../layer-collection');
+let bestNumberFormat = require('../common').bestNumberFormat;
 angular.module(moduleName).component(name, component({
     controller: AxisLayerController, 
     template: require('./template.html'),
@@ -122,7 +123,7 @@ function genLogTickValues(minVal, maxVal) {
         for (let j = 1; j < 10; j++) {
             let value = j * Math.pow(10, i);
             if (value >= minVal && value <= maxVal)
-            tickValues.push(value);
+            tickValues.push(bestNumberFormat(value).replace(/0*$/g, ''));
         }
     }
     return tickValues;
