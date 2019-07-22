@@ -123,7 +123,7 @@ function genLogTickValues(minVal, maxVal) {
         for (let j = 1; j < 10; j++) {
             let value = j * Math.pow(10, i);
             if (value >= minVal && value <= maxVal)
-            tickValues.push(bestNumberFormat(value).replace(/0*$/g, ''));
+            tickValues.push(parseFloat(bestNumberFormat(value)));
         }
     }
     return tickValues;
