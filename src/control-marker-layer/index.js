@@ -56,14 +56,14 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
         case "left":
         case "right":
             return {
-                x: transform(self.getMarkerValue(marker, idx)) - self.markerWidth/2,
+                x: transform(self.getMarkerValue(marker, idx)) - self.markerWidth/2 || 0,
                 y: 0
             }
         case "up":
         case "down":
             return {
                 x: 0,
-                y: transform(self.getMarkerValue(marker, idx)) - self.markerWidth/2
+                y: transform(self.getMarkerValue(marker, idx)) - self.markerWidth/2 || 0
             }
         }
     }

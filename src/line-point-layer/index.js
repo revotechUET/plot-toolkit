@@ -33,6 +33,13 @@ function LPLayerController($scope, $timeout, $element) {
             })
             .y((d, i) => {
                 return orthoTransform(self.getY(d, i));
+            })
+            .defined(function (d) {
+                return !isNaN(d.x) && !isNaN(d.y)
+                    && d.y != Infinity && d.y != -Infinity
+                    && !isNaN(transform(d.x)) && !isNaN(orthoTransform(d.y))
+                    && transform(d.x) != -Infinity && transform(d.x) != Infinity
+                    && orthoTransform(d.y) != -Infinity && orthoTransform(d.y) != Infinity
             });
         return line;
     }
