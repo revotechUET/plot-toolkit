@@ -108,9 +108,11 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
     this.binOffsets = function(bin, binIdx, stack) {
         let transform = this.getTransform();
         let orthoTransform = this.getOrthoTransform();
-        //let stackLevel = d3.sum(self.stackFuncArray, (f) => f(bin, binIdx));
         let stackLevel = stack || 0;
         let x = transform(bin.x0);
+        if (self.minVal > self.maxVal) {
+            x = x - self.binWidth(bin, binIdx);
+        }
         let y = orthoTransform(bin.length + stackLevel);
         return { x:x, y:y };
     }
