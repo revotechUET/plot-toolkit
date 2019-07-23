@@ -74,10 +74,10 @@ function AxisLayerController($timeout, $element, $scope ) {
         switch (this.axisDirection) {
             case 'right':
             case 'left':
-                return this.grid?-this.contentHeight():5;
+                return this.grid?-this.contentHeight():0;
             case 'up':
             case 'down':
-                return this.grid?-this.contentWidth():5;
+                return this.grid?-this.contentWidth():0;
         }
         return -height;
     }
