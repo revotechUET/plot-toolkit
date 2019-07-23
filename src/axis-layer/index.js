@@ -112,6 +112,14 @@ function AxisLayerController($timeout, $element, $scope ) {
         d3.select(svg[0]).select('g.layer')
             .style('transform', self._translate())
             .call(axisFunc);
+        d3.select(svg[0]).select('g.layer').selectAll("g")
+            .filter((value, i) => {
+                if (self.loga) 
+                    return !Number.isInteger(Math.log10(value));
+                if (i === tickValues.length - 1) return false;
+                return i % self.minorTicks;
+            })
+            .classed('minor', true);
     }
 }
 
