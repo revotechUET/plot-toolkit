@@ -111,7 +111,7 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
         let stackLevel = stack || 0;
         let x = transform(bin.x0);
         if (self.minVal > self.maxVal) {
-            x = x - self.binWidth(bin, binIdx);
+            x = x - self.binWidth(bin, binIdx) - self.binGap;
         }
         let y = orthoTransform(bin.length + stackLevel);
         return { x:x, y:y };
