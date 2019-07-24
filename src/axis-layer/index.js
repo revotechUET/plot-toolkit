@@ -113,6 +113,7 @@ function AxisLayerController($timeout, $element, $scope ) {
             .style('transform', self._translate())
             .call(axisFunc);
         d3.select(svg[0]).select('g.layer').selectAll("g")
+            .classed('minor', false)
             .filter((value, i) => {
                 if (self.loga) 
                     return !Number.isInteger(Math.log10(value));
