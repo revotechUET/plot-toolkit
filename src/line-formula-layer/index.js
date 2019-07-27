@@ -99,6 +99,9 @@ function LFLayerController($scope, $timeout, $element) {
                 return function(x) {
                     //let result = Math.pow(10, (-formula.m) * (Math.log10(x) - Math.log10(formula.a*formula.rw) - Math.log10(1 / (formula.sw ** formula.n))));
                     let result = Math.pow(10, (-formula.m) * (Math.log10(x)) + Math.log10((formula.a*formula.rw) / (formula.sw ** formula.n)));
+                    if (formula.isSwap) {
+                        result = Math.pow(10, (Math.log10(x) - (Math.log10((formula.a*formula.rw) / (formula.sw ** formula.n)))) / (-formula.m));
+                    }
                     if (isNaN(result)) return undefined;
                     return result;
                 }
