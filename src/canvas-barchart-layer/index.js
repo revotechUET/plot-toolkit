@@ -93,8 +93,8 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
                 let bin = bins[i];
                 let stack = (stacks || [])[i] || 0;
                 let w = self.binWidth(bin);
-                let h = self.binHeight(bin);
-                let offset = self.binOffsets(bin, i, stack);
+                let h = self.binHeight(bin, i, bins);
+                let offset = self.binOffsets(bin, i, stack, bins);
                 let x = offset.x + self.binGap/2;
                 let y = offset.y;
                 let color = self.binColor(bin, i, bins);
@@ -105,7 +105,7 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
             }
         }
     }
-    this.binOffsets = function(bin, binIdx, stack) {
+    this.binOffsets = function(bin, binIdx, stack, bins) {
         let transform = this.getTransform();
         let orthoTransform = this.getOrthoTransform();
         let stackLevel = stack || 0;
@@ -113,7 +113,7 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
         if (self.minVal > self.maxVal) {
             x = x - self.binWidth(bin, binIdx) - self.binGap;
         }
-        let y = orthoTransform(bin.length + stackLevel);
+        let y = orthoTransform((self.plotType !== 'percentage' ? bin.length : bin.length * 100 / _.sum(bins.map(bin => bin.length))) + stackLevel);
         return { x:x, y:y };
     }
     this.binWidth = function(bin, binIdx) {
@@ -121,9 +121,10 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
         let width = Math.abs(transform(bin.x0) - transform(bin.x1));
         return width >= this.binGap ? width - this.binGap : 0;
     }
-    this.binHeight = function(bin, binIdx) {
+    this.binHeight = function(bin, binIdx, bins) {
         let orthoTransform = this.getOrthoTransform();
-        let height = this.contentHeight() - orthoTransform(bin.length);
+        let y = self.plotType !== 'percentage' ? bin.length : bin.length * 100 / _.sum(bins.map(bin => bin.length));
+        let height = this.contentHeight() - orthoTransform(y);
         return height;
     }
     this.binColor = function(bin, binIdx, bins) {
