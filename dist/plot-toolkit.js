@@ -104,7 +104,7 @@ eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"../node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"axis-layer .layer .tick line {\\n    /* stroke: rgba(34, 139, 34, 0.5); */\\n    stroke: #000;\\n    stroke-width: 1;\\n    stroke-opacity: 1;\\n}\\n\\naxis-layer .layer .minor line {\\n    /* stroke: rgba(34, 139, 34, 0.5); */\\n    stroke: #333;\\n    stroke-width: 0.7;\\n    stroke-opacity: 0.7;\\n}\\n\", \"\"]);\n\n\n\n//# sourceURL=webpack:///./axis-layer/style.css?../node_modules/css-loader/dist/cjs.js");
+eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"../node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"axis-layer .layer .tick line {\\n    /* stroke: rgba(34, 139, 34, 0.5); */\\n    stroke: #555;\\n    stroke-width: 1;\\n    stroke-opacity: 1;\\n}\\n\\naxis-layer .layer .minor line {\\n    /* stroke: rgba(34, 139, 34, 0.5); */\\n    stroke: #333;\\n    stroke-width: 0.7;\\n    stroke-opacity: 0.7;\\n}\\n\", \"\"]);\n\n\n\n//# sourceURL=webpack:///./axis-layer/style.css?../node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
