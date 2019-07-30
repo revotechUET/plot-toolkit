@@ -34,12 +34,14 @@ function LPLayerController($scope, $timeout, $element) {
             .y((d, i) => {
                 return orthoTransform(self.getY(d, i));
             })
-            .defined(function (d) {
-                return !isNaN(d.x) && !isNaN(d.y)
-                    && d.y != Infinity && d.y != -Infinity
-                    && !isNaN(transform(d.x)) && !isNaN(orthoTransform(d.y))
-                    && transform(d.x) != -Infinity && transform(d.x) != Infinity
-                    && orthoTransform(d.y) != -Infinity && orthoTransform(d.y) != Infinity
+            .defined(function (d, i) {
+                let x = self.getX(d, i);
+                let y = self.getY(d, i);
+                return !isNaN(x) && !isNaN(y)
+                    && y != Infinity && y != -Infinity
+                    && !isNaN(transform(x)) && !isNaN(orthoTransform(y))
+                    && transform(x) != -Infinity && transform(x) != Infinity
+                    && orthoTransform(y) != -Infinity && orthoTransform(y) != Infinity
             });
         return line;
     }
