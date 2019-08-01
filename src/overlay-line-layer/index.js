@@ -30,6 +30,43 @@ function OverlayLineController($scope, $timeout, $element) {
         _canvas = $element.find('canvas')[0];
         return _canvas;
     }
+    function drawTick(startX, startY, endX, endY, length, helper, position) {
+        let fullLength = Math.sqrt((startX - endX)**2 + (startY - endY)**2);
+        let factor = Math.ceil(fullLength / length);
+        let stopX = startX + (endX - startX)/factor;
+        let stopY = startY + (endY - startY)/factor;
+        let point1 = {x: startX, y: startY};
+        let point2 = {x: stopX, y: stopY};
+        let rotatePoint;
+        if (position === 'start') {
+            rotatePoint = {x: startX, y: startY};
+        } else if (position === 'end') {
+            rotatePoint = {x: endX, y: endY};
+        } else {
+            rotatePoint = {x: (startX + endX) / 2, y: (startY + endY) / 2};
+        }
+        moveToOrigin(point1, rotatePoint);
+        moveToOrigin(point2, rotatePoint);
+        rotate(point1);
+        rotate(point2);
+        moveToOriginInv(point1, rotatePoint);
+        moveToOriginInv(point2, rotatePoint);
+        helper.segment(point1, point2);
+        function moveToOrigin(point, center) {
+            point.x -= center.x;
+            point.y -= center.y;
+        }
+        function moveToOriginInv(point, center) {
+            point.x += center.x;
+            point.y += center.y;
+        }
+        function rotate(point) {
+            let x = point.x;
+            let y = point.y;
+            point.x = -y;
+            point.y = x;
+        }
+    }
     this.draw = function() {
         let transform = this.getTransform();
         let othorTransform = this.getOrthoTransform();
@@ -52,14 +89,18 @@ function OverlayLineController($scope, $timeout, $element) {
         let helper = new CanvasHelper(ctx, penDefaultCfg);
         self.overlayLineSpec.lines.forEach(line => {
             ctx.beginPath();
-            ctx.fillStyle = penDefaultCfg.fillStyle;
+            ctx.fillStyle = line.color.replace('Dk', 'Dark') || getLineColor(line.names) || penDefaultCfg.strokeStyle;
             ctx.strokeStyle = line.color.replace('Dk', 'Dark') || getLineColor(line.names) || penDefaultCfg.strokeStyle;
             ctx.lineWidth =  penDefaultCfg.strokeWidth;
             line.data.forEach((point, pIdx, pointArr) => {
                 let startX = transform(parseFloat(point.x));
                 let startY = othorTransform(parseFloat(point.y));
                 if (!pointArr[pIdx + 1]) {
-                    helper.circle(startX, startY );
+                    let preX = transform(parseFloat(pointArr[pIdx - 1].x));
+                    let preY = othorTransform(parseFloat(pointArr[pIdx - 1].y));
+                    let endX = preX + (startX - preX) * 2;
+                    let endY = preY + (startY - preY) * 2;
+                    drawTick(startX, startY, endX, endY, 10, helper, 'start');
                     if (!isNaN(point.type)) {
                         helper.textSymbol(startX + 7, startY + 5, getTextCfg(point));
                     }
@@ -68,7 +109,7 @@ function OverlayLineController($scope, $timeout, $element) {
                 }
                 let endX = transform(parseFloat(pointArr[pIdx + 1].x));
                 let endY = othorTransform(parseFloat(pointArr[pIdx + 1].y));
-                helper.circle(startX - 1.5, startY);
+                drawTick(startX, startY, endX, endY, 10, helper, 'start');
                 ctx.moveTo(startX, startY);
                 ctx.lineTo(endX, endY);
                 if (pIdx == 0) {

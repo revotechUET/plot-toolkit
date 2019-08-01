@@ -83,8 +83,12 @@ CanvasHelper.prototype.rect = function(x, y, width, height, opts = {}) {
     draw(this);
 }
 
-CanvasHelper.prototype.segment = function(start, stop) {
-    console.log(start, stop);
+CanvasHelper.prototype.segment = function(start, stop, opts = {}) {
+    if (!_.isFinite(start.x + start.y + stop.x + stop.y)) return;
+    prepare(this, opts);
+    this.ctx.moveTo(start.x, start.y);
+    this.ctx.lineTo(stop.x, stop.y);
+    this.ctx.stroke();
 }
 /********************** END *********************/
 function prepare(canvas, opts = {}) {
