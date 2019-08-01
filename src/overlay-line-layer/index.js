@@ -92,6 +92,9 @@ function OverlayLineController($scope, $timeout, $element) {
             ctx.fillStyle = line.color.replace('Dk', 'Dark') || getLineColor(line.names) || penDefaultCfg.strokeStyle;
             ctx.strokeStyle = line.color.replace('Dk', 'Dark') || getLineColor(line.names) || penDefaultCfg.strokeStyle;
             ctx.lineWidth =  penDefaultCfg.strokeWidth;
+            line.data = line.data.filter(point => {
+                return point.x != '-' || point.y != '-';
+            })
             line.data.forEach((point, pIdx, pointArr) => {
                 let startX = transform(parseFloat(point.x));
                 let startY = othorTransform(parseFloat(point.y));
