@@ -33,6 +33,8 @@ function OverlayLineController($scope, $timeout, $element) {
     function drawTick(startX, startY, endX, endY, length, helper, position) {
         let fullLength = Math.sqrt((startX - endX)**2 + (startY - endY)**2);
         let factor = Math.ceil(fullLength / length);
+        startX = startX - (endX - startX)/(factor * 2);
+        startY = startY - (endY - startY)/(factor * 2);
         let stopX = startX + (endX - startX)/factor;
         let stopY = startY + (endY - startY)/factor;
         let point1 = {x: startX, y: startY};
@@ -43,7 +45,7 @@ function OverlayLineController($scope, $timeout, $element) {
         } else if (position === 'end') {
             rotatePoint = {x: endX, y: endY};
         } else {
-            rotatePoint = {x: (startX + endX) / 2, y: (startY + endY) / 2};
+            rotatePoint = {x: (startX + stopX) / 2, y: (startY + stopY) / 2};
         }
         moveToOrigin(point1, rotatePoint);
         moveToOrigin(point2, rotatePoint);
@@ -103,7 +105,7 @@ function OverlayLineController($scope, $timeout, $element) {
                     let preY = othorTransform(parseFloat(pointArr[pIdx - 1].y));
                     let endX = preX + (startX - preX) * 2;
                     let endY = preY + (startY - preY) * 2;
-                    drawTick(startX, startY, endX, endY, 10, helper, 'start');
+                    drawTick(startX, startY, endX, endY, 10, helper, 'center');
                     if (!isNaN(point.type)) {
                         helper.textSymbol(startX + 7, startY + 5, getTextCfg(point));
                     }
@@ -112,7 +114,7 @@ function OverlayLineController($scope, $timeout, $element) {
                 }
                 let endX = transform(parseFloat(pointArr[pIdx + 1].x));
                 let endY = othorTransform(parseFloat(pointArr[pIdx + 1].y));
-                drawTick(startX, startY, endX, endY, 10, helper, 'start');
+                drawTick(startX, startY, endX, endY, 10, helper, 'center');
                 ctx.moveTo(startX, startY);
                 ctx.lineTo(endX, endY);
                 if (pIdx == 0) {
