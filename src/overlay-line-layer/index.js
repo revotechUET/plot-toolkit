@@ -30,7 +30,7 @@ function OverlayLineController($scope, $timeout, $element) {
         _canvas = $element.find('canvas')[0];
         return _canvas;
     }
-    function drawTick(startX, startY, endX, endY, length, helper, position) {
+    function drawTick(startX, startY, endX, endY, length, helper, position, options) {
         let fullLength = Math.sqrt((startX - endX)**2 + (startY - endY)**2);
         let factor = Math.ceil(fullLength / length);
         startX = startX - (endX - startX)/(factor * 2);
@@ -53,7 +53,7 @@ function OverlayLineController($scope, $timeout, $element) {
         rotate(point2);
         moveToOriginInv(point1, rotatePoint);
         moveToOriginInv(point2, rotatePoint);
-        helper.segment(point1, point2);
+        helper.segment(point1, point2, options);
         function moveToOrigin(point, center) {
             point.x -= center.x;
             point.y -= center.y;
@@ -80,7 +80,7 @@ function OverlayLineController($scope, $timeout, $element) {
         let penDefaultCfg = {
             size: 10,
             fillStyle: 'Yellow',
-            strokeStyle: 'Red',
+            strokeStyle: 'Green',
             strokeWidth: 2
         }
         let getTextCfg = (point) => ({
@@ -90,10 +90,13 @@ function OverlayLineController($scope, $timeout, $element) {
         }) 
         let helper = new CanvasHelper(ctx, penDefaultCfg);
         self.overlayLineSpec.lines.forEach(line => {
+            let fillStyle = line.color.replace('Dk', 'Dark') || getLineColor(line.names) || penDefaultCfg.strokeStyle;
+            let strokeStyle = line.color.replace('Dk', 'Dark') || getLineColor(line.names) || penDefaultCfg.strokeStyle;
+            let lineWidth = penDefaultCfg.strokeWidth;
             ctx.beginPath();
-            ctx.fillStyle = line.color.replace('Dk', 'Dark') || getLineColor(line.names) || penDefaultCfg.strokeStyle;
-            ctx.strokeStyle = line.color.replace('Dk', 'Dark') || getLineColor(line.names) || penDefaultCfg.strokeStyle;
-            ctx.lineWidth =  penDefaultCfg.strokeWidth;
+            ctx.fillStyle = fillStyle;
+            ctx.strokeStyle = strokeStyle;
+            ctx.lineWidth = lineWidth;
             line.data = line.data.filter(point => {
                 return point.x != '-' || point.y != '-';
             })
@@ -105,7 +108,7 @@ function OverlayLineController($scope, $timeout, $element) {
                     let preY = othorTransform(parseFloat(pointArr[pIdx - 1].y));
                     let endX = preX + (startX - preX) * 2;
                     let endY = preY + (startY - preY) * 2;
-                    drawTick(startX, startY, endX, endY, 10, helper, 'center');
+                    drawTick(startX, startY, endX, endY, 10, helper, 'center', {fillStyle, strokeStyle, lineWidth});
                     if (!isNaN(point.type)) {
                         helper.textSymbol(startX + 7, startY + 5, getTextCfg(point));
                     }
@@ -114,7 +117,7 @@ function OverlayLineController($scope, $timeout, $element) {
                 }
                 let endX = transform(parseFloat(pointArr[pIdx + 1].x));
                 let endY = othorTransform(parseFloat(pointArr[pIdx + 1].y));
-                drawTick(startX, startY, endX, endY, 10, helper, 'center');
+                drawTick(startX, startY, endX, endY, 10, helper, 'center', {fillStyle, strokeStyle, lineWidth});
                 ctx.moveTo(startX, startY);
                 ctx.lineTo(endX, endY);
                 if (pIdx == 0) {
