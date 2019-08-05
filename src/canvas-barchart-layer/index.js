@@ -40,6 +40,9 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
         $timeout(() => {
             self.bins = self.bins;
         })
+        $scope.$watch(() => self.colorFunc(), () => {
+            self.drawOptimized();
+        })
     }
     this.defaultBindings = function() {
         this.twoDBindings(this);
