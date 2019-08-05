@@ -33,15 +33,12 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
 
-    this.watchProperties = this.watchProperties.concat([ "binGap", "plotType" ]);
+    this.watchProperties = this.watchProperties.concat([ "binGap", "plotType", "colorFunc"]);
 
     this.$onInit = function() {
         this.doInit();
         $timeout(() => {
             self.bins = self.bins;
-        })
-        $scope.$watch(() => self.colorFunc(), () => {
-            self.drawOptimized();
         })
     }
     this.defaultBindings = function() {
