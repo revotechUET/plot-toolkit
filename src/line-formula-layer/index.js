@@ -84,14 +84,17 @@ function LFLayerController($scope, $timeout, $element) {
     function parseFormula(formula) {
         switch(formula.family) {
             case "linear":
+                formula.text = `${formula.slope} * x + ${formula.intercept}`;
                 return function(x) {
                     return formula.slope * x + formula.intercept;
                 }
             case "exponential":
+                formula.text = `${formula.ae} * Math.exp(${formula.b} * x)`;
                 return function(x) {
                     return formula.ae * Math.exp(formula.b*x);
                 }
             case "power":
+                formula.text = `${formula.coefficient} * (x ** ${formula.exponent})`;
                 return function(x) {
                     return formula.coefficient * (x ** formula.exponent);
                 }
