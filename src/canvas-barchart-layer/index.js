@@ -84,7 +84,7 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
                 canvasPlot(self.bins[i], helper, stacks);
                 for (let j = 0; j < self.bins[i].length; j++){
                     stacks[j] = stacks[j] || 0;
-                    stacks[j] += self.bins[i][j].length;
+                    stacks[j] += self.plotType !== 'percentage' ? self.bins[i][j].length : self.bins[i][j].length * 100 / _.sum(self.bins.flat().map(bin => bin.length));
                 }
             }
         }
@@ -113,7 +113,7 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
         if (self.minVal > self.maxVal) {
             x = x - self.binWidth(bin, binIdx) - self.binGap;
         }
-        let y = orthoTransform((self.plotType !== 'percentage' ? bin.length : bin.length * 100 / _.sum(bins.map(bin => bin.length))) + stackLevel);
+        let y = orthoTransform((self.plotType !== 'percentage' ? bin.length : bin.length * 100 / _.sum(self.bins.flat().map(bin => bin.length))) + stackLevel);
         return { x:x, y:y };
     }
     this.binWidth = function(bin, binIdx) {
@@ -123,7 +123,7 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
     }
     this.binHeight = function(bin, binIdx, bins) {
         let orthoTransform = this.getOrthoTransform();
-        let y = self.plotType !== 'percentage' ? bin.length : bin.length * 100 / _.sum(bins.map(bin => bin.length));
+        let y = self.plotType !== 'percentage' ? bin.length : bin.length * 100 / _.sum(self.bins.flat().map(bin => bin.length));
         let height = this.contentHeight() - orthoTransform(y);
         return height;
     }
