@@ -22,7 +22,8 @@ angular.module(moduleName).component(name, component({
         setMarkerValue: "<",
         getMarkerName: "<",
         orderFree: "<",
-        notUseBackground: '<'
+        notUseBackground: '<',
+        onMarkerDragEnd: "<"
     }
 }));
 function ControlMarkerLayerController($timeout, $element, $scope ) {
@@ -84,6 +85,7 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
         }
     }
     this.dragEnd = function($event) {
+        self.onMarkerDragEnd && self.onMarkerDragEnd();
         this.markers.forEach((m) => {
             m.dragging = false;
             delete m.startX;
