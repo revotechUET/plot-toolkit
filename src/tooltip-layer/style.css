@@ -1,0 +1,10 @@
+tooltip-layer svg 
+{
+    pointer-events: all;
+}
+tooltip-layer div.status
+{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

@@ -118,6 +118,7 @@ function InteractiveLayerController($timeout, $element, $scope) {
         startX = $event.offsetX;
         startY = $event.offsetY;
     }
+    let invertX, invertY;
     this.mouseMoveNoDragging = function($event) {
         //$event.stopPropagation();
         //$event.preventDefault();
@@ -125,6 +126,8 @@ function InteractiveLayerController($timeout, $element, $scope) {
         let transformY = this.getOrthoTransform();
         let x = $event.offsetX;
         let y = $event.offsetY;
+        invertX = transformX.invert(x);
+        invertY = transformY.invert(y);
         this.editPointIdx = null;
         let result = findClosest({x,y}, this.points, transformX, transformY);
         if (result.distance < 10) {
@@ -138,6 +141,8 @@ function InteractiveLayerController($timeout, $element, $scope) {
         this.shiftKey = $event.shiftKey;
         this.altKey = $event.altKey;
         dragging = false;
+        invertX = undefined;
+        invertY = undefined;
     }
     this.vertexOffset = function(p, index, points) {
         let transformX = this.getTransform();
@@ -205,6 +210,11 @@ function InteractiveLayerController($timeout, $element, $scope) {
             let p = this.points[this.editPointIdx];
             return `X:${bestNumberFormat(self.getXFn(p, this.editPointIdx, this.points))}
             Y:${bestNumberFormat(self.getYFn(p, this.editPointIdx, this.points))}`
+        } else {
+            if (!invertX || !invertY)
+                return '';
+            return `X:${bestNumberFormat(invertX)}
+            Y:${bestNumberFormat(invertY)}`;
         }
     }
     this.distance = distance;

@@ -1,0 +1,9 @@
+<div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;">
+<svg style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.bottomPadding() + self.topPadding()}}px)"
+    ng-mouseleave="self.onMouseLeave($event)"
+    ng-mouseup="self.onMouseUp($event)"
+    ng-mousedown="self.onMouseDown($event)"
+    ng-mousemove="self.onMouseMove($event)">
+</svg>
+<div class="status" ng-bind="self.getCoordinates()" ng-style=""></div>
+</div>
