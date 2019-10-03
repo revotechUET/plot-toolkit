@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>test wi-barchart</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="../bower_components/katex/dist/katex.min.css">
+        <link rel="stylesheet" type="text/css" href="../bower_components/themify-icons/css/themify-icons.css">
+        <link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/jquery-ui.min.css">
+        <script type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js'></script>
+        <script type='text/javascript' src='../bower_components/jquery/dist/jquery.min.js'></script>
+        <script type='text/javascript' src='../bower_components/jquery-ui/jquery-ui.min.js'></script>
+        <script src="../bower_components/d3/d3.min.js"></script>
+        <script src="../bower_components/katex/dist/katex.min.js"></script>
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../bower_components/clipboard/dist/clipboard.min.js"></script>
+        <script src="../bower_components/ngclipboard/dist/ngclipboard.min.js"></script>
+        <script src="../dist/library/library.dll.js"></script>
+        <script src="../dist/plot-toolkit.js"></script>
+    </head>
+    <body ng-app='myApp' ng-controller="myController">
+        <div>
+            <button ng-click="incRow()">+ Row</button>
+            <button ng-click="decRow()">- Row</button>
+            <button ng-click="incCol()">+ Col</button>
+            <button ng-click="decCol()">- Col</button>
+            <button ng-click="logX()">Log X</button>
+            <button ng-click="logY()">Log Y</button>
+        </div>
+        <div>{{nRow}} rows, {{nCol}} cols</div>
+        <div class='wi-barchart-container' style="position:relative;display:flex;">
+            <layer-collection l-padding="45" b-padding='25' r-padding="45">
+                <axis-layer
+                    min-val='2000' max-val='5000'
+                    n-ticks='6'
+                    grid='0' loga='logaX' placement="1"
+                    precision='0' minor-ticks="1">
+                </axis-layer>
+                <axis-layer min-val='4000' max-val="1000"
+                    n-ticks='6' axis-direction="'up'"
+                    grid='0' loga='logaY' placement="0"
+                    precision='1' minor-ticks="1">
+                </axis-layer>
+                <heat-map
+                    min-val="2000" max-val="5000" 
+                    min-y="4000" max-y="1000" 
+                    loga="logaX" ortho-loga="logaY"
+                    n-row="nRow" n-col="nCol" cell-value-fn="cellValueFn" cell-color-fn="cellColorFn">
+                </heat-map>
+                <scatter-layer
+                    min-val="2000" max-val="5000" 
+                    min-y="4000" max-y="1000" 
+                    loga="logaX" ortho-loga="logaY"
+                    my-data-x="dataX" my-data-y="dataY" 
+                    symbol="'circle'" 
+                    symbol-size="10 + pointSize" 
+                    symbol-fill-style="'red'" 
+                    symbol-stroke-style="'black'">
+                </scatter-layer>
+            </layer-collection>
+        </div>
+        <script>
+            $(".wi-barchart-container").resizable({
+                handles: "s"
+            });
+var app = angular.module('myApp', ['plot-toolkit']);
+
+app.controller('myController', function($scope) {
+    $scope.maxY = 10;
+    $scope.nRow = 5;
+    $scope.nCol = 7;
+    $scope.dataX = [2800, 2803.6089, 2815.0755, 2826.3419, 2842.8773, 2853.3432, 2909.5604, 2911.5289, 2942.9757,1857.2, 1931.7, 1934.2, 1969.7, 1997.7, 2027.7, 2053.2, 2968.6975, 3012.0046, 3047.979, 3051.1286, 2999.98, 3000.48, 3002.69, 3011.95, 3019.65, 3036.42, 3038.99, 3040.1, 3042.84, 3047.86, 3052.74, 3067.96, 3081.52, 4000, 4000.6562, 4004.3471, 4005.1837, 4017.5853, 4021.1942, 4023.458, 4026.2139, 4251.6568, 4260.8432, 4327.2474, 4335.712, 4367.208, 4371.3091, 4385.6431];
+    $scope.dataY = [1760.2, 1771.2, 1794.5, 1814.7, 1842.7, 1857.2, 1931.7, 1934.2, 1969.7, 1997.7, 2027.7, 2053.2, 2055.2, 2081.39, 2081.7, 2083.91, 2090.9, 2094.94, 2968.6975, 3012.0046, 3047.979, 3051.1286, 2999.98, 2105.43, 3002.69, 2107.92, 2108.95, 2110.95, 2113.45, 2120.42, 2131.42, 2140.91, 3004, 3006, 3013.5, 3015, 3036, 3041, 3044, 3047.5, 3302, 3312, 3358, 3364, 3384, 3386.5, 3395];
+    $scope.logaX = 0;
+    $scope.logaY = 0;
+    const stepX = 3000/$scope.nCol;
+    const stepY = 3000/$scope.nRow;
+    const binsXGen = d3.histogram().domain([2000, 5000]).thresholds(d3.range(2000, 5000, stepX));
+    const binsYGen = d3.histogram().domain([1000, 4000]).thresholds(d3.range(1000, 4000, stepY));
+    let binsX = binsXGen($scope.dataX);
+    let binsY = binsYGen($scope.dataY);
+    $scope.incRow = function() {
+        $scope.nRow++;
+        binsYGen.thresholds(d3.range(1000, 4000, 3000 / $scope.nRow));
+        binsY = binsYGen($scope.dataY);
+    }
+    $scope.decRow = function() {
+        $scope.nRow--;
+        binsYGen.thresholds(d3.range(1000, 4000, 3000 / $scope.nRow));
+        binsY = binsYGen($scope.dataY);
+    }
+    $scope.incCol = function() {
+        $scope.nCol++;
+        binsXGen.thresholds(d3.range(2000, 5000, 3000 / $scope.nCol));
+        binsX = binsXGen($scope.dataX);
+    }
+    $scope.decCol = function() {
+        $scope.nCol--;
+        binsXGen.thresholds(d3.range(2000, 5000, 3000 / $scope.nCol));
+        binsX = binsXGen($scope.dataX);
+    }
+    $scope.cellValueFn = (cellIndex, iRow, iCol) => {
+        const xBin = isReverse(2000, 5000) ? binsX[$scope.nCol - 1 - iCol]:binsX[iCol];
+        const yBin = isReverse(4000, 1000) ? binsY[$scope.nRow - 1 - iRow]:binsY[iRow];
+        if (!xBin) return yBin ? yBin.length / totalBins(binsX) : 0;
+        if (!yBin) return xBin ? xBin.length / totalBins(binsY) : 0;
+        const xPercent = xBin.length / totalBins(binsX);
+        const yPercent = yBin.length / totalBins(binsY);
+        // return `${xPercent.toFixed(2)}, ${yPercent.toFixed(2)}`;
+        // return (xPercent * yPercent) / ((xPercent - yPercent) ** 2);
+        return d3.mean([xPercent, yPercent]).toFixed(2);
+    }
+    const colorScale = d3.scaleLinear().domain([0, 1]).range(["lightblue", "blue"]);
+    $scope.cellColorFn = (cellIndex, iRow, iCol) => {
+        const percent = $scope.cellValueFn(cellIndex, iRow, iCol);
+        return colorScale(percent);
+    }
+    function totalBins(bins) {
+        return _.sum(bins.map(bin => bin.length));
+    }
+    function isReverse(min, max) {
+        return min - max > 0;
+    }
+    $scope.logX = () => {$scope.logaX = !$scope.logaX}
+    $scope.logY = () => {$scope.logaY = !$scope.logaY}
+});
+        </script>
+    </body>
+</html>

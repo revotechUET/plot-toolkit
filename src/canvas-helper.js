@@ -72,6 +72,7 @@ CanvasHelper.prototype.textSymbol = function (x, y, opts = {}) {
     this.ctx.save();
     this.ctx.font = `${s}px ${opts.fontFamily || 'Verdana'}`;
     this.ctx.textBaseline = opts.verticalAlign || 'top';
+    this.ctx.textAlign = opts.textAlign || 'start';
     this.ctx.fillStyle = opts.fillStyle || this.fillStyle;
     this.ctx.fillText(opts.textContent, x, y);
     this.ctx.restore();

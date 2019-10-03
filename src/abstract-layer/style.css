@@ -12,7 +12,9 @@ segment-layer svg,
 click-layer svg,
 barchart-layer svg,
 overlay-line-layer canvas,
-canvas-barchart-layer canvas
+canvas-barchart-layer canvas,
+heat-map canvas,
+curve-view-layer canvas
 {
     position: absolute;
     top:0;
@@ -34,7 +36,9 @@ segment-layer, segment-layer > div,
 click-layer, click-layer > div,
 barchart-layer, barchart-layer > div,
 overlay-line-layer, overlay-line-layer > div,
-canvas-barchart-layer, barchart-layer > div 
+canvas-barchart-layer, barchart-layer > div, 
+heat-map > div,
+curve-view-layer > div
 {
     flex:1;
     display: flex;
@@ -53,7 +57,9 @@ segment-layer,
 click-layer,
 barchart-layer,
 overlay-line-layer,
-canvas-barchart-layer
+canvas-barchart-layer,
+heat-map,
+curve-view-layer
 {
     position:static !important;
     pointer-events:none;

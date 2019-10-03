@@ -14,8 +14,10 @@ module.exports = {
     ClickLayer : require('./click-layer'),
     PolygonLayer : require('./polygon-layer'),
     OverlayLineLayer: require('./overlay-line-layer'),
-    TooltipLayer: require('./tooltip-layer')
-	//,
+    TooltipLayer: require('./tooltip-layer'),
+    heatMap: require('./heat-map'),
+    curveViewLayer: require('./curve-view-layer')
+// 	,
 //    LayerWrapper : require('./layer-wrapper'),
 //    LayerArray : require('./layer-array')
 }
