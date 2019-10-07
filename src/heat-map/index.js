@@ -18,6 +18,7 @@ function buildComponent(componentData) {
         nCol: "<",
         cellColorFn: "<",
         cellValueFn: "<",
+        updateTrigger: "<",
         ...componentData.bindings
     }
     return component(componentData);
@@ -28,7 +29,7 @@ angular.module(moduleName)
 function heatMapController($timeout, $element, $scope) {
     const self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
-    this.watchProperties = this.watchProperties.concat(["nRow", "nCol", "cellColorFn", "cellValueFn"]);
+    this.watchProperties = this.watchProperties.concat(["nRow", "nCol", "cellColorFn", "cellValueFn", "updateTrigger"]);
     this.$onInit = function() {
         this.doInit();
     }

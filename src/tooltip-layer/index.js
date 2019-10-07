@@ -14,7 +14,10 @@ angular.module(moduleName)
     .component(name, component({
         controller: TooltipLayerController,
         template: require('./template.html'),
-        bindings: {}
+        bindings: {
+            frequencyXFn: '<',
+            frequencyYFn: '<'
+        }
     }));
 
 function TooltipLayerController($timeout, $element, $scope) {
@@ -49,5 +52,11 @@ function TooltipLayerController($timeout, $element, $scope) {
             return '';
         return `X: ${invertX ? bestNumberFormat(invertX) : 0}
         Y:${invertY ? bestNumberFormat(invertY) : 0}`;
+    }
+    this.getFrequencyX = function() {
+        return self.frequencyXFn(invertX ? bestNumberFormat(invertX) : 0);
+    }
+    this.getFrequencyY = function() {
+        return self.frequencyYFn(invertY ? bestNumberFormat(invertY) : 0);
     }
 }

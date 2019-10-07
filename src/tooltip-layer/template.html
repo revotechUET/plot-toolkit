@@ -5,5 +5,9 @@
     ng-mousedown="self.onMouseDown($event)"
     ng-mousemove="self.onMouseMove($event)">
 </svg>
-<div class="status" ng-bind="self.getCoordinates()" ng-style=""></div>
+<div class="status" ng-bind="self.getCoordinates()" style=""></div>
+<div style="position: absolute; bottom: -5px; left: 15px;">
+    <div class="" ng-bind="self.getFrequencyX()" ng-style=""></div>
+    <div class="" ng-bind="self.getFrequencyY()" ng-style=""></div>
+</div>
 </div>
