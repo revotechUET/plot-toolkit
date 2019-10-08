@@ -54,9 +54,13 @@ function TooltipLayerController($timeout, $element, $scope) {
         Y:${invertY ? bestNumberFormat(invertY) : 0}`;
     }
     this.getFrequencyX = function() {
+        if (!invertX || !invertY)
+            return '';
         return self.frequencyXFn(invertX ? bestNumberFormat(invertX) : 0);
     }
     this.getFrequencyY = function() {
+        if (!invertX || !invertY)
+            return '';
         return self.frequencyYFn(invertY ? bestNumberFormat(invertY) : 0);
     }
 }
