@@ -70,6 +70,18 @@ function parseFormulaLatex(formula) {
         case "power":
             latex = `y = ${bestNumberFormat(formula.coefficient, 4)} \\times x^\{${bestNumberFormat(formula.exponent, 4)}\}; R^2=${bestNumberFormat(formula.r2, 4)}`;
             break;
+        case "polynomial":
+            let order = formula.equation.length - 1;
+            latex += `y =`;
+            formula.equation.forEach((eq, idx) => {
+                if (eq == 0) return;
+                let toConcat = !idx ? '' : (eq > 0 ? ' +' : '');
+                let up = order - idx;
+                toConcat += up ? ` ${eq}x${up < 2 ? `` : `^\{${up}\}`}` : ` ${eq}`;
+                latex += toConcat;
+            })
+            latex += `; R^2=${bestNumberFormat(formula.r2, 4)}`;
+            break;
         case "mse":
             latex = `MSE = ${bestNumberFormat(formula.mse, 4)}`;
             break;

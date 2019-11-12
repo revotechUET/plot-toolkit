@@ -98,6 +98,10 @@ function LFLayerController($scope, $timeout, $element) {
                 return function(x) {
                     return formula.coefficient * (x ** formula.exponent);
                 }
+            case "polynomial":
+                return function(x) {
+                    return formula.predict(x)[1];
+                }
             case "pickett":
                 return function(x) {
                     //let result = Math.pow(10, (-formula.m) * (Math.log10(x) - Math.log10(formula.a*formula.rw) - Math.log10(1 / (formula.sw ** formula.n))));
