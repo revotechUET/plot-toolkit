@@ -16,7 +16,12 @@ module.exports = {
     OverlayLineLayer: require('./overlay-line-layer'),
     TooltipLayer: require('./tooltip-layer'),
     heatMap: require('./heat-map'),
-    curveViewLayer: require('./curve-view-layer')
+    curveViewLayer: require('./curve-view-layer'),
+    RGraph: {
+        core: require('../vendor/RGraph.common.core'),
+        rose: require('../vendor/RGraph.rose'),
+        rscatter: require('../vendor/RGraph.rscatter')
+    }
 // 	,
 //    LayerWrapper : require('./layer-wrapper'),
 //    LayerArray : require('./layer-array')
