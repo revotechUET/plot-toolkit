@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "webpack -w --config webpack.local.js",
-    "postinstall": "bower update -F"
+    "start:dev": "webpack -w --config webpack.local.js"
   },
   "author": "",
   "license": "ISC",
