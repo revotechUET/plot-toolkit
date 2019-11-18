@@ -42,7 +42,8 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
                 tickmarks: self.tickmarks || 'circle',
                 tickmarksSize: self.tickmarksSize || 10,
                 labelsAxesCount: self.rscatterLabelsAxesCount || 0,
-                backgroundGridCirclesCount: self.rscatterBackgroundGridCirclesCount || 0
+                backgroundGridCirclesCount: self.rscatterBackgroundGridCirclesCount || 0,
+                scaleMax: self.scaleMax
             }
         }
     }
