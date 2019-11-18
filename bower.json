@@ -17,7 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "d3": "4",
+    "d3": "5.14.1",
     "jquery-ui": "^1.12.1",
     "katex": "^0.10.1",
     "ngclipboard": "^2.0.0",
