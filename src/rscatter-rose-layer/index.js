@@ -16,6 +16,7 @@ angular.module(moduleName).component(name, component({
         rscatterData: '<',
         tickmarks: '<',
         tickmarksSize: '<',
+        rscatterLabelsAxesCount: '<',
         rscatterBackgroundGridCirclesCount: '<'
     }
 }));
@@ -40,6 +41,7 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
                 labelsAxes: 'n',
                 tickmarks: self.tickmarks || 'circle',
                 tickmarksSize: self.tickmarksSize || 10,
+                labelsAxesCount: self.rscatterLabelsAxesCount || 0,
                 backgroundGridCirclesCount: self.rscatterBackgroundGridCirclesCount || 0
             }
         }
