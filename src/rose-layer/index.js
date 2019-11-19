@@ -37,7 +37,6 @@ angular.module(moduleName).component(name, component());
 
 function RoseLayerController($scope, $element, $timeout) {
     let self = this;
-    this.canvasId = this.plotId || 'cvs';
 
     this.watchProperties = [
         'roseData',
@@ -72,7 +71,7 @@ function RoseLayerController($scope, $element, $timeout) {
 
     function getRoseCfg() {
         return {
-            id: self.canvasId,
+            id: getPlotId(),
             data: self.roseData || [],
             options: {
                 colors: self.roseColors || [],
@@ -97,9 +96,14 @@ function RoseLayerController($scope, $element, $timeout) {
     this.redraw = function()  {
         if (!self.roseData || !self.roseData.length) return;
         $timeout(() => {
-            RGraph.clear(document.getElementById(self.canvasId));
+            RGraph.clear(document.getElementById(getPlotId()));
             self.rose = new RGraph.Rose(getRoseCfg());
             self.rose.draw();
         })
+    }
+
+    this.getPlotId = getPlotId;
+    function getPlotId() {
+        return self.plotId || 'cvs';
     }
 }

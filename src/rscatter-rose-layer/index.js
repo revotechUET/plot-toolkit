@@ -36,7 +36,7 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
 
     function getRscatterCfg() {
         return {
-            id: self.canvasId,
+            id: self.getPlotId(),
             data: self.rscatterData || [],
             options: {
                 labelsAxes: 'n',
