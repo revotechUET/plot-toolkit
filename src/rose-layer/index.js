@@ -87,7 +87,7 @@ function RoseLayerController($scope, $element, $timeout) {
                 labelsAxesCount: self.labelsAxesCount || 3,
                 colorStroke: self.colorStroke || 'transprent',
                 labelsPosition: self.labelsPosition || 'edge',
-                scaleMax: self.scaleMax || 10,
+                scaleMax: self.scaleMax || null,
                 scaleDecimals: self.scaleDecimals || 1,
                 backgroundGridCirclesCount: self.backgroundGridCirclesCount || 3
             }
