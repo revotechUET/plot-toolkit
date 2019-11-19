@@ -7,9 +7,6 @@ var AbstractLayer = require('../rose-layer');
 var AbstractLayerController = AbstractLayer.klass;
 var component = AbstractLayer.component;
 
-var isFinite = require("lodash").isFinite;
-
-var CanvasHelper = require('../canvas-helper');
 angular.module(moduleName).component(name, component({
     controller: RscatterRoseLayerController, 
     bindings: {
@@ -26,7 +23,11 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
     AbstractLayerController.call(this, $scope, $element, $timeout);
 
     this.watchProperties = this.watchProperties.concat([
-        'rscatterData'
+        'rscatterData',
+        'tickmarks',
+        'tickmarksSize',
+        'rscatterLabelsAxesCount',
+        'rscatterBackgroundGridCirclesCount'
     ]);
 
     this.$onInit = function() {

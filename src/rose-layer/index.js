@@ -12,6 +12,7 @@ function component(componentData = {}) {
         controllerAs: componentData.controllerAs || 'self',
         template: componentData.template || require('./template.html'),
         bindings: {
+            plotId: '<',
             roseData: '<',
             roseColors: '<',
             labels: '<',
@@ -36,7 +37,7 @@ angular.module(moduleName).component(name, component());
 
 function RoseLayerController($scope, $element, $timeout) {
     let self = this;
-    this.canvasId = 'cvs';
+    this.canvasId = this.plotId || 'cvs';
 
     this.watchProperties = [
         'roseData',
