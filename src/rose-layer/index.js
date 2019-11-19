@@ -96,10 +96,9 @@ function RoseLayerController($scope, $element, $timeout) {
 
     this.redraw = function()  {
         if (!self.roseData || !self.roseData.length) return;
-        if (!document.getElementById(self.canvasId)) return;
-        RGraph.clear(document.getElementById(self.canvasId));
-        self.rose = new RGraph.Rose(getRoseCfg());
         $timeout(() => {
+            RGraph.clear(document.getElementById(self.canvasId));
+            self.rose = new RGraph.Rose(getRoseCfg());
             self.rose.draw();
         })
     }
