@@ -23,6 +23,8 @@
     "css-loader": "^2.1.0",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-loader": "^0.5.5",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
     "style-loader": "^0.23.1",
     "webpack-cli": "^3.3.9"
   }

@@ -25,12 +25,11 @@
         <div>PlotInfo</div>
         <div class='rose-container' style="position:relative;display:flex;">
             <layer-collection l-padding="45" b-padding='25' r-padding="45">
-                <!--<rose-layer rose-data="roseData" cvs-width="600" cvs-height="400"/>-->
                 <rscatter-rose-layer plot-id="'cvs'" rscatter-data="rscatterData" rose-data="roseData"
                     tickmarks="'circle'" tickmarksSize="10" cvs-width="600" cvs-height="400"
-                    rose-colors="roseColors" labelsPosition="'edge'" tooltips='true'
+                    labelsPosition="'edge'" tooltips='true'
                     labels="labels" labels-axes-count="3" labels-axes-color="'blue'"
-                    arc-margin="0" scale-max="20" scale-decimals="1" show-axes="false"
+                    arc-margin="0" scale-decimals="1" show-axes="false"
                     background-grid-circles-count="3"
                 />
             </layer-collection>
@@ -49,10 +48,10 @@ app.controller('myController', function($scope) {
         [-33, 10, 'green']
     ]
     $scope.roseData = [
-        [4, 5, 8],
-        [1, 3, 5],
-        [2, 6, 8],
-        [4, 2, 2]
+        [13, 25, 18],
+        [10, 13, 23],
+        [25, 26, 18],
+        [14, 12, 20],
     ] 
     $scope.changeRscatterData = function() {
         $scope.rscatterData = [

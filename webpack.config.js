@@ -17,6 +17,10 @@ module.exports = {
         }, {
             test: /\.html$/,
             use: ['html-loader']
+        }, {
+            test: /\.less$/,
+            use: ['style-loader', 'css-loader', 'less-loader']
+
         }]
     },
     plugins: [

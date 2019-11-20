@@ -1,3 +1,4 @@
+require('./style.less');
 const moduleName = 'plot-toolkit';
 const name = "rscatterRoseLayer";
 module.exports.name = name;
@@ -39,12 +40,14 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
             id: self.getPlotId(),
             data: self.rscatterData || [],
             options: {
-                labelsAxes: 'n',
+                labelsAxes: '',
                 tickmarks: self.tickmarks || 'circle',
                 tickmarksSize: self.tickmarksSize || 10,
                 labelsAxesCount: self.rscatterLabelsAxesCount || 0,
                 backgroundGridCirclesCount: self.rscatterBackgroundGridCirclesCount || 0,
-                scaleMax: self.scaleMax
+				scaleMax: self.scaleMax || 90,
+				scaleMin: self.scaleMin || 0,
+				scaleDecimals: self.scaleDecimals || null
             }
         }
     }

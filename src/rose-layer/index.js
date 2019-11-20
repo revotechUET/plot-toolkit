@@ -1,3 +1,4 @@
+require('./style.less');
 const moduleName = 'plot-toolkit';
 const name = "roseLayer";
 module.exports = {
@@ -13,21 +14,24 @@ function component(componentData = {}) {
         template: componentData.template || require('./template.html'),
         bindings: {
             plotId: '<',
-            roseData: '<',
-            roseColors: '<',
-            labels: '<',
-            labelsPosition: '<',
-            tooltips: '<',
-            labelsAxesColor: '<',
-            labelsAxesCount: '<',
-            colorStroke: '<',
-            showAxes: '<',
-            arcMargin: '<',
-            scaleMax: '<',
-            scaleDecimals: '<',
-            backgroundGridCirclesCount: '<',
             cvsWidth: '<',
             cvsHeight: '<',
+            roseData: '<',
+            showAxes: '<',
+            backgroundGrid: '<',
+            backgroundGridCirclesCount: '<',
+            roseColors: '<',
+            colorsStroke: '<',
+            arcMargin: '<',
+            labels: '<',
+            labelsPosition: '<',
+            labelsAxesColor: '<',
+            labelsAxesCount: '<',
+            textAccessible: '<',
+            tooltips: '<',
+            scaleMax: '<',
+            scaleMin: '<',
+            scaleDecimals: '<',
             ...((componentData || {}).bindings || {})
         }
     }
@@ -40,18 +44,21 @@ function RoseLayerController($scope, $element, $timeout) {
 
     this.watchProperties = [
         'roseData',
+        'showAxes',
+        'backgroundGrid',
+        'backgroundGridCirclesCount',
         'roseColors',
+        'colorsStroke',
+        'arcMargin',
         'labels',
         'labelsPosition',
-        'tooltips',
         'labelsAxesColor',
         'labelsAxesCount',
-        'colorStroke',
-        'showAxes',
-        'arcMargin',
+        'textAccessible',
+        'tooltips',
         'scaleMax',
-        'scaleDecimals',
-        'backgroundGridCirclesCount'
+        'scaleMin',
+        'scaleDecimals'
     ]
     this.activateWatch = function() {
         $scope.$watch(function() {
@@ -73,23 +80,23 @@ function RoseLayerController($scope, $element, $timeout) {
         return {
             id: getPlotId(),
             data: self.roseData || [],
-            options: {
-                colors: self.roseColors || [],
-                gutterBottom: 35,
-                margin: self.arcMargin || 0,
-                labels: self.labels || [],
-                labelsAxes: 'n',
-                textAccessible: false,
-                tooltips: self.tooltips || false,
-                axes: self.showAxes || false,
-                labelsAxesColor: self.labelsAxesColor || 'red',
-                labelsAxesCount: self.labelsAxesCount || 3,
-                colorStroke: self.colorStroke || 'transprent',
-                labelsPosition: self.labelsPosition || 'edge',
-                scaleMax: self.scaleMax || null,
-                scaleDecimals: self.scaleDecimals || 1,
-                backgroundGridCirclesCount: self.backgroundGridCirclesCount || 3
-            }
+			options: {
+				axes: self.showAxes || false,
+                backgroundGrid: self.backgroundGrid != undefined ? self.backgroundGrid : true,
+                backgroundGridCirclesCount: self.backgroundGridCirclesCount || 3,
+				colors: self.roseColors || ['rgba(255,0,0,0.5)', 'rgba(255,255,0,0.5)', 'rgba(0,255,255,0.5)', 'rgb(0,255,0)', 'gray', 'blue', 'rgb(255,128,255)', 'green', 'pink', 'gray', 'aqua'],
+				colorsStroke: self.colorsStroke || 'black',
+				margin: self.arcMargin || 0,
+				labels: self.labels || null,
+				labelsPosition: self.labelsPosition || 'center',
+				labelsAxesColor: self.labelsAxesColor || null,
+				labelsAxesCount: self.labelsAxesCount || 3,
+                textAccessible: self.textAccessible != undefined ? self.textAccessible : true,
+				tooltips: self.tooltips || null,
+				scaleMax: self.scaleMax || 90,
+				scaleMin: self.scaleMin || 0,
+				scaleDecimals: self.scaleDecimals || null
+			}
         }
     }
 
