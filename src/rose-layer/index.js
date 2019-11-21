@@ -129,7 +129,7 @@ function RoseLayerController($scope, $element, $timeout) {
 				labelsPosition: self.labelsPosition || 'center',
 				labelsAxesColor: self.labelsAxesColor || null,
 				labelsAxesCount: self.labelsAxesCount || 3,
-                labelsAxes: self.labelsAxes || 'n',
+                labelsAxes: self.labelsAxes != undefined ? self.labelsAxes : 'n',
                 textAccessible: self.textAccessible != undefined ? self.textAccessible : true,
 				tooltips: self.tooltips || null,
 				scaleMax: self.scaleMax || null,
@@ -142,7 +142,9 @@ function RoseLayerController($scope, $element, $timeout) {
     this.draw = function()  {
         if (!self.roseData || !self.roseData.length) return;
         $timeout(() => {
-            RGraph.clear(document.getElementById(getPlotId()));
+            if (document.getElementById(getPlotId())) {
+                RGraph.clear(document.getElementById(getPlotId()));
+            }
             self.rose = new RGraph.Rose(getRoseCfg());
             self.rose.draw();
         })

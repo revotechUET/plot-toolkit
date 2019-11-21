@@ -46,11 +46,11 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
             id: self.getPlotId(),
             data: self.rscatterData || [],
             options: {
-                labelsAxes: self.rscatterLabelsAxes || '',
+                labelsAxes: self.rscatterLabelsAxes != undefined ? self.rscatterLabelsAxes : '',
                 tickmarks: self.tickmarks || 'circle',
                 tickmarksSize: self.tickmarksSize || 10,
-                labelsAxesCount: self.rscatterLabelsAxesCount || 0,
-                backgroundGridCirclesCount: self.rscatterBackgroundGridCirclesCount || 0,
+                labelsAxesCount: self.rscatterLabelsAxesCount || 3,
+                backgroundGridCirclesCount: self.rscatterBackgroundGridCirclesCount || 3,
 				scaleMax: self.rscatterScaleMax || null,
 				scaleMin: self.rscatterScaleMin || 0,
 				scaleDecimals: self.scaleDecimals || null
