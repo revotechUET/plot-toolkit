@@ -6,6 +6,23 @@ module.exports = {
     component: component,
     klass: RoseLayerController
 }
+let ResizeSensor = require('resize-sensor');
+if (window.ResizeObserver) {
+    // chrome only
+    ResizeSensor = resizeSensor;
+    function resizeSensor(element = document, callback = () => { }) {
+        if (element instanceof $) element = element[0];
+        this.element = element;
+        this.callback = () => setTimeout(callback);
+
+        this.resizeObserver = new ResizeObserver(this.callback)
+        this.resizeObserver.observe(this.element);
+        return this;
+    }
+    resizeSensor.prototype.detach = function () {
+        this.resizeObserver.unobserve(this.element);
+    }
+}
 
 function component(componentData = {}) {
     return {
@@ -64,16 +81,35 @@ function RoseLayerController($scope, $element, $timeout) {
         $scope.$watch(function() {
             return self.watchProperties.map((prop) => (self[prop]));
         }, function() {
-            self.redraw();
+            self.draw();
         }, true);
+
+        $scope.$watch(function() {
+            return `${self.getCvsWidth()}-${self.getCvsHeight()}`;
+        }, function() {
+            self.draw();
+        });
     }
     this.doInit = function() {
-        self.cvsWidth = self.cvsWidth || 600;
-        self.cvsHeight = self.cvsHeight || 400;
+        let holder = $element.first();
+        new ResizeSensor(holder[0], function() {
+            self.draw();
+        });
         self.activateWatch();
     }
     this.$onInit = function() {
         self.doInit();
+    }
+
+    this.getCvsWidth = function() {
+        if (self.cvsWidth) return self.cvsWidth;
+        let parentElemWidth = $element.find(`#${getPlotId()}_rgraph_domtext_wrapper`).parent().width();
+        return parentElemWidth || 600;
+    }
+    this.getCvsHeight = function() {
+        if (self.cvsHeight) return self.cvsHeight;
+        let parentElemHeight = $element.find(`#${getPlotId()}_rgraph_domtext_wrapper`).parent().height();
+        return parentElemHeight || 400;
     }
 
     function getRoseCfg() {
@@ -93,14 +129,14 @@ function RoseLayerController($scope, $element, $timeout) {
 				labelsAxesCount: self.labelsAxesCount || 3,
                 textAccessible: self.textAccessible != undefined ? self.textAccessible : true,
 				tooltips: self.tooltips || null,
-				scaleMax: self.scaleMax || 90,
+				scaleMax: self.scaleMax || null,
 				scaleMin: self.scaleMin || 0,
 				scaleDecimals: self.scaleDecimals || null
 			}
         }
     }
 
-    this.redraw = function()  {
+    this.draw = function()  {
         if (!self.roseData || !self.roseData.length) return;
         $timeout(() => {
             RGraph.clear(document.getElementById(getPlotId()));

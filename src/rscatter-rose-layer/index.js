@@ -52,9 +52,9 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
         }
     }
 
-    this.parentRedraw = this.redraw;
-    this.redraw = function() {
-        self.parentRedraw.call(this);
+    this.parentDraw = this.draw;
+    this.draw = function() {
+        self.parentDraw.call(this);
         if (!self.rscatterData || !self.rscatterData.length) return;
         $timeout(() => {
             self.scatter = new RGraph.RScatter(getRscatterCfg());

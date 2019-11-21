@@ -36,34 +36,34 @@
                     grid='1' loga='0' placement="0"
                     precision='1' minor-ticks="1">
                 </axis-layer>
-                <line-formula-layer
-                    min-val='0.1' max-val="10" min-y="0.01" max-y="maxY" ortho-loga="1" loga="0"
-                    formula="{family:'linear', slope:0.5, intercept:-0.5}"
-                    eqn-offsets="['50px', '0%']"
-                    line-color="'red'">
-                </line-formula-layer>
-                <line-formula-layer
-                    min-val='0.01' max-val="10" min-y="0.1" max-y="maxY" ortho-loga="0" loga="0"
-                    formula="{family:'exponential', ae:0.1, b:0.5}"
-                    show-equation="1"
-                    eqn-offsets="['50px', '100%']"
-                    line-color="'blue'">
-                </line-formula-layer>
+                <!--<line-formula-layer-->
+                    <!--min-val='0.1' max-val="10" min-y="0.01" max-y="maxY" ortho-loga="1" loga="0"-->
+                    <!--formula="{family:'linear', slope:0.5, intercept:-0.5}"-->
+                    <!--eqn-offsets="['50px', '0%']"-->
+                    <!--line-color="'red'">-->
+                <!--</line-formula-layer>-->
+                <!--<line-formula-layer-->
+                    <!--min-val='0.01' max-val="10" min-y="0.1" max-y="maxY" ortho-loga="0" loga="0"-->
+                    <!--formula="{family:'exponential', ae:0.1, b:0.5}"-->
+                    <!--show-equation="1"-->
+                    <!--eqn-offsets="['50px', '100%']"-->
+                    <!--line-color="'blue'">-->
+                <!--</line-formula-layer>-->
                 <scatter-layer min-val="0.01" max-val="10" min-y="0.01" max-y="maxY" loga="0" ortho-loga="0"
                     my-data-x="dataX" my-data-y="dataY" symbol="'diamond'" symbol-size="10 + pointSize" symbol-fill-style="'red'" symbol-stroke-style="'red'">
                 </scatter-layer>
-                <control-marker-layer min-val="0" max-val="10" markers="markers" draggable="true" 
-                    axis-direction="'right'"
-                    get-marker-value="getMarkerVal"
-                    set-marker-value="setMarkerVal"
-                    marker-style="{stroke:'red','stroke-width':'2', fill:'none'}" marker-width="19">
-                </control-marker-layer>
-                <control-marker-layer min-val="0" max-val="10" markers="markers" draggable="true" 
-                    axis-direction="'up'"
-                    get-marker-value="getMarkerVal"
-                    set-marker-value="setMarkerVal"
-                    marker-style="{stroke:'green','stroke-width':'1', fill:'none'}" marker-width="19">
-                </control-marker-layer>
+                <!--<control-marker-layer min-val="0" max-val="10" markers="markers" draggable="true" -->
+                    <!--axis-direction="'right'"-->
+                    <!--get-marker-value="getMarkerVal"-->
+                    <!--set-marker-value="setMarkerVal"-->
+                    <!--marker-style="{stroke:'red','stroke-width':'2', fill:'none'}" marker-width="19">-->
+                <!--</control-marker-layer>-->
+                <!--<control-marker-layer min-val="0" max-val="10" markers="markers" draggable="true" -->
+                    <!--axis-direction="'up'"-->
+                    <!--get-marker-value="getMarkerVal"-->
+                    <!--set-marker-value="setMarkerVal"-->
+                    <!--marker-style="{stroke:'green','stroke-width':'1', fill:'none'}" marker-width="19">-->
+                <!--</control-marker-layer>-->
             </layer-collection>
         </div>
         <script>
