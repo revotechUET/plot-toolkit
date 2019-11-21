@@ -15,7 +15,9 @@ angular.module(moduleName).component(name, component({
         tickmarks: '<',
         tickmarksSize: '<',
         rscatterLabelsAxesCount: '<',
-        rscatterBackgroundGridCirclesCount: '<'
+        rscatterBackgroundGridCirclesCount: '<',
+        rscatterScaleMax: '<',
+        rscatterScaleMin: '<'
     }
 }));
 
@@ -28,7 +30,9 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
         'tickmarks',
         'tickmarksSize',
         'rscatterLabelsAxesCount',
-        'rscatterBackgroundGridCirclesCount'
+        'rscatterBackgroundGridCirclesCount',
+        'rscatterScaleMax',
+        'rscatterScaleMin'
     ]);
 
     this.$onInit = function() {
@@ -45,8 +49,8 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
                 tickmarksSize: self.tickmarksSize || 10,
                 labelsAxesCount: self.rscatterLabelsAxesCount || 0,
                 backgroundGridCirclesCount: self.rscatterBackgroundGridCirclesCount || 0,
-				scaleMax: self.scaleMax || 90,
-				scaleMin: self.scaleMin || 0,
+				scaleMax: self.rscatterScaleMax || null,
+				scaleMin: self.rscatterScaleMin || 0,
 				scaleDecimals: self.scaleDecimals || null
             }
         }
