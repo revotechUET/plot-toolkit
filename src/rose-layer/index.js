@@ -50,6 +50,7 @@ function component(componentData = {}) {
             scaleMax: '<',
             scaleMin: '<',
             scaleDecimals: '<',
+            labelsAxesBgr: '<',
             ...((componentData || {}).bindings || {})
         }
     }
@@ -147,6 +148,7 @@ function RoseLayerController($scope, $element, $timeout) {
             }
             self.rose = new RGraph.Rose(getRoseCfg());
             self.rose.draw();
+            self.labelsAxesBgr && $element.find('.rgraph_domtext_wrapper span').addClass('no-labels-axes-bgr');
         })
     }
 

@@ -65,6 +65,7 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
         $timeout(() => {
             self.scatter = new RGraph.RScatter(getRscatterCfg());
             self.scatter.draw();
+            self.labelsAxesBgr && $element.find('.rgraph_domtext_wrapper span').addClass('no-labels-axes-bgr');
         })
     }
 }
