@@ -930,7 +930,7 @@ eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader/dis
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = \"<div>\\n    <p style=\\\"font-weight: bold; text-align: center;\\\">\\n        {{ self.getPlotName() }}\\n    </p>\\n    <p style=\\\"font-weight: bold; text-align: center;\\\" ng-if=\\\"self.getPlotInfo()\\\">\\n        {{ self.getPlotInfo() }}\\n    </p>\\n</div>\\n<div>\\n    <canvas id=\\\"{{ self.plotId || 'cvs' }}\\\" width=\\\"{{ self.getCvsWidth() }}\\\" height=\\\"{{ self.getCvsHeight() }}\\\"></canvas>\\n</div>\\n\";\n\n//# sourceURL=webpack:///./rose-layer/template.html?");
+eval("module.exports = \"<div>\\n    <p style=\\\"font-weight: bold; text-align: center; margin: 0;\\\">\\n        {{ self.getPlotName() }}\\n    </p>\\n    <p style=\\\"font-weight: bold; text-align: center; margin: 0;\\\" ng-if=\\\"self.getPlotInfo()\\\">\\n        {{ self.getPlotInfo() }}\\n    </p>\\n</div>\\n<div>\\n    <canvas id=\\\"{{ self.plotId || 'cvs' }}\\\" width=\\\"{{ self.getCvsWidth() }}\\\" height=\\\"{{ self.getCvsHeight() }}\\\"></canvas>\\n</div>\\n\";\n\n//# sourceURL=webpack:///./rose-layer/template.html?");
 
 /***/ }),
 
