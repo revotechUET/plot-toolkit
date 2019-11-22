@@ -1257,6 +1257,11 @@
                     var offset = 0;
                     var halign = 'center';
                 }
+                
+                var textConf = RGraph.getTextConf({
+                    object: this,
+                    prefix: 'labelsAxes'
+                });
 
                 for (var i=0; i<prop.labelsAxesCount; ++i) {
                     RGraph.text({
@@ -1294,6 +1299,11 @@
                         var offset = 0;
                         var valign = 'center';
                     }
+                
+                var textConf = RGraph.getTextConf({
+                    object: this,
+                    prefix: 'labelsAxes'
+                });
 
                     RGraph.text({
                         
@@ -1330,6 +1340,11 @@
                         var offset = 0;
                         var valign = 'center';
                     }
+                
+                var textConf = RGraph.getTextConf({
+                    object: this,
+                    prefix: 'labelsAxes'
+                });
 
                     RGraph.text({
                         
