@@ -31,6 +31,8 @@ function component(componentData = {}) {
         template: componentData.template || require('./template.html'),
         bindings: {
             plotId: '<',
+            plotName: '<',
+            plotInfo: '<',
             cvsWidth: '<',
             cvsHeight: '<',
             roseData: '<',
@@ -155,5 +157,15 @@ function RoseLayerController($scope, $element, $timeout) {
     this.getPlotId = getPlotId;
     function getPlotId() {
         return self.plotId || 'cvs';
+    }
+
+    this.getPlotName = getPlotName;
+    function getPlotName() {
+        return self.plotName || 'New Rose Plot';
+    }
+
+    this.getPlotInfo = getPlotInfo;
+    function getPlotInfo() {
+        return self.plotInfo;
     }
 }
