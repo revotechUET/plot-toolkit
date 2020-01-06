@@ -108,12 +108,14 @@ function RoseLayerController($scope, $element, $timeout) {
 
   this.getCvsWidth = function() {
     if (self.cvsWidth) return self.cvsWidth;
-    let parentElemWidth = $element.find(`#${getPlotId()}_rgraph_domtext_wrapper`).parent().width();
+    let parentElemWidth = $element.find(`#${getPlotId()}_rgraph_domtext_wrapper`).parent().parent().width();
     return parentElemWidth || 600;
   }
   this.getCvsHeight = function() {
     if (self.cvsHeight) return self.cvsHeight;
-    let parentElemHeight = $element.find(`#${getPlotId()}_rgraph_domtext_wrapper`).parent().height();
+    let plotInfoElemHeight = $element.find(`.${getPlotId() || 'cvs'}-plot-info`).height();
+    //let parentElemHeight = $element.find(`#${getPlotId()}_rgraph_domtext_wrapper`).parent().parent().height() - plotInfoElemHeight;
+    let parentElemHeight = $element.find(`#${getPlotId()}_rgraph_domtext_wrapper`).parent().parent().height() - 0;
     return parentElemHeight || 400;
   }
 
@@ -128,6 +130,10 @@ function RoseLayerController($scope, $element, $timeout) {
         colors: self.roseColors || ['rgba(255,0,0,0.5)', 'rgba(255,255,0,0.5)', 'rgba(0,255,255,0.5)', 'rgb(0,255,0)', 'gray', 'blue', 'rgb(255,128,255)', 'green', 'pink', 'gray', 'aqua'],
         colorsStroke: self.colorsStroke || 'black',
         margin: self.arcMargin || 0,
+        marginLeft: 50,
+        marginRight: 50,
+        marginTop: 75,
+        marginBottom: 30,
         labels: self.labels || null,
         labelsPosition: self.labelsPosition || 'center',
         labelsAxesColor: self.labelsAxesColor || null,
@@ -137,7 +143,8 @@ function RoseLayerController($scope, $element, $timeout) {
         tooltips: self.tooltips || null,
         scaleMax: self.scaleMax || null,
         scaleMin: self.scaleMin || 0,
-        scaleDecimals: self.scaleDecimals || null
+        scaleDecimals: self.scaleDecimals || null,
+        title: `${self.getPlotName()}\n${self.getPlotInfo()}`
       }
     }
   }

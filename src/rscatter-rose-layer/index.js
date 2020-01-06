@@ -59,7 +59,11 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
         backgroundGridCirclesCount: _.isFinite(self.rscatterBackgroundGridCirclesCount) ? self.rscatterBackgroundGridCirclesCount : 3,
         scaleMax: self.rscatterScaleMax || null,
         scaleMin: self.rscatterScaleMin || 0,
-        scaleDecimals: self.scaleDecimals || null
+        scaleDecimals: self.scaleDecimals || null,
+        marginLeft: 50,
+        marginRight: 50,
+        marginTop: 75,
+        marginBottom: 30
       }
     }
   }

@@ -1,11 +1,11 @@
-<div>
-    <p style="font-weight: bold; text-align: center; margin: 0;">
-        {{ self.getPlotName() }}
-    </p>
-    <p style="font-weight: bold; text-align: center; margin: 0;" ng-if="self.getPlotInfo()">
-        {{ self.getPlotInfo() }}
-    </p>
-</div>
+<!--<div class="{{self.plotId || 'cvs'}}-plot-info">-->
+    <!--<p style="font-weight: bold; text-align: center; margin: 0;">-->
+        <!--{{ self.getPlotName() }}-->
+    <!--</p>-->
+    <!--<p style="font-weight: bold; text-align: center; margin: 0;" ng-if="self.getPlotInfo()">-->
+        <!--{{ self.getPlotInfo() }}-->
+    <!--</p>-->
+<!--</div>-->
 <div>
     <canvas id="{{ self.plotId || 'cvs' }}" width="{{ self.getCvsWidth() }}" height="{{ self.getCvsHeight() }}"></canvas>
 </div>
