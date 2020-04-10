@@ -130,10 +130,6 @@ function RoseLayerController($scope, $element, $timeout) {
         colors: self.roseColors || ['rgba(255,0,0,0.5)', 'rgba(255,255,0,0.5)', 'rgba(0,255,255,0.5)', 'rgb(0,255,0)', 'gray', 'blue', 'rgb(255,128,255)', 'green', 'pink', 'gray', 'aqua'],
         colorsStroke: self.colorsStroke || 'black',
         margin: self.arcMargin || 0,
-        marginLeft: 50,
-        marginRight: 50,
-        marginTop: 75,
-        marginBottom: 30,
         labels: self.labels || null,
         labelsPosition: self.labelsPosition || 'center',
         labelsAxesColor: self.labelsAxesColor || null,
@@ -155,10 +151,34 @@ function RoseLayerController($scope, $element, $timeout) {
       if (document.getElementById(getPlotId())) {
         RGraph.clear(document.getElementById(getPlotId()));
       }
-      self.rose = new RGraph.Rose(getRoseCfg());
-      self.rose.draw();
-      !self.labelsAxesBgr && $element.find('.rgraph_domtext_wrapper span').addClass('no-labels-axes-bgr');
+      if (document.getElementById(getPlotId())) {
+        let cfg = getRoseCfg();
+        cfg.options = {...cfg.options, ...getMarginCfg()};
+        self.rose = new RGraph.Rose(cfg);
+        self.rose.draw();
+        !self.labelsAxesBgr && $element.find('.rgraph_domtext_wrapper span').addClass('no-labels-axes-bgr');
+      }
     })
+  }
+
+  this.getMarginCfg = getMarginCfg;
+  function getMarginCfg() {
+    let marginLeft = 50;
+    let marginRight = 50;
+    let marginTop = 75;
+    let marginBottom = 30;
+    let canvas = document.getElementById(getPlotId());
+    let width = canvas.width;
+    let height = canvas.height;
+    if (width - marginLeft - marginRight < 0) {
+      marginLeft = 0;
+      marginRight = 0;
+    }
+    if (height - marginTop - marginBottom < 0) {
+      marginTop = 0;
+      marginBottom = 0;
+    }
+    return {marginLeft, marginRight, marginTop, marginBottom};
   }
 
   this.getPlotId = getPlotId;

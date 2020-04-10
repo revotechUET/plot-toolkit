@@ -60,10 +60,6 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
         scaleMax: self.rscatterScaleMax || null,
         scaleMin: self.rscatterScaleMin || 0,
         scaleDecimals: self.scaleDecimals || null,
-        marginLeft: 50,
-        marginRight: 50,
-        marginTop: 75,
-        marginBottom: 30
       }
     }
   }
@@ -72,10 +68,14 @@ function RscatterRoseLayerController($scope, $element, $timeout) {
   this.draw = function() {
     self.parentDraw.call(this);
     if (!self.rscatterData || !self.rscatterData.length) return;
-    $timeout(() => {
-      self.scatter = new RGraph.RScatter(getRscatterCfg());
-      self.scatter.draw();
-      !self.labelsAxesBgr && $element.find('.rgraph_domtext_wrapper span').addClass('no-labels-axes-bgr');
-    })
+    if (document.getElementById(self.getPlotId())) {
+      $timeout(() => {
+        let cfg = getRscatterCfg();
+        cfg.options = {...cfg.options, ...self.getMarginCfg()};
+        self.scatter = new RGraph.RScatter(cfg);
+        self.scatter.draw();
+        !self.labelsAxesBgr && $element.find('.rgraph_domtext_wrapper span').addClass('no-labels-axes-bgr');
+      })
+    }
   }
 }
