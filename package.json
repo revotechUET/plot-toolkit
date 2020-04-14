@@ -2,7 +2,8 @@
   "name": "plot-toolkit",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/plot-toolkit.js",
+  "browser": "./dist/plot-toolkit.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack -w --config webpack.local.js"
