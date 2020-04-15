@@ -22,7 +22,7 @@ angular.module(moduleName)
             clickHandler: "<"
         }
     }));
-
+ClickLayerController.$inject = ['$timeout', '$element', '$scope'];
 function ClickLayerController($timeout, $element, $scope) {
     let self = this;
     let dragging = false;

@@ -23,7 +23,7 @@ angular.module(moduleName).component(name, component({
     rscatterScaleMin: '<'
   }
 }));
-
+RscatterRoseLayerController.$inject = ['$scope', '$element', '$timeout'];
 function RscatterRoseLayerController($scope, $element, $timeout) {
   let self = this;
   AbstractLayerController.call(this, $scope, $element, $timeout);

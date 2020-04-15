@@ -20,7 +20,8 @@ angular.module(moduleName).component(name, component({
         minorTicks: '<'
     }
 }));
-function AxisLayerController($timeout, $element, $scope ) {
+AxisLayerController.$inject = ['$timeout', '$element', '$scope'];
+function AxisLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
 

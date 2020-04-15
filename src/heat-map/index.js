@@ -25,7 +25,7 @@ function buildComponent(componentData) {
 }
 angular.module(moduleName)
     .component(name, buildComponent({ }));
-
+heatMapController.$inject = ['$timeout', '$element', '$scope'];
 function heatMapController($timeout, $element, $scope) {
     const self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

@@ -59,7 +59,7 @@ function component(componentData = {}) {
 }
 
 angular.module(moduleName).component(name, component());
-
+RoseLayerController.$inject = ['$scope', '$element', '$timeout'];
 function RoseLayerController($scope, $element, $timeout) {
   let self = this;
 

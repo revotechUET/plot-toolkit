@@ -20,6 +20,7 @@ angular.module(moduleName).component(name, component({
         lineDashSecond: "<"
     }
 }));
+LGLayerController.$inject = ['$scope', '$timeout', '$element'];
 function LGLayerController($scope, $timeout, $element) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

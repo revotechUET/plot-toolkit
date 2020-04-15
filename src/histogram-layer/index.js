@@ -16,7 +16,7 @@ angular.module(moduleName)
             binCount: "<"
         }
     }));
-
+HistogramLayerController.$inject = ['$timeout', '$element', '$scope'];
 function HistogramLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

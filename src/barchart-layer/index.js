@@ -27,6 +27,7 @@ var layerCollection = require('../layer-collection');
 angular.module(moduleName)
     .component(name, buildComponent({ }));
 
+BarchartLayerController.$inject = ['$timeout', '$element', '$scope'];
 function BarchartLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

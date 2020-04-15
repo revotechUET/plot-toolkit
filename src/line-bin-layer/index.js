@@ -11,7 +11,7 @@ angular.module(moduleName).component(name, component({
     controller: LineBinLayerController, 
     bindings: { }
 }));
-
+LineBinLayerController.$inject = ['$timeout', '$element', '$scope'];
 function LineBinLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

@@ -18,6 +18,7 @@ function buildComponent(componentData) {
     return component(componentData);
 }
 angular.module(moduleName).component(name, buildComponent({}));
+OverlayLineController.$inject = ['$scope', '$timeout', '$element'];
 function OverlayLineController($scope, $timeout, $element) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

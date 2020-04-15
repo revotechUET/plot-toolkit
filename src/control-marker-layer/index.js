@@ -26,6 +26,7 @@ angular.module(moduleName).component(name, component({
         onMarkerDragEnd: "<"
     }
 }));
+ControlMarkerLayerController.$inject = ['$timeout', '$element', '$scope'];
 function ControlMarkerLayerController($timeout, $element, $scope ) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

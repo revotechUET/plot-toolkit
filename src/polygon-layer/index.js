@@ -13,7 +13,7 @@ angular.module(moduleName)
         controller: PolygonLayerController,
         bindings: { }
     }));
-
+PolygonLayerController.$inject = ['$timeout', '$element', '$scope'];
 function PolygonLayerController($timeout, $element, $scope) {
     let self = this;
     let dragging = false;

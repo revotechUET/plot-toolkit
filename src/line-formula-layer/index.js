@@ -24,6 +24,7 @@ angular.module(moduleName).component(name, component({
         lineLabelStyle: '<'
     }
 }));
+LFLayerController.$inject = ['$scope', '$timeout', '$element'];
 function LFLayerController($scope, $timeout, $element) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

@@ -12,6 +12,7 @@ angular.module(moduleName).component(name, component({
     bindings: {
     }
 }));
+LPLayerController.$inject = ['$scope', '$timeout', '$element'];
 function LPLayerController($scope, $timeout, $element) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

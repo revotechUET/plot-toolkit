@@ -20,7 +20,7 @@ function buildComponent(componentData) {
 }
 angular.module(moduleName)
     .component(name, buildComponent({ }));
-
+curveViewLayerController.$inject = ['$timeout', '$element', '$scope'];
 function curveViewLayerController($timeout, $element, $scope) {
     const self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

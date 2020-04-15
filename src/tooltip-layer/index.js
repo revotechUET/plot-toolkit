@@ -19,7 +19,7 @@ angular.module(moduleName)
             frequencyYFn: '<'
         }
     }));
-
+TooltipLayerController.$inject = ['$timeout', '$element', '$scope'];
 function TooltipLayerController($timeout, $element, $scope) {
     let self = this;
     let dragging = false;

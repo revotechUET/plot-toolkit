@@ -28,7 +28,7 @@ function buildComponent(componentData) {
 var layerCollection = require('../layer-collection');
 angular.module(moduleName)
     .component(name, buildComponent({ }));
-
+CanvasBarchartLayerController.$inject = ['$timeout', '$element', '$scope'];
 function CanvasBarchartLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);

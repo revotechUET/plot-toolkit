@@ -22,7 +22,7 @@ angular.module(moduleName)
             onEqnChanged: "<"
         }
     }));
-
+SegmentLayerController.$inject = ['$timeout', '$element', '$scope'];
 function SegmentLayerController($timeout, $element, $scope) {
     let self = this;
     let dragging = false;

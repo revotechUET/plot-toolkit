@@ -19,7 +19,7 @@ angular.module(moduleName)
         },
         transclude: true
     });
-
+LayerCollectionController.$inject = ['$timeout', '$element', '$scope'];
 function LayerCollectionController($timeout, $element, $scope) {
     let self = this;
     this.notiOpacity = 0;

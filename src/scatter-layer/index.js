@@ -30,7 +30,7 @@ angular.module(moduleName).component(name, component({
         getY: "<"
     }
 }));
-
+ScatterLayerController.$inject = ['$timeout', '$element', '$scope'];
 function ScatterLayerController($timeout, $element, $scope) {
     let self = this;
     AbstractLayerController.call(this, $timeout, $element, $scope);
