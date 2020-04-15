@@ -1,6 +1,6 @@
 <div>
     <svg class="clickable" 
-        ng-style="{margin: self.paddingStr(), width:`calc(100% - ${self.leftPadding() + self.rightPadding()}px)`, height:`calc(100% - ${self.bottomPadding() + self.topPadding()}px)`}"
+        ng-style="{margin: self.paddingStr(), width:'calc(100% - '+(self.leftPadding() + self.rightPadding())+'px)', height:'calc(100% - '+(self.topPadding() + self.bottomPadding())+'px)'}"
         ng-click="self.onMouseClick($event)">
         <g class="layer">
             <circle cx="0" cy="0" ng-r="{{self.pointerSize}}" ng-style="self.getPointerStyle()" ng-offset="{{self.pointerOffset()}}"></circle>
