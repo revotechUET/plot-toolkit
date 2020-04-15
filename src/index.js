@@ -24,8 +24,5 @@ module.exports = {
     },
     RoseLayer: require('./rose-layer'),
     RscatterRoseLayer: require('./rscatter-rose-layer')
-// 	,
-//    LayerWrapper : require('./layer-wrapper'),
-//    LayerArray : require('./layer-array')
 }
 window.mathGeo = require('./common');
