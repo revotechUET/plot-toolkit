@@ -1,6 +1,6 @@
 <div>
 <svg ng-class="{'edit-point': self.mode, 'add-point': self.shiftKey, 'del-point': self.altKey}" 
-    style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.bottomPadding() + self.topPadding()}}px)"
+    ng-style="{margin: self.paddingStr(), width:`calc(100% - ${self.leftPadding() + self.rightPadding()}px)`, height:`calc(100% - ${self.bottomPadding() + self.topPadding()}px)`}"
     ng-mouseleave="self.onMouseLeave($event)"
     ng-mouseup="self.onMouseUp($event)"
     ng-mousedown="self.onMouseDown($event)"

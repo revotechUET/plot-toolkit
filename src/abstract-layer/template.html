@@ -1,5 +1,6 @@
 <div>
-<svg ng-mousemove="self.onMouseMoveTooltip($event)" ng-mouseleave="self.onMouseLeaveTooltip($event)" style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.topPadding() + self.bottomPadding()}}px)">
+<svg ng-mousemove="self.onMouseMoveTooltip($event)" ng-mouseleave="self.onMouseLeaveTooltip($event)" 
+    ng-style="{margin: self.paddingStr(), width: `calc(100% - ${self.leftPadding() + self.rightPadding()}px)`, height:`calc(100% - ${self.topPadding() + self.bottomPadding()}px)`}">
     <g class="layer"></g>
 </svg>
 </div>

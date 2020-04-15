@@ -1,5 +1,5 @@
 <div>
-<svg style="margin: {{self.paddingStr();}};width:calc(100% - {{self.leftPadding() + self.rightPadding()}}px); height:calc(100% - {{self.topPadding() + self.bottomPadding()}}px)">
+<svg ng-style="{margin: self.paddingStr(), width:`calc(100% - ${self.leftPadding() + self.rightPadding()}px)`, height:`calc(100% - ${self.topPadding() + self.bottomPadding()}px)`}">
     <g class="layer">
         <path id='{{self.prefixId}}' fill='none' stroke="{{self.lineColor}}" stroke-dasharray="{{self.lineDash}}" stroke-width="{{self.lineWidth}}" />
         <text ng-style="self.lineLabelStyle" x="0" y="0">
