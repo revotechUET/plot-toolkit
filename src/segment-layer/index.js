@@ -1,3 +1,5 @@
+const katex = require('katex');
+
 const moduleName = 'plot-toolkit';
 const name = 'segmentLayer';
 module.exports.name = name;

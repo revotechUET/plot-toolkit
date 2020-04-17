@@ -1,3 +1,5 @@
+const katex = require('katex');
+
 const moduleName = 'plot-toolkit';
 const name = "lineFormulaLayer";
 module.exports.name = name;
