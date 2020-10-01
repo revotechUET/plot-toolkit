@@ -8,8 +8,9 @@ var component = AbstractLayer.component;
 
 var layerCollection = require('../layer-collection');
 angular.module(moduleName).component(name, component({
-    controller: LPLayerController, 
+    controller: LPLayerController,
     bindings: {
+        curveFunctionName: '<',
     }
 }));
 LPLayerController.$inject = ['$scope', '$timeout', '$element'];
@@ -28,7 +29,7 @@ function LPLayerController($scope, $timeout, $element) {
     this.getLine = function() {
         let transform = this.getTransform();
         let orthoTransform = this.getOrthoTransform();
-        let line = d3.line().curve(d3.curveBasis)
+        let line = d3.line().curve(d3[this.curveFunctionName || 'curveNatural'])
             .x((d, i) => {
                 return transform(self.getX(d, i));
             })
