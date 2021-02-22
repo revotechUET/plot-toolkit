@@ -34,7 +34,7 @@ function LPLayerController($scope, $timeout, $element) {
     this.getLine = function() {
         let transform = this.getTransform();
         let orthoTransform = this.getOrthoTransform();
-        const binSum = self.getData().flat().length;
+        const binSum = (self.getData() || []).flat().length;
         const getY = self.plotType === 'percentage' ? (d, i) => self.getY(d, i) / binSum * 100 : (d, i) => self.getY(d, i);
         let line = d3.line().curve(d3[this.curveFunctionName || 'curveNatural'])
             .x((d, i) => {

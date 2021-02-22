@@ -1,8 +1,11 @@
 {
-  "name": "plot-toolkit",
+  "name": "@revotechuet/plot-toolkit",
   "version": "1.0.1",
   "description": "",
   "main": "./dist/plot-toolkit.js",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack -w --config webpack.local.js"
