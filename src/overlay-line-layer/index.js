@@ -73,7 +73,7 @@ function OverlayLineController($scope, $timeout, $element) {
     this.draw = function() {
         let transform = this.getTransform();
         let othorTransform = this.getOrthoTransform();
-        canvas = getCanvas();
+        let canvas = getCanvas();
         canvas.width = this.contentWidth();
         canvas.height = this.contentHeight();
         if (canvas.width === 0 || canvas.height === 0) return;
@@ -88,7 +88,7 @@ function OverlayLineController($scope, $timeout, $element) {
             textSize: 15,
             textContent: point.type,
             fillStyle: point.color || 'Black',
-        }) 
+        })
         let helper = new CanvasHelper(ctx, penDefaultCfg);
         self.overlayLineSpec.lines.forEach(line => {
             let fillStyle = line.color.replace('Dk', 'Dark') || getLineColor(line.names) || penDefaultCfg.strokeStyle;
@@ -124,7 +124,7 @@ function OverlayLineController($scope, $timeout, $element) {
                 if (pIdx == 0) {
                     helper.textSymbol(startX - 20, startY - 20, getTextCfg({
                         type: line.names,
-                        color: line.color.replace('Dk', 'Dark') || getLineColor(line.names) 
+                        color: line.color.replace('Dk', 'Dark') || getLineColor(line.names)
                     }));
                 }
                 if (!isNaN(point.type)) {
@@ -138,9 +138,9 @@ function OverlayLineController($scope, $timeout, $element) {
     }
     function getLineColor(name) {
         let color;
-        if (name == 'SS') color = 'Green';                               
-        if (name == 'LS') color = 'Blue';                                
-        if (name == 'DOL') color = 'Pink';                               
+        if (name == 'SS') color = 'Green';
+        if (name == 'LS') color = 'Blue';
+        if (name == 'DOL') color = 'Pink';
         return color;
     }
     this.defaultBindings = function() {

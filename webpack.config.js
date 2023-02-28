@@ -1,13 +1,11 @@
-var webpack = require('webpack');
-var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
-module.exports = {
+const common = {
     mode: 'development',
     context: __dirname + '/src',
-    //entry: './main.js',
-    entry: './index.js',
+    entry: {
+        'plot-toolkit': "./index.js",
+    },
     output: {
         path: __dirname + '/dist',
-        //path: __dirname + '../../multi-well-crossplot/bower_components/plot-toolkit/dist',
         filename: 'plot-toolkit.js'
     },
     module: {
@@ -24,6 +22,32 @@ module.exports = {
         }]
     },
     plugins: [
-        new HardSourceWebpackPlugin()
     ]
 }
+
+/**
+ * @type {import('webpack').Configuration[]}
+ */
+module.exports = [
+    {
+        ...common,
+        output: {
+            ...common.output,
+            filename: '[name].cjs',
+            clean: true,
+        },
+    },
+    {
+        ...common,
+        output: {
+            ...common.output,
+            filename: '[name].mjs',
+            library: {
+                type: 'module',
+            },
+        },
+        experiments: {
+            outputModule: true,
+        },
+    },
+]

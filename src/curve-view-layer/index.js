@@ -42,11 +42,11 @@ function curveViewLayerController($timeout, $element, $scope) {
 
     this.draw = function() {
         console.log(self.curveData);
-        canvas = getCanvas();
+        let canvas = getCanvas();
         canvas.width = self.contentWidth();
         canvas.height = self.contentHeight();
         let ctx = canvas.getContext('2d');
-        const tfX = self.getTransform();    
+        const tfX = self.getTransform();
         const tfY = self.getOrthoTransform();
         ctx.strokeStyle = 'black';
         ctx.beginPath();

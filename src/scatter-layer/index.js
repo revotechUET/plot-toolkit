@@ -12,7 +12,7 @@ var isFinite = require("lodash").isFinite;
 var layerCollection = require('../layer-collection');
 var CanvasHelper = require('../canvas-helper');
 angular.module(moduleName).component(name, component({
-    controller: ScatterLayerController, 
+    controller: ScatterLayerController,
     template: require('./template.html'),
     bindings: {
         myDataX: "<",
@@ -108,7 +108,7 @@ function ScatterLayerController($timeout, $element, $scope) {
         let transformX = this.getTransform();
         let transformY = this.getOrthoTransform();
         if (isNullRange(transformX) || isNullRange(transformY)) return;
-        canvas = getCanvas();
+        let canvas = getCanvas();
         canvas.width = this.contentWidth();
         canvas.height = this.contentHeight();
         let ctx = canvas.getContext('2d');

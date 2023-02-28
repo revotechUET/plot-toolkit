@@ -50,7 +50,7 @@ function heatMapController($timeout, $element, $scope) {
     }
 
     this.draw = function() {
-        canvas = getCanvas();
+        let canvas = getCanvas();
         canvas.width = self.contentWidth();
         canvas.height = self.contentHeight();
         let ctx = canvas.getContext('2d');

@@ -51,9 +51,9 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
         this.colorFunc = typeof(this.colorFunc) === "function" ? this.colorFunc: () => "blue";
     }
     this.doAutofit = function() {
-        this.updateMaxY(d3.max(this.bins, function(bin, binIdx) { 
+        this.updateMaxY(d3.max(this.bins, function(bin, binIdx) {
             let stackLevel = d3.sum(self.stackFuncArray, (f) => f(bin, binIdx));
-            return bin.length + stackLevel; 
+            return bin.length + stackLevel;
         }));
     }
 
@@ -65,7 +65,7 @@ function CanvasBarchartLayerController($timeout, $element, $scope) {
     }
 
     this.draw = function() {
-        canvas = getCanvas();
+        let canvas = getCanvas();
         canvas.width = this.contentWidth();
         canvas.height = this.contentHeight();
         let ctx = canvas.getContext('2d');

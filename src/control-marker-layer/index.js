@@ -9,7 +9,7 @@ var component = AbstractLayer.component;
 
 var layerCollection = require('../layer-collection');
 angular.module(moduleName).component(name, component({
-    controller: ControlMarkerLayerController, 
+    controller: ControlMarkerLayerController,
     template: require('./template.html'),
     bindings: {
         markers: "<",
@@ -147,9 +147,9 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
     }
     this.markerMouseOver = function($event, marker, idx) {
         if (!this.draggable) return;
-        marker.opacity = 1; 
+        marker.opacity = 1;
         $timeout(() => {
-            switch(self.axisDirection) { 
+            switch(self.axisDirection) {
                 case "left":
                 case "right":
                     marker.handlePos = $event.offsetY - self.markerWidth/2;
@@ -159,7 +159,7 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
                     marker.handlePos = $event.offsetX - self.markerWidth/2;
                     break;
             }
-        }); 
+        });
     }
     let __cursorStyle = {};
     this.getCursorStyle = function() {
@@ -190,7 +190,7 @@ function ControlMarkerLayerController($timeout, $element, $scope ) {
     }
     let __markerKnobStyle = {};
     this.markerKnobStyle = function(marker, idx) {
-        Object.keys(__markerKnobStyle).forEach(key => delete __markerKnobStyle);
+        Object.keys(__markerKnobStyle).forEach(key => delete __markerKnobStyle[key]);
         Object.assign(__markerKnobStyle, {
             opacity: marker.opacity || 0,
             ...(this.getMarkerStyle(marker, idx))
