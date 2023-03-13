@@ -1,8 +1,8 @@
 {
   "name": "@revotechuet/plot-toolkit",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
-  "main": "./dist/plot-toolkit.cjs",
+  "main": "./dist/plot-toolkit.js",
   "module": "./dist/plot-toolkit.mjs",
   "files": [
     "dist/*"

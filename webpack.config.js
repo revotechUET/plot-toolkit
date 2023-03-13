@@ -33,8 +33,7 @@ module.exports = [
         ...common,
         output: {
             ...common.output,
-            filename: '[name].cjs',
-            clean: true,
+            filename: '[name].js',
         },
     },
     {
