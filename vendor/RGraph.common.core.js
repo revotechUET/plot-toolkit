@@ -199,7 +199,7 @@
             original_max = max,
             round        = args.options['scale.round'],
             scale        = {max:1,labels:[],values:[]},
-            formatter    = args.options['scale.formatter'];
+            formatter    = args.options['scale.formatter'],
 
             // Determine any prefix to use
             prefix = args.object.type === 'hbar' ? 'xaxis' : 'yaxis';
