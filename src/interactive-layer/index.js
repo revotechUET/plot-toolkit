@@ -34,6 +34,7 @@ function buildComponent(componentData) {
 function InteractiveLayerController($timeout, $element, $scope) {
     let self = this;
     let dragging = false;
+    let startX, startY;
     AbstractLayerController.call(this, $timeout, $element, $scope);
     this.watchProperties = this.watchProperties.concat([ "fillStyle", "strokeStyle", 'strokeWidth' ]);
     this.interactiveBindings = function() {
@@ -77,8 +78,6 @@ function InteractiveLayerController($timeout, $element, $scope) {
         }
         else {
             dragging = true;
-            let transformX = this.getTransform().invert;
-            let transformY = this.getOrthoTransform().invert;
             startX = $event.offsetX;
             startY = $event.offsetY;
         }
@@ -129,7 +128,7 @@ function InteractiveLayerController($timeout, $element, $scope) {
         invertX = transformX.invert(x);
         invertY = transformY.invert(y);
         this.editPointIdx = null;
-        let result = findClosest({x,y}, this.points, transformX, transformY);
+        let result = this.findClosest({x,y}, this.points, transformX, transformY);
         if (result.distance < 10) {
             $timeout(() => {
                 self.editPointIdx = result.idx;
@@ -167,7 +166,7 @@ function InteractiveLayerController($timeout, $element, $scope) {
         return vertexStyle;
     }
     this.draggerStyleFn = function() {
-        if (this.editPointIdx === null || !this.mode) 
+        if (this.editPointIdx === null || !this.mode)
             return {
                 fill: 'none', stroke: 'none'
             }
@@ -217,16 +216,14 @@ function InteractiveLayerController($timeout, $element, $scope) {
             Y:${bestNumberFormat(invertY)}`;
         }
     }
-    this.distance = distance;
-    function distance(p1, p2, tX, tY) {
+    this.distance = function(p1, p2, tX, tY) {
         return Math.sqrt((p1.x - tX(self.getXFn(p2.p, p2.idx, this.points)))**2 + (p1.y - tY(self.getYFn(p2.p, p2.idx, this.points)))**2);
     }
-    this.findClosest = findClosest;
-    function findClosest(p, points, tX, tY) {
+    this.findClosest = function(p, points, tX, tY) {
         let minDistance = 100000;
         let minIdx = undefined;
         for (let i = 0; i < points.length; i++) {
-            let d = distance(p, {p:points[i], idx:i}, tX, tY);
+            let d = this.distance(p, {p:points[i], idx:i}, tX, tY);
             if (d < minDistance) {
                 minDistance = d;
                 minIdx = i;
