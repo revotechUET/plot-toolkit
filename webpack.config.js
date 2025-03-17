@@ -1,3 +1,6 @@
+/**
+ * @type {import('webpack').Configuration}
+ */
 const common = {
     mode: 'development',
     context: __dirname + '/src',

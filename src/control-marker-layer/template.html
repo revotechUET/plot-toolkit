@@ -12,27 +12,39 @@
             ng-mousedown="self.dragStart(marker, $event, $index)"
             ng-mouseover="self.markerMouseOver($event, marker,$index)" ng-mouseleave="marker.opacity = null;">
             <line ng-if="self.axisDirection === 'right' || self.axisDirection === 'left'"
-                ng-x1="{{self.markerWidth/2}}" 
-                ng-x2="{{self.markerWidth/2}}" 
-                y1="0" 
-                ng-y2="{{self.contentHeight(true)}}" 
+                ng-x1="{{self.markerWidth/2}}"
+                ng-x2="{{self.markerWidth/2}}"
+                y1="0"
+                ng-y2="{{self.contentHeight(true)}}"
                 ng-style="{{self.getMarkerStyle(marker, $index)}}"/>
             <line ng-if="self.axisDirection === 'up' || self.axisDirection === 'down'"
-                ng-y1="{{self.markerWidth/2}}" 
-                ng-y2="{{self.markerWidth/2}}" 
-                x1="0" 
-                ng-x2="{{self.contentWidth(true)}}" 
+                ng-y1="{{self.markerWidth/2}}"
+                ng-y2="{{self.markerWidth/2}}"
+                x1="0"
+                ng-x2="{{self.contentWidth(true)}}"
                 ng-style="{{self.getMarkerStyle(marker, $index)}}"/>
-            <rect ng-if="self.axisDirection === 'right' || self.axisDirection === 'left'" 
-                x="0" y="0" 
+            <rect ng-if="self.axisDirection === 'right' || self.axisDirection === 'left'"
+                x="0" y="0"
                 ng-width="{{self.markerWidth}}" ng-height="{{self.markerWidth}}"
                 ng-offset="{{ {x: 0, y: marker.handlePos || (self.contentHeight() - self.markerWidth)/2 } }}"
                 ng-style="self.markerKnobStyle(marker, $index)"/>
-            <rect ng-if="self.axisDirection === 'up' || self.axisDirection === 'down'" 
-                x="0" y="0" 
+            <rect ng-if="self.axisDirection === 'up' || self.axisDirection === 'down'"
+                x="0" y="0"
                 ng-width="{{self.markerWidth}}" ng-height="{{self.markerWidth}}"
                 ng-offset="{{ {y: 0, x: marker.handlePos || (self.contentWidth() - self.markerWidth)/2 } }}"
                 ng-style="self.markerKnobStyle(marker, $index)"/>
+            <text ng-if="self.axisDirection === 'right' || self.axisDirection === 'left'"
+                class="marker-value"
+                ng-offset="{{ {x: self.markerWidth * 1.5, y: (marker.handlePos || (self.contentHeight() - self.markerWidth)/2) + (self.markerWidth/2) } }}"
+                fill="black">
+                {{+self.getMarkerValue(marker, $index).toFixed(4)}}
+            </text>
+            <text ng-if="self.axisDirection === 'up' || self.axisDirection === 'down'"
+                class="marker-value"
+                ng-offset="{{ {y: self.markerWidth * 1.5, x: (marker.handlePos || (self.contentWidth() - self.markerWidth)/2) + (self.markerWidth/2) } }}"
+                fill="black">
+                {{+self.getMarkerValue(marker, $index).toFixed(4)}}
+            </text>
             <text ng-if="self.getMarkerName" ng-offset="{{ {x: 20, y:20 * ($index + 1)} }}" fill="black">
                 {{self.getMarkerName(marker, $index)}}
             </text>
